@@ -29,6 +29,8 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   );
 }
 
+// ----------------------- CART ASIDE TO CHECK THE CART ANYWHERE ------------------------ //
+
 /**
  * @param {{cart: LayoutProps['cart']}}
  */

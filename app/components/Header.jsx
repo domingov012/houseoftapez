@@ -1,23 +1,60 @@
 import {Await, NavLink} from '@remix-run/react';
 import {Suspense} from 'react';
 import {useRootLoaderData} from '~/root';
-
+import {Image} from '@shopify/hydrogen';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {
+  faCartShopping,
+  faSearch,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 /**
  * @param {HeaderProps}
  */
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-      />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+    <header className="navbar">
+      <div className="news-display-container">
+        <div className="news">NOVEDADES</div>
+      </div>
+      <div className="main-nav">
+        <HeaderMenuMobileToggle />
+        <div className="logo-container-1">
+          <Image
+            data={shop.brand.logo.image}
+            className="logo"
+            aspectRatio="1577:499"
+            sizes="100%"
+          />
+        </div>
+        <div className="drop-down-menu">
+          <NavLink prefetch="intent" className="drop-down">
+            SHOP
+            <div className="menu">
+              <div className="menu-column">
+                <h3>col1</h3>
+              </div>
+              <div className="menu-column">
+                <h3>col2</h3>
+              </div>
+              <div className="menu-column">
+                <h3>col2</h3>
+              </div>
+            </div>
+          </NavLink>
+          <NavLink prefetch="intent" className="drop-down">
+            TAPE TUTORIALS
+          </NavLink>
+          <NavLink prefetch="intent" className="drop-down">
+            CONTACT
+          </NavLink>
+          <NavLink prefetch="intent" className="drop-down">
+            ABOUT US
+          </NavLink>
+        </div>
+        <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+      </div>
     </header>
   );
 }
@@ -87,12 +124,18 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
 function HeaderCtas({isLoggedIn, cart}) {
   return (
     <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
+      <NavLink prefetch="intent" to="/account" className="icon-action">
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
+            {(isLoggedIn) =>
+              isLoggedIn ? (
+                <label className="icon-label">Account</label>
+              ) : (
+                <label className="icon-label">Sign in</label>
+              )
+            }
           </Await>
+          <FontAwesomeIcon icon={faUser} className="icon" />
         </Suspense>
       </NavLink>
       <SearchToggle />
@@ -110,14 +153,24 @@ function HeaderMenuMobileToggle() {
 }
 
 function SearchToggle() {
-  return <a href="#search-aside">Search</a>;
+  return (
+    <a href="#search-aside" className="icon-action">
+      <label className="icon-label">Search</label>
+      <FontAwesomeIcon icon={faSearch} className="icon" />
+    </a>
+  );
 }
 
 /**
  * @param {{count: number}}
  */
 function CartBadge({count}) {
-  return <a href="#cart-aside">Cart {count}</a>;
+  return (
+    <a href="#cart-aside" className="icon-action">
+      <label className="icon-label">Cart: {count}</label>
+      <FontAwesomeIcon icon={faCartShopping} className="icon" />
+    </a>
+  );
 }
 
 /**

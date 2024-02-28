@@ -1,13 +1,17 @@
 import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
-import {Suspense} from 'react';
+import {Suspense, useRef, useEffect} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
+import SportTapeSection from '~/components/home/SportTapeSection.jsx';
+import ProductPreview from '~/components/ProductPreview';
+import TutorialsSection from '~/components/home/TutorialsSection';
+import PacksBanner from '~/components/home/PacksBanner';
 
 /**
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{title: 'HOUSE OF TAPEZ | INICIO'}];
 };
 
 /**
@@ -15,44 +19,92 @@ export const meta = () => {
  */
 export async function loader({context}) {
   const {storefront} = context;
-  const {collections} = await storefront.query(FEATURED_COLLECTION_QUERY);
-  const featuredCollection = collections.nodes[0];
+  // const {collections} = await storefront.query(POPULAR_PRODUCTS_QUERY);
+  // const popularProducts = collections.nodes[0];
+  const popularProducts = await storefront.query(POPULAR_PRODUCTS_QUERY);
+  console.log('Popular: ', popularProducts.collection.products.edges);
   const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY);
 
-  return defer({featuredCollection, recommendedProducts});
+  return defer({
+    popularProducts,
+    recommendedProducts,
+  });
 }
 
 export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
+
+  const refSTS = useRef();
+  const refPopular = useRef();
+  const refTutorial = useRef();
+  const refPacks = useRef();
+
+  // SCROLL ANIMATIONS //
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible-section');
+        }
+      });
+    });
+    observer.observe(refSTS.current);
+    observer.observe(refPopular.current);
+    observer.observe(refTutorial.current);
+    observer.observe(refPacks.current);
+  }, []);
   return (
-    <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
+    <div>
+      <SportTapeSection reference={refSTS} />
+      <Popular reference={refPopular} products={data.popularProducts} />
+      <TutorialsSection reference={refTutorial} />
+      <PacksBanner reference={refPacks} />
       <RecommendedProducts products={data.recommendedProducts} />
     </div>
   );
 }
 
-/**
- * @param {{
- *   collection: FeaturedCollectionFragment;
- * }}
- */
-function FeaturedCollection({collection}) {
-  if (!collection) return null;
-  const image = collection?.image;
+function Popular({reference, products}) {
+  const ref1 = useRef();
+  const ref2 = useRef();
+  const ref3 = useRef();
+  const ref4 = useRef();
+  const refArray = [ref1, ref2, ref3, ref4];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible-section');
+        } else {
+          entry.target.classList.remove('visible-section');
+        }
+      });
+    });
+    observer.observe(ref1.current);
+    observer.observe(ref2.current);
+    observer.observe(ref3.current);
+    observer.observe(ref4.current);
+  }, []);
+  console.log('popular-component', products.collection.products.edges[0]);
   return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
-    >
-      {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
+    <section ref={reference} className="half-container hidden-section">
+      <div className="popular-container">
+        <div className="title-banner">LOS MAS VENDIDOS</div>
+        <div className="products-container">
+          {products.collection.products.edges.map((product, index) => (
+            <div
+              key={product.node.id}
+              ref={refArray[index]}
+              className="prod hidden-prod"
+            >
+              <ProductPreview productData={product.node} />
+            </div>
+          ))}
         </div>
-      )}
-      <h1>{collection.title}</h1>
-    </Link>
+      </div>
+    </section>
   );
 }
 
@@ -62,6 +114,7 @@ function FeaturedCollection({collection}) {
  * }}
  */
 function RecommendedProducts({products}) {
+  console.log('recommended: ', products);
   return (
     <div className="recommended-products">
       <h2>Recommended Products</h2>
@@ -70,21 +123,22 @@ function RecommendedProducts({products}) {
           {({products}) => (
             <div className="recommended-products-grid">
               {products.nodes.map((product) => (
-                <Link
-                  key={product.id}
-                  className="recommended-product"
-                  to={`/products/${product.handle}`}
-                >
-                  <Image
-                    data={product.images.nodes[0]}
-                    aspectRatio="1/1"
-                    sizes="(min-width: 45em) 20vw, 50vw"
-                  />
-                  <h4>{product.title}</h4>
-                  <small>
-                    <Money data={product.priceRange.minVariantPrice} />
-                  </small>
-                </Link>
+                <ProductPreview key={product.id} productData={product} />
+                // <Link
+                //   key={product.id}
+                //   className="recommended-product"
+                //   to={`/products/${product.handle}`}
+                // >
+                //   <Image
+                //     data={product.images.nodes[0]}
+                //     aspectRatio="1/1"
+                //     sizes="(min-width: 45em) 20vw, 50vw"
+                //   />
+                //   <h4>{product.title}</h4>
+                //   <small>
+                //     <Money data={product.priceRange.minVariantPrice} />
+                //   </small>
+                // </Link>
               ))}
             </div>
           )}
@@ -95,28 +149,38 @@ function RecommendedProducts({products}) {
   );
 }
 
-const FEATURED_COLLECTION_QUERY = `#graphql
-  fragment FeaturedCollection on Collection {
-    id
-    title
-    image {
-      id
-      url
-      altText
-      width
-      height
-    }
-    handle
-  }
-  query FeaturedCollection($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    collections(first: 1, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...FeaturedCollection
+const POPULAR_PRODUCTS_QUERY = `#graphql
+  query popularProducts ($country: CountryCode, $language: LanguageCode)
+  @inContext(country: $country, language: $language) {
+    collection(handle: "populares") {
+      products(first: 4) {
+        edges {
+          node {
+            id
+            title
+            handle
+            priceRange {
+              maxVariantPrice {
+                amount
+                currencyCode
+              }
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            images(first: 1) {
+              nodes {
+                id
+                url
+                altText
+              }
+            }
+          }
+        }
       }
     }
-  }
-`;
+  }`;
 
 const RECOMMENDED_PRODUCTS_QUERY = `#graphql
   fragment RecommendedProduct on Product {
@@ -151,6 +215,6 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
-/** @typedef {import('storefrontapi.generated').FeaturedCollectionFragment} FeaturedCollectionFragment */
+/** @typedef {import('storefrontapi.generated').PopularCollectionFragment} PopularCollectionFragment */
 /** @typedef {import('storefrontapi.generated').RecommendedProductsQuery} RecommendedProductsQuery */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */

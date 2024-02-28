@@ -12,9 +12,12 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
 } from '@remix-run/react';
-import favicon from '../public/favicon.svg';
 import resetStyles from './styles/reset.css';
 import appStyles from './styles/app.css';
+import navbarStyles from './styles/navbar.css';
+import homeStyles from './styles/home.css';
+import productStyles from './styles/product.css';
+import tailwindStyle from './tailwind.css';
 import {Layout} from '~/components/Layout';
 
 /**
@@ -37,8 +40,20 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 
 export function links() {
   return [
-    {rel: 'stylesheet', href: resetStyles},
+    {rel: 'stylesheet', href: tailwindStyle},
+    {rel: 'stylesheet', href: navbarStyles},
+    {rel: 'stylesheet', href: homeStyles},
+    {rel: 'stylesheet', href: productStyles},
     {rel: 'stylesheet', href: appStyles},
+    {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com',
+    },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@700&display=swap',
+    },
     {
       rel: 'preconnect',
       href: 'https://cdn.shopify.com',
@@ -47,7 +62,6 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
 

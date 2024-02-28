@@ -1,0 +1,76 @@
+:root {
+  --primary-bg-color: #242424;
+  --primary-color: #000000;
+  --secondary-color: #e5d201;
+  --third-color: rgba(255, 255, 255, 0.87);
+}
+
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 1);
+  border: 2px solid transparent;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.images-container {
+  width: 100%;
+}
+
+.prod-image {
+  width: 100%;
+}
+
+.prod-name {
+  color: var(--third-color);
+  font-size: 24px;
+  font-family: "Poppins", sans-serif;
+  transition: color 0.5s ease;
+}
+
+.info {
+  margin: 10px;
+}
+
+.prod-price {
+  color: var(--third-color);
+  font-family: "Monserrat", sans-serif;
+  transition: color 0.5s ease;
+}
+
+.preview-container:hover .prod-name {
+  color: var(--primary-color);
+}
+
+.preview-container:hover .prod-price {
+  color: var(--primary-color);
+}
+
+.preview-container:hover {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  border: 2px solid var(--secondary-color);
+}
+
+@media (max-width: 912px) {
+  .preview-container {
+    height: 100%;
+    width: 45vw;
+  }
+
+  .info {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .prod-name {
+    font-size: 16px;
+  }
+
+  .prod-price {
+    font-size: 12px;
+  }
+}
