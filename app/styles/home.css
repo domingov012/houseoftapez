@@ -157,10 +157,10 @@ section {
   justify-content: center;
   font-size: clamp(25px, 5vw, 40px);
   font-family: 'Poppins', sans-serif;
-  font-style: italic;
   color: var(--secondary-color);
   width: 100%;
   height: clamp(150px, 10vw, 253px);
+  background-color: #00000067;
   /* height: 30%; */
 }
 
@@ -170,9 +170,19 @@ section {
   justify-content: center;
   width: 100%;
   height: 100%;
-  border-top: 2px solid var(--primary-color);
   gap: 20px;
+  border-top: 2px solid var(--primary-color);
   backdrop-filter: blur(5px);
+}
+
+.products-container-no-blur {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 2px solid var(--primary-color);
+  width: 100%;
+  height: 100%;
+  gap: 20px;
 }
 
 .prod {
@@ -382,6 +392,15 @@ section {
   }
 
   .products-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: auto;
+    gap: 10px;
+  }
+
+  .products-container-no-blur {
     height: 100%;
     display: flex;
     align-items: center;

@@ -396,10 +396,21 @@ aside li {
   object-fit: cover;
 }
 
+.recommended-products {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url('https://cdn.shopify.com/s/files/1/0643/3554/4485/files/recommendedBanner3.jpg?v=1709152902');
+  background-position: center;
+  background-size: cover;
+}
+
 .recommended-products-grid {
   display: grid;
   grid-gap: 1.5rem;
   grid-template-columns: repeat(2, 1fr);
+  width: 90vw;
   @media (min-width: 45em) {
     grid-template-columns: repeat(4, 1fr);
   }

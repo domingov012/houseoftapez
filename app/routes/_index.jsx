@@ -39,6 +39,7 @@ export default function Homepage() {
   const refPopular = useRef();
   const refTutorial = useRef();
   const refPacks = useRef();
+  const refRecommend = useRef();
 
   // SCROLL ANIMATIONS //
   useEffect(() => {
@@ -53,6 +54,7 @@ export default function Homepage() {
     observer.observe(refPopular.current);
     observer.observe(refTutorial.current);
     observer.observe(refPacks.current);
+    observer.observe(refRecommend.current);
   }, []);
   return (
     <div>
@@ -60,7 +62,10 @@ export default function Homepage() {
       <Popular reference={refPopular} products={data.popularProducts} />
       <TutorialsSection reference={refTutorial} />
       <PacksBanner reference={refPacks} />
-      <RecommendedProducts products={data.recommendedProducts} />
+      <RecommendedProducts
+        reference={refRecommend}
+        products={data.recommendedProducts}
+      />
     </div>
   );
 }
@@ -113,17 +118,22 @@ function Popular({reference, products}) {
  *   products: Promise<RecommendedProductsQuery>;
  * }}
  */
-function RecommendedProducts({products}) {
+function RecommendedProducts({reference, products}) {
   console.log('recommended: ', products);
   return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
+    <section
+      ref={reference}
+      className="half-container recommended-products hidden-section"
+    >
+      <div className="title-banner">RECOMENDADOS</div>
       <Suspense fallback={<div>Loading...</div>}>
         <Await resolve={products}>
           {({products}) => (
-            <div className="recommended-products-grid">
+            <div className="products-container-no-blur">
               {products.nodes.map((product) => (
-                <ProductPreview key={product.id} productData={product} />
+                <div key={product.id} className="prod">
+                  <ProductPreview productData={product} />
+                </div>
                 // <Link
                 //   key={product.id}
                 //   className="recommended-product"
@@ -145,7 +155,7 @@ function RecommendedProducts({products}) {
         </Await>
       </Suspense>
       <br />
-    </div>
+    </section>
   );
 }
 

@@ -1,4 +1,4 @@
-import {Await, NavLink} from '@remix-run/react';
+import {Await, Link, NavLink} from '@remix-run/react';
 import {Suspense} from 'react';
 import {useRootLoaderData} from '~/root';
 import {Image} from '@shopify/hydrogen';
@@ -21,15 +21,17 @@ export function Header({header, isLoggedIn, cart}) {
       <div className="main-nav">
         <HeaderMenuMobileToggle />
         <div className="logo-container-1">
-          <Image
-            data={shop.brand.logo.image}
-            className="logo"
-            aspectRatio="1577:499"
-            sizes="100%"
-          />
+          <Link prefetch="intent" to="/">
+            <Image
+              data={shop.brand.logo.image}
+              className="logo"
+              aspectRatio="1577:499"
+              sizes="100%"
+            />
+          </Link>
         </div>
         <div className="drop-down-menu">
-          <NavLink prefetch="intent" className="drop-down">
+          <NavLink prefetch="intent" to="/shop" className="drop-down">
             SHOP
             <div className="menu">
               <div className="menu-column">

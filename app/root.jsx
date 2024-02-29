@@ -17,6 +17,7 @@ import appStyles from './styles/app.css';
 import navbarStyles from './styles/navbar.css';
 import homeStyles from './styles/home.css';
 import productStyles from './styles/product.css';
+import shopStyles from './styles/shop.css';
 import tailwindStyle from './tailwind.css';
 import {Layout} from '~/components/Layout';
 
@@ -44,6 +45,7 @@ export function links() {
     {rel: 'stylesheet', href: navbarStyles},
     {rel: 'stylesheet', href: homeStyles},
     {rel: 'stylesheet', href: productStyles},
+    {rel: 'stylesheet', href: shopStyles},
     {rel: 'stylesheet', href: appStyles},
     {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
     {
