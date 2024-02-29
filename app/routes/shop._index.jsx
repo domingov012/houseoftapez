@@ -21,38 +21,40 @@ export default function Shop(props) {
   console.log(products);
   return (
     <>
-      <div className="shop-title">
+      <div className="shop-title w-[95%] mr-auto ml-auto">
         <div>{`${
           props.filterKey ? props.filterKey : 'TODOS LOS PRODUCTOS'
         }`}</div>
       </div>
-      <div className="filters-product-wrapper visible-section">
-        {/* <div className="filters-container">filters</div> */}
-        {/* <div className="products-grid "> */}
-        <Pagination connection={products}>
-          {({nodes, PreviousLink, NextLink}) => (
-            <>
-              <PreviousLink className="drop-down text-center">
-                PREVIOUS
-              </PreviousLink>
-              <div className="shop-products-grid">
-                {nodes.map((product) => {
-                  return (
-                    <div key={product.id} className="product-in-grid">
-                      <ProductPreview productData={product} />
-                    </div>
-                  );
-                })}
-              </div>
-              <NextLink className="drop-down text-center">CARGAR MAS</NextLink>
-            </>
-          )}
-        </Pagination>
-        {/* <div className="product">
+      {/* <div className="grid-container visible-section"> */}
+      {/* <div className="filters-container">filters</div> */}
+      {/* <div className="products-grid "> */}
+      <Pagination connection={products}>
+        {({nodes, PreviousLink, NextLink}) => (
+          <>
+            <PreviousLink className="drop-down text-center">
+              PREVIOUS
+            </PreviousLink>
+            <div className="shop-products-grid">
+              {nodes.map((product) => {
+                return (
+                  <div key={product.id} className="product-in-grid">
+                    <ProductPreview productData={product} />
+                  </div>
+                );
+              })}
+            </div>
+            <NextLink className="pagination-button text-center">
+              CARGAR MAS
+            </NextLink>
+          </>
+        )}
+      </Pagination>
+      {/* <div className="product">
             <ProductPreview />
           </div> */}
-        {/* </div> */}
-      </div>
+      {/* </div> */}
+      {/* </div> */}
     </>
   );
 }

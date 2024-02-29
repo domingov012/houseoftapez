@@ -492,6 +492,11 @@ aside li {
   align-self: start;
   position: sticky;
   top: 6rem;
+  display: flex;
+  flex-direction: column;
+  width: 36vw;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .product-price-on-sale {

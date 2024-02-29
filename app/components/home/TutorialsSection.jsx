@@ -23,9 +23,9 @@ export default function TutorialsSection(props) {
   }, []);
 
   return (
-    <section ref={props.reference} className="half-container hidden-section">
+    <section ref={props.reference} className="hidden-section h-3/5">
       <div className="tape-banner-container">
-        <div className="tutorial-image-container">
+        <div className="tutorial-image-container min-h-fit">
           <img
             ref={ref1}
             src="https://cdn.shopify.com/s/files/1/0643/3554/4485/files/taping-4-copy.png?v=1709143761"

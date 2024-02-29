@@ -1,10 +1,12 @@
 import {useEffect, useRef} from 'react';
-import ProductPreview from '../components/ProductPreview.jsx';
+import Filter from '../components/Filter.jsx';
 import {Outlet} from '@remix-run/react';
+import {Aside} from '../components/Aside.jsx';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faFilter} from '@fortawesome/free-solid-svg-icons';
 
 export default function ShopLayout(props) {
   const bannerRef = useRef();
-  const filterRef = useRef();
   const productsRef = useRef();
 
   // SCROLL ANIMATIONS //
@@ -17,41 +19,35 @@ export default function ShopLayout(props) {
       });
     });
     observer.observe(bannerRef.current);
-    observer.observe(filterRef.current);
     // observer.observe(productsRef.current);
   });
   return (
     <section className="shop-section">
+      <MobileFilterAside />
       <div className="shop-banner hidden-section" ref={bannerRef}>
         TIENDA
         <div className="banner-bg"></div>
       </div>
-      <div
-        className="tape-type-selector-container hidden-section"
-        ref={filterRef}
-      >
-        <div className="type-option">
-          K-Tape
-          <div className="type-bg"></div>
+      <div className="filters-product-wrapper mt-10">
+        <a href="#filter-aside" className="filter-toggle hidden w-fit ml-2">
+          FILTRAR
+          <FontAwesomeIcon icon={faFilter} className="ml-2" />
+        </a>
+        <div className="filters-container">
+          <Filter />
         </div>
-        <div className="type-option">
-          EAB
-          <div className="type-bg"></div>
-        </div>
-        <div className="type-option">
-          Zinc Oxide
-          <div className="type-bg"></div>
-        </div>
-        <div className="type-option">
-          Accesories
-          <div className="type-bg"></div>
-        </div>
-        <div className="type-option">
-          Packs
-          <div className="type-bg"></div>
+        <div className="shop-grid-container">
+          <Outlet />
         </div>
       </div>
-      <Outlet />
     </section>
+  );
+}
+
+function MobileFilterAside() {
+  return (
+    <Aside id="filter-aside" header="FILTER MENU">
+      <Filter />
+    </Aside>
   );
 }

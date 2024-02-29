@@ -81,17 +81,6 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
 
   return (
     <nav className={className} role="navigation">
-      {viewport === 'mobile' && (
-        <NavLink
-          end
-          onClick={closeAside}
-          prefetch="intent"
-          style={activeLinkStyle}
-          to="/"
-        >
-          Home
-        </NavLink>
-      )}
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
 
@@ -104,12 +93,11 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
             : item.url;
         return (
           <NavLink
-            className="header-menu-item"
+            className="drop-down"
             end
             key={item.id}
             onClick={closeAside}
             prefetch="intent"
-            style={activeLinkStyle}
             to={url}
           >
             {item.title}

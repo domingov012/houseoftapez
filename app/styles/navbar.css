@@ -331,4 +331,8 @@
   .icon-label {
     display: none;
   }
+
+  .drop-down {
+    margin-left: 5px;
+  }
 }

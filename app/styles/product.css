@@ -25,8 +25,16 @@
 .prod-name {
   color: var(--third-color);
   font-size: 24px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   transition: color 0.5s ease;
+}
+
+.big {
+  font-size: 60px;
+}
+
+.mid {
+  font-size: 25px;
 }
 
 .info {
@@ -35,7 +43,7 @@
 
 .prod-price {
   color: var(--third-color);
-  font-family: "Monserrat", sans-serif;
+  font-family: 'Monserrat', sans-serif;
   transition: color 0.5s ease;
 }
 

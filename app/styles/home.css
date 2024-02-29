@@ -193,6 +193,7 @@ section {
   display: flex;
   background-color: var(--secondary-color);
   color: var(--primary-color);
+  min-height: 550px;
 }
 
 .tutorial-image-container {

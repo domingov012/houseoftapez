@@ -75,7 +75,6 @@ export async function loader({params, request, context}) {
   const variants = storefront.query(VARIANTS_QUERY, {
     variables: {handle},
   });
-
   return defer({product, variants});
 }
 
@@ -106,6 +105,8 @@ export default function Product() {
   /** @type {LoaderReturnData} */
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
+  console.log(product);
+
   return (
     <div className="product">
       <ProductImage image={selectedVariant?.image} />
@@ -132,7 +133,7 @@ function ProductImage({image}) {
         aspectRatio="1/1"
         data={image}
         key={image.id}
-        sizes="(min-width: 45em) 50vw, 100vw"
+        sizes="(min-width: 45em) 40vw, 100vw"
       />
     </div>
   );
@@ -149,7 +150,14 @@ function ProductMain({selectedVariant, product, variants}) {
   const {title, descriptionHtml} = product;
   return (
     <div className="product-main">
-      <h1>{title}</h1>
+      <h1 className="prod-name big">{title}</h1>
+      <p>
+        <strong>Descripción</strong>
+      </p>
+      <div
+        dangerouslySetInnerHTML={{__html: descriptionHtml}}
+        className="text-xl"
+      />
       <ProductPrice selectedVariant={selectedVariant} />
       <br />
       <Suspense
@@ -176,11 +184,7 @@ function ProductMain({selectedVariant, product, variants}) {
       </Suspense>
       <br />
       <br />
-      <p>
-        <strong>Description</strong>
-      </p>
-      <br />
-      <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+
       <br />
     </div>
   );
@@ -201,12 +205,17 @@ function ProductPrice({selectedVariant}) {
           <div className="product-price-on-sale">
             {selectedVariant ? <Money data={selectedVariant.price} /> : null}
             <s>
-              <Money data={selectedVariant.compareAtPrice} />
+              <Money
+                data={selectedVariant.compareAtPrice}
+                className="prod-price mid"
+              />
             </s>
           </div>
         </>
       ) : (
-        selectedVariant?.price && <Money data={selectedVariant?.price} />
+        selectedVariant?.price && (
+          <Money data={selectedVariant?.price} className="prod-price mid" />
+        )
       )}
     </div>
   );
