@@ -8,7 +8,7 @@ import ProductPreview from '../components/ProductPreview';
  */
 export async function loader({context, request}) {
   const {storefront} = context;
-  const variables = getPaginationVariables(request, {pageBy: 3});
+  const variables = getPaginationVariables(request, {pageBy: 9});
 
   const data = await storefront.query(ALL_PRODUCTS_QUERY, {
     variables,
@@ -50,11 +50,6 @@ export default function Shop(props) {
           </>
         )}
       </Pagination>
-      {/* <div className="product">
-            <ProductPreview />
-          </div> */}
-      {/* </div> */}
-      {/* </div> */}
     </>
   );
 }

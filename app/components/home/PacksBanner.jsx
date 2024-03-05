@@ -5,7 +5,7 @@ export default function PacksBanner(props) {
         <div className="packs-info-container">
           <div className="packs-text">
             <h2>GEAR UP</h2>
-            <p>
+            <p className="text-font">
               Compra todo lo que necesitas para tu partido al mejor precio con
               nuestros packs!
             </p>

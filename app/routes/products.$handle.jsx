@@ -9,13 +9,15 @@ import {
   getSelectedProductOptions,
   CartForm,
 } from '@shopify/hydrogen';
+
 import {getVariantUrl} from '~/lib/variants';
+import Feature from '../components/Features.jsx';
 
 /**
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.product.title ?? ''}`}];
+  return [{title: `HOUSE OF TAPEZ | ${data?.product.title ?? ''}`}];
 };
 
 /**
@@ -50,6 +52,10 @@ export async function loader({params, request, context}) {
     throw new Response(null, {status: 404});
   }
 
+  const overview_info_id = product.metafields[1].value;
+  const feature_id_array = product.metafields[0]
+    ? JSON.parse(product.metafields[0].value)
+    : [];
   const firstVariant = product.variants.nodes[0];
   const firstVariantIsDefault = Boolean(
     firstVariant.selectedOptions.find(
@@ -75,7 +81,21 @@ export async function loader({params, request, context}) {
   const variants = storefront.query(VARIANTS_QUERY, {
     variables: {handle},
   });
-  return defer({product, variants});
+
+  const overview = await storefront.query(OVERVIEW_QUERY, {
+    variables: {overview_info_id},
+  });
+
+  const feature_array = await Promise.all(
+    feature_id_array.map(async (id) => {
+      const feature = await storefront.query(FEATURE_QUERY, {
+        variables: {id},
+      });
+      return feature;
+    }),
+  );
+
+  return defer({product, variants, overview, feature_array});
 }
 
 /**
@@ -103,13 +123,17 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants} = useLoaderData();
+  const {product, variants, overview, feature_array} = useLoaderData();
   const {selectedVariant} = product;
-  console.log(product);
 
   return (
     <div className="product">
-      <ProductImage image={selectedVariant?.image} />
+      <ProductImageAndInfo
+        image={selectedVariant?.image}
+        overview={overview}
+        features={feature_array}
+        product={product.title}
+      />
       <ProductMain
         selectedVariant={selectedVariant}
         product={product}
@@ -122,10 +146,11 @@ export default function Product() {
 /**
  * @param {{image: ProductVariantFragment['image']}}
  */
-function ProductImage({image}) {
+function ProductImageAndInfo({image, overview, features, product}) {
   if (!image) {
     return <div className="product-image" />;
   }
+
   return (
     <div className="product-image">
       <Image
@@ -135,6 +160,38 @@ function ProductImage({image}) {
         key={image.id}
         sizes="(min-width: 45em) 40vw, 100vw"
       />
+      <ProductOverview metaobject={overview.metaobject} />
+      {features.length > 0 && (
+        <ProductFeatures features={features} product={product} />
+      )}
+    </div>
+  );
+}
+
+function ProductFeatures({features, product}) {
+  console.log(features);
+  const features_array = features.map((object, index) => {
+    console.log(object.metaobject.fields);
+    return <Feature index={index} fields={object.metaobject.fields} />;
+  });
+  return (
+    <div className="p-3 mt-20">
+      <h1 className="text-4xl text-center m-5 title-font">FEATURES</h1>
+      <div className="grid grid-cols-3 gap-2">{features_array}</div>
+    </div>
+  );
+}
+
+function ProductOverview({metaobject}) {
+  return (
+    <div className="p-3">
+      <h1 className="prod-name big">
+        ¿QUE ES <span className="highlight">{metaobject.fields[2]?.value}</span>
+        {'  '}?
+      </h1>
+      <div className="smid text-font">{metaobject.fields[0]?.value}</div>
+      <br />
+      <div className="smid text-font">{metaobject.fields[1]?.value}</div>
     </div>
   );
 }
@@ -151,12 +208,10 @@ function ProductMain({selectedVariant, product, variants}) {
   return (
     <div className="product-main">
       <h1 className="prod-name big">{title}</h1>
-      <p>
-        <strong>Descripción</strong>
-      </p>
+
       <div
         dangerouslySetInnerHTML={{__html: descriptionHtml}}
-        className="text-xl"
+        className="text-xl text-font"
       />
       <ProductPrice selectedVariant={selectedVariant} />
       <br />
@@ -207,14 +262,17 @@ function ProductPrice({selectedVariant}) {
             <s>
               <Money
                 data={selectedVariant.compareAtPrice}
-                className="prod-price mid"
+                className="prod-price mid text-font"
               />
             </s>
           </div>
         </>
       ) : (
         selectedVariant?.price && (
-          <Money data={selectedVariant?.price} className="prod-price mid" />
+          <Money
+            data={selectedVariant?.price}
+            className="prod-price mid text-font"
+          />
         )
       )}
     </div>
@@ -255,7 +313,9 @@ function ProductForm({product, selectedVariant, variants}) {
             : []
         }
       >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
+        {selectedVariant?.availableForSale
+          ? 'AGREGAR AL CARRO'
+          : 'SIN STOCK :('}
       </AddToCartButton>
     </div>
   );
@@ -303,6 +363,7 @@ function ProductOptions({option}) {
  * }}
  */
 function AddToCartButton({analytics, children, disabled, lines, onClick}) {
+  const className = children === 'AGREGAR AL CARRO' ? 'add-button' : 'no-stock';
   return (
     <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
@@ -313,6 +374,7 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
             value={JSON.stringify(analytics)}
           />
           <button
+            className={className}
             type="submit"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
@@ -324,6 +386,34 @@ function AddToCartButton({analytics, children, disabled, lines, onClick}) {
     </CartForm>
   );
 }
+
+const FEATURE_QUERY = `#graphql
+  query ProductFeature(
+    $country: CountryCode
+    $id: ID!
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    metaobject(id: $id) {
+      fields {
+        value
+      }
+    }
+  }
+  `;
+
+const OVERVIEW_QUERY = `#graphql
+  query ProductOverview(
+    $country: CountryCode
+    $overview_info_id: ID!
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    metaobject(id: $overview_info_id) {
+      fields {
+        value
+      }
+    }
+  }
+  `;
 
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
@@ -385,6 +475,9 @@ const PRODUCT_FRAGMENT = `#graphql
     seo {
       description
       title
+    }
+    metafields(identifiers:  [{key: "features", namespace: "custom"}, {key: "product_overview", namespace: "custom"}] ) {
+      value
     }
   }
   ${PRODUCT_VARIANT_FRAGMENT}

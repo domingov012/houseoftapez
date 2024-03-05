@@ -54,7 +54,7 @@ export function links() {
     },
     {
       rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@700&display=swap',
+      href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Poppins:wght@700&family=Roboto+Mono:ital@0;1&display=swap',
     },
     {
       rel: 'preconnect',

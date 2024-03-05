@@ -470,7 +470,7 @@ aside li {
   display: grid;
   @media (min-width: 45em) {
     grid-template-columns: 1fr 1fr;
-    grid-gap: 4rem;
+    grid-gap: 2rem;
   }
 }
 
@@ -486,6 +486,7 @@ aside li {
 .product-image img {
   height: auto;
   width: 100%;
+  padding: 10px;
 }
 
 .product-main {

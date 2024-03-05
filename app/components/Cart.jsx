@@ -13,7 +13,7 @@ export function CartMain({layout, cart}) {
   const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
 
   return (
-    <div className={className}>
+    <div className={`${className}`}>
       <CartEmpty hidden={linesCount} layout={layout} />
       <CartDetails cart={cart} layout={layout} />
     </div>
@@ -99,7 +99,7 @@ function CartLineItem({layout, line}) {
           </p>
         </Link>
         <CartLinePrice line={line} as="span" />
-        <ul>
+        {/* <ul>
           {selectedOptions.map((option) => (
             <li key={option.name}>
               <small>
@@ -107,7 +107,7 @@ function CartLineItem({layout, line}) {
               </small>
             </li>
           ))}
-        </ul>
+        </ul> */}
         <CartLineQuantity line={line} />
       </div>
     </li>

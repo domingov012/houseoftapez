@@ -25,7 +25,7 @@ export default function SportTapeSection(props) {
               className="sport-tape-logo"
             />
           </div>
-          <div className="medium-text">
+          <div className="medium-text text-font">
             <h3>DISTRIBUIDOR OFICIAL</h3>
           </div>
           <div className="browse-button">Browse Shop</div>

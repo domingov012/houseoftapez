@@ -76,7 +76,7 @@ section {
 }
 
 .medium-text > h3 {
-  font-family: 'Montserrat', sans-serif;
+  /* font-family: 'Montserrat', sans-serif; */
   font-size: clamp(25px, 3vw, 45px);
   margin: auto;
   color: #e5d201;
@@ -226,9 +226,8 @@ section {
 }
 
 .tutorials-text > p {
-  font-size: 20px;
-  font-size: clamp(16px, 3vw, 20px);
-  font-family: 'Monserrat', sans-serif;
+  font-size: 18px;
+  font-size: clamp(14px, 2vw, 20px);
 }
 
 .bottom-right {
@@ -301,8 +300,7 @@ section {
 }
 
 .packs-text > p {
-  font-size: 20px;
-  font-family: 'Monserrat', sans-serif;
+  font-size: 18px;
   padding-bottom: 40px;
   margin-left: 130px;
   text-align: right;

@@ -27,7 +27,10 @@ export default function ProductPreview(props) {
               <div className="info">
                 <div className="prod-name">{props.productData.title}</div>
                 <div className="prod-price">
-                  <Money data={props.productData.priceRange.minVariantPrice} />
+                  <Money
+                    data={props.productData.priceRange.minVariantPrice}
+                    className="text-font"
+                  />
                 </div>
               </div>
             </CardItem>

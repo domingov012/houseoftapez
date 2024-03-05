@@ -53,7 +53,7 @@ export default function TutorialsSection(props) {
         </div>
         <div className="tutorials-text">
           <h2 className="bottom-right">TAPE LIKE A PRO</h2>
-          <p className="bottom-right">
+          <p className="bottom-right text-font">
             Revisa nuestros tutoriales certificados por profesionales, para
             aprender a asegurar lo que necesites antes de un entrenamiento o
             partido!
