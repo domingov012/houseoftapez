@@ -1,6 +1,13 @@
 import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {
+  faMinus,
+  faPlus,
+  faTrash,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons';
 
 /**
  * @param {CartMainProps}
@@ -83,7 +90,7 @@ function CartLineItem({layout, line}) {
         />
       )}
 
-      <div>
+      <div className="w-full">
         <Link
           prefetch="intent"
           to={lineItemUrl}
@@ -169,7 +176,9 @@ function CartLineRemoveButton({lineIds}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button type="submit">Remove</button>
+      <button className="text-red-500" type="submit">
+        <FontAwesomeIcon icon={faTrashCan} />
+      </button>
     </CartForm>
   );
 }
@@ -184,8 +193,8 @@ function CartLineQuantity({line}) {
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
-    <div className="cart-line-quantity">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
+    <div className="cart-line-quantity flex w-full">
+      {/* <div>Cantidad: &nbsp;&nbsp;</div> */}
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
@@ -193,20 +202,22 @@ function CartLineQuantity({line}) {
           name="decrease-quantity"
           value={prevQuantity}
         >
-          <span>&#8722; </span>
+          <FontAwesomeIcon icon={faMinus} />
         </button>
       </CartLineUpdateButton>
-      &nbsp;
+      <div className="text-xl flex text-font items-center ml-2 mr-2">
+        {quantity}
+      </div>
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
           aria-label="Increase quantity"
           name="increase-quantity"
           value={nextQuantity}
         >
-          <span>&#43;</span>
+          <FontAwesomeIcon icon={faPlus} />
         </button>
       </CartLineUpdateButton>
-      &nbsp;
+      &nbsp; &nbsp; &nbsp; &nbsp;
       <CartLineRemoveButton lineIds={[lineId]} />
     </div>
   );
@@ -233,7 +244,12 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
 
   return (
     <div>
-      <Money withoutTrailingZeros {...passthroughProps} data={moneyV2} />
+      <Money
+        withoutTrailingZeros
+        {...passthroughProps}
+        data={moneyV2}
+        className="text-font"
+      />
     </div>
   );
 }
@@ -248,20 +264,17 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
   return (
     <div hidden={hidden}>
       <br />
-      <p>
-        Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
-        started!
-      </p>
+      <p>EL CARRITO ESTA VACÍO...</p>
       <br />
       <Link
         to="/collections"
         onClick={() => {
           if (layout === 'aside') {
-            window.location.href = '/collections';
+            window.location.href = '/shop';
           }
         }}
       >
-        Continue shopping →
+        VISITA NUESTRA TIENDA →
       </Link>
     </div>
   );

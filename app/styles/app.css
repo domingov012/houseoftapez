@@ -304,7 +304,6 @@ aside li {
 }
 
 .cart-summary-aside {
-  background: white;
   border-top: 1px solid var(--color-dark);
   bottom: 0;
   padding-top: 0.75rem;
@@ -495,7 +494,7 @@ aside li {
   top: 6rem;
   display: flex;
   flex-direction: column;
-  width: 36vw;
+  width: 40vw;
   margin-left: auto;
   margin-right: auto;
 }
@@ -517,6 +516,32 @@ aside li {
 
 .product-options-item {
   padding: 0.25rem 0.5rem;
+  border: 3.5px solid #ffffff69;
+  transition: border ease 0.5s;
+}
+
+.color {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.active-true {
+  border: 3.5px solid var(--secondary-color);
+}
+
+.quantity-selector {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 3px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.quantity-selector:hover {
+  color: var(--primary-color);
+  background-color: #e5d201;
 }
 
 /*

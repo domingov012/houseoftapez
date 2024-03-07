@@ -1,6 +1,8 @@
-import {Suspense} from 'react';
+import {Suspense, useState} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData} from '@remix-run/react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 
 import {
   Image,
@@ -186,7 +188,7 @@ function ProductOverview({metaobject}) {
   return (
     <div className="p-3">
       <h1 className="prod-name big">
-        ¿QUE ES <span className="highlight">{metaobject.fields[2]?.value}</span>
+        ¿QUÉ ES <span className="highlight">{metaobject.fields[2]?.value}</span>
         {'  '}?
       </h1>
       <div className="smid text-font">{metaobject.fields[0]?.value}</div>
@@ -262,7 +264,7 @@ function ProductPrice({selectedVariant}) {
             <s>
               <Money
                 data={selectedVariant.compareAtPrice}
-                className="prod-price mid text-font"
+                className="prod-price mid text-font mt-5"
               />
             </s>
           </div>
@@ -271,7 +273,7 @@ function ProductPrice({selectedVariant}) {
         selectedVariant?.price && (
           <Money
             data={selectedVariant?.price}
-            className="prod-price mid text-font"
+            className="prod-price mid text-font mt-5"
           />
         )
       )}
@@ -287,6 +289,12 @@ function ProductPrice({selectedVariant}) {
  * }}
  */
 function ProductForm({product, selectedVariant, variants}) {
+  const [quantity, setQuantity] = useState(1);
+
+  function updateQuantity(n) {
+    setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
+  }
+
   return (
     <div className="product-form">
       <VariantSelector
@@ -297,6 +305,15 @@ function ProductForm({product, selectedVariant, variants}) {
         {({option}) => <ProductOptions key={option.name} option={option} />}
       </VariantSelector>
       <br />
+      <div className="flex items-center text-3xl">
+        <div className="quantity-selector" onClick={() => updateQuantity(-1)}>
+          <FontAwesomeIcon icon={faMinus} />
+        </div>
+        <div className="text-font p-2 text-4xl"> {quantity} </div>
+        <div className="quantity-selector" onClick={() => updateQuantity(1)}>
+          <FontAwesomeIcon icon={faPlus} />
+        </div>
+      </div>
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
@@ -307,7 +324,7 @@ function ProductForm({product, selectedVariant, variants}) {
             ? [
                 {
                   merchandiseId: selectedVariant.id,
-                  quantity: 1,
+                  quantity: quantity,
                 },
               ]
             : []
@@ -326,20 +343,32 @@ function ProductForm({product, selectedVariant, variants}) {
  */
 function ProductOptions({option}) {
   return (
-    <div className="product-options" key={option.name}>
-      <h5>{option.name}</h5>
+    <div className="product-options flex items-center mb-6" key={option.name}>
+      <h5 className="text-font mr-4">{option.name}: </h5>
       <div className="product-options-grid">
         {option.values.map(({value, isAvailable, isActive, to}) => {
-          return (
+          return option.name === 'Color' ? (
             <Link
-              className="product-options-item"
+              className={`product-options-item color active-${isActive}`}
               key={option.name + value}
               prefetch="intent"
               preventScrollReset
               replace
               to={to}
               style={{
-                border: isActive ? '1px solid black' : '1px solid transparent',
+                opacity: isAvailable ? 1 : 0.3,
+                backgroundColor: `${value}`,
+              }}
+            ></Link>
+          ) : (
+            <Link
+              className={`product-options-item active-${isActive}`}
+              key={option.name + value}
+              prefetch="intent"
+              preventScrollReset
+              replace
+              to={to}
+              style={{
                 opacity: isAvailable ? 1 : 0.3,
               }}
             >
@@ -348,7 +377,6 @@ function ProductOptions({option}) {
           );
         })}
       </div>
-      <br />
     </div>
   );
 }
