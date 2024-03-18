@@ -26,6 +26,7 @@ export default async function handleRequest(
       'https://cdn.shopify.com',
       'https://fonts.googleapis.com',
     ],
+    frameSrc: ["'self'", 'https://www.youtube.com'],
   });
 
   const body = await renderToReadableStream(

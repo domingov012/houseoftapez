@@ -17,11 +17,11 @@ body {
   background-color: var(--primary-color);
 }
 
-font-1 {
+.title-font-1 {
   font-family: 'Poppins', sans-serif;
 }
 
-font-2 {
+.title-font-2 {
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -40,11 +40,6 @@ aside {
   right: calc(-1 * var(--aside-width));
   top: 0;
   transition: transform 500ms ease-in-out;
-  @media (max-width: 48em) {
-    max-width: 100vw;
-    min-width: 70vw;
-    width: 70%;
-  }
 }
 
 aside header {
@@ -55,6 +50,9 @@ aside header {
   height: var(--header-height);
   justify-content: space-between;
   padding: 0 20px;
+  @media (max-width: 48em) {
+    margin-left: 30px;
+  }
 }
 
 aside header h3 {
@@ -220,6 +218,9 @@ aside li {
   display: flex;
   flex-direction: column;
   grid-gap: 1rem;
+  @media (max-width: 48em) {
+    margin-left: 30px;
+  }
 }
 
 .header-menu-desktop {
@@ -279,14 +280,16 @@ aside li {
 */
 .cart-main {
   height: 100%;
-  max-height: calc(100vh - var(--cart-aside-summary-height));
+  display: flex;
+  flex-direction: column;
+  /* max-height: calc(100vh - var(--cart-aside-summary-height)); */
   overflow-y: auto;
   width: auto;
 }
-
+/* 
 .cart-main.with-discount {
   max-height: calc(100vh - var(--cart-aside-summary-height-with-discount));
-}
+} */
 
 .cart-line {
   display: flex;
@@ -300,19 +303,56 @@ aside li {
 }
 
 .cart-summary-page {
-  position: relative;
+  align-self: start;
+  position: sticky;
+  top: 6rem;
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  width: 40vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  margin-left: auto;
+  margin-right: auto;
+  border-left: solid 3px var(--secondary-color);
+  background-color: #00000080;
+}
+
+.cart-details-aside {
+  display: flex;
+  flex-direction: column;
+  max-height: 50%;
+  overflow-y: scroll;
+}
+
+.cart-details-page {
+  padding-left: 3rem;
+  padding-right: 3rem;
+  display: grid;
+  @media (min-width: 45em) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+  }
 }
 
 .cart-summary-aside {
-  border-top: 1px solid var(--color-dark);
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid var(--secondary-color);
   bottom: 0;
-  padding-top: 0.75rem;
+  padding: 0.75rem;
   position: absolute;
   width: calc(var(--aside-width) - 40px);
 }
 
-.cart-line-quantiy {
+.cart-line-quantiy-aside {
   display: flex;
+}
+
+.cart-line-quantity-page {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .cart-discount {
@@ -419,6 +459,171 @@ aside li {
   height: auto;
 }
 
+/* -------------------------------------------------
+   TUTORIALES
+   -------------------------------------------------
+*/
+
+.banner-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  @media (max-width: 48em) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tutorials-title {
+  width: 60%;
+  align-self: center;
+  font-size: clamp(30px, 10vw, 80px);
+  padding: 0.5rem;
+  padding-left: 2.5rem;
+  color: var(--secondary-color);
+}
+
+.last-image {
+  @media (max-width: 48em) {
+    display: none;
+  }
+}
+
+.tutorials-filter-wrapper {
+  width: 60%;
+  height: fit-content;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  @media (max-width: 48em) {
+    width: 90%;
+    display: flex;
+    height: fit-content;
+    align-items: baseline;
+    justify-content: flex-start;
+    overflow-x: auto;
+    gap: 10px;
+  }
+}
+
+.selected-filter {
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Roboto Mono', monospace;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-width: fit-content;
+
+  background-color: var(--secondary-color);
+  color: #000;
+}
+
+.selected-filter:hover {
+  background-color: #e5d20191;
+  color: #000;
+}
+
+.non-selected-filter {
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Roboto Mono', monospace;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-width: fit-content;
+}
+
+.non-selected-filter:hover {
+  background-color: #e5d20191;
+  color: #000;
+}
+
+.video-player {
+  width: 100%;
+  height: 100%;
+  @media (max-width: 48em) {
+    width: 95vw;
+    height: 35vh;
+  }
+}
+
+.tutorial-description-format {
+  display: flex;
+  @media (max-width: 48em) {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.video-even-layout-true {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  background-color: var(--secondary-color);
+  color: #000;
+  @media (max-width: 48em) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.video-even-layout-false {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  background-color: var(--primary-color);
+  color: white;
+  @media (max-width: 48em) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.video-description {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-align: center;
+  font-size: clamp(14px, 5vw, 20px);
+}
+
+.products-necesary-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  align-items: center;
+  border-left-width: 2px;
+  @media (max-width: 48em) {
+    border-left-width: 0px;
+  }
+}
+
+.scrollable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  @media (max-width: 48em) {
+    flex-direction: row;
+    gap: 10px;
+    overflow-x: auto;
+  }
+}
+
+.video-container {
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+  height: 70vh;
+  @media (max-width: 48em) {
+    height: fit-content;
+  }
+}
+
 /*
 * --------------------------------------------------
 * routes/collections._index.tsx
@@ -497,6 +702,9 @@ aside li {
   width: 40vw;
   margin-left: auto;
   margin-right: auto;
+  @media (max-width: 48em) {
+    width: 90vw;
+  }
 }
 
 .product-price-on-sale {
@@ -587,4 +795,20 @@ aside li {
 
 .account-logout {
   display: inline-block;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #888;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 10px;
+  transition: background 0.5s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e5d2019f;
 }

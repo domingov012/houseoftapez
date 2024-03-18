@@ -240,7 +240,7 @@
     align-items: center;
     font-family: 'Poppins', sans-serif;
     color: var(--secondary-color);
-    width: 10vh;
+    width: fit-content;
     margin-right: auto;
     padding: 5px;
   }

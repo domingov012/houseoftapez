@@ -129,19 +129,27 @@ export default function Product() {
   const {selectedVariant} = product;
 
   return (
-    <div className="product">
-      <ProductImageAndInfo
-        image={selectedVariant?.image}
-        overview={overview}
-        features={feature_array}
-        product={product.title}
-      />
-      <ProductMain
-        selectedVariant={selectedVariant}
-        product={product}
-        variants={variants}
-      />
-    </div>
+    <>
+      <div className="product">
+        <ProductImageAndInfo
+          image={selectedVariant?.image}
+          overview={overview}
+          features={feature_array}
+          product={product.title}
+        />
+        <ProductMain
+          selectedVariant={selectedVariant}
+          product={product}
+          variants={variants}
+        />
+      </div>
+      <div className="flex flex-col items-center justify-center">
+        <ProductOverview metaobject={overview.metaobject} />
+        {feature_array.length > 0 && (
+          <ProductFeatures features={feature_array} product={product.title} />
+        )}
+      </div>
+    </>
   );
 }
 
@@ -162,38 +170,34 @@ function ProductImageAndInfo({image, overview, features, product}) {
         key={image.id}
         sizes="(min-width: 45em) 40vw, 100vw"
       />
-      <ProductOverview metaobject={overview.metaobject} />
-      {features.length > 0 && (
-        <ProductFeatures features={features} product={product} />
-      )}
     </div>
   );
 }
 
 function ProductFeatures({features, product}) {
-  console.log(features);
   const features_array = features.map((object, index) => {
-    console.log(object.metaobject.fields);
     return <Feature index={index} fields={object.metaobject.fields} />;
   });
   return (
-    <div className="p-3 mt-20">
+    <div className="all-features-container">
       <h1 className="text-4xl text-center m-5 title-font">FEATURES</h1>
-      <div className="grid grid-cols-3 gap-2">{features_array}</div>
+      <div className="features-grid">{features_array}</div>
     </div>
   );
 }
 
 function ProductOverview({metaobject}) {
   return (
-    <div className="p-3">
-      <h1 className="prod-name big">
+    <div className="overview-container">
+      <h1 className="prod-name-title big ">
         ¿QUÉ ES <span className="highlight">{metaobject.fields[2]?.value}</span>
         {'  '}?
       </h1>
-      <div className="smid text-font">{metaobject.fields[0]?.value}</div>
-      <br />
-      <div className="smid text-font">{metaobject.fields[1]?.value}</div>
+      <div>
+        <div className="smid text-font">{metaobject.fields[0]?.value}</div>
+        <br />
+        <div className="smid text-font">{metaobject.fields[1]?.value}</div>
+      </div>
     </div>
   );
 }
@@ -209,11 +213,11 @@ function ProductMain({selectedVariant, product, variants}) {
   const {title, descriptionHtml} = product;
   return (
     <div className="product-main">
-      <h1 className="prod-name big">{title}</h1>
+      <h1 className="prod-name-title big">{title}</h1>
 
       <div
         dangerouslySetInnerHTML={{__html: descriptionHtml}}
-        className="text-xl text-font"
+        className="text-xl prod-description text-font"
       />
       <ProductPrice selectedVariant={selectedVariant} />
       <br />
@@ -264,7 +268,7 @@ function ProductPrice({selectedVariant}) {
             <s>
               <Money
                 data={selectedVariant.compareAtPrice}
-                className="prod-price mid text-font mt-5"
+                className="prod-price-expanded mid text-font mt-5"
               />
             </s>
           </div>
@@ -273,7 +277,7 @@ function ProductPrice({selectedVariant}) {
         selectedVariant?.price && (
           <Money
             data={selectedVariant?.price}
-            className="prod-price mid text-font mt-5"
+            className="prod-price-expanded mid text-font mt-5"
           />
         )
       )}
@@ -292,7 +296,11 @@ function ProductForm({product, selectedVariant, variants}) {
   const [quantity, setQuantity] = useState(1);
 
   function updateQuantity(n) {
-    setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
+    if (n === 1 && selectedVariant.quantityAvailable > quantity) {
+      setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
+    } else if (n === -1) {
+      setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
+    }
   }
 
   return (
@@ -302,7 +310,13 @@ function ProductForm({product, selectedVariant, variants}) {
         options={product.options}
         variants={variants}
       >
-        {({option}) => <ProductOptions key={option.name} option={option} />}
+        {({option}) => (
+          <ProductOptions
+            key={option.name}
+            option={option}
+            onClick={() => setQuantity(1)}
+          />
+        )}
       </VariantSelector>
       <br />
       <div className="flex items-center text-3xl">
@@ -314,6 +328,13 @@ function ProductForm({product, selectedVariant, variants}) {
           <FontAwesomeIcon icon={faPlus} />
         </div>
       </div>
+      {selectedVariant.quantityAvailable <= 5 && (
+        <div className="text-font text-red-500 pb-4">
+          {selectedVariant.quantityAvailable !== 0
+            ? `Solo quedan ${selectedVariant.quantityAvailable} en stock!`
+            : ''}
+        </div>
+      )}
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
@@ -341,7 +362,7 @@ function ProductForm({product, selectedVariant, variants}) {
 /**
  * @param {{option: VariantOption}}
  */
-function ProductOptions({option}) {
+function ProductOptions({option, onClick}) {
   return (
     <div className="product-options flex items-center mb-6" key={option.name}>
       <h5 className="text-font mr-4">{option.name}: </h5>
@@ -359,6 +380,7 @@ function ProductOptions({option}) {
                 opacity: isAvailable ? 1 : 0.3,
                 backgroundColor: `${value}`,
               }}
+              onClick={onClick}
             ></Link>
           ) : (
             <Link
@@ -371,6 +393,7 @@ function ProductOptions({option}) {
               style={{
                 opacity: isAvailable ? 1 : 0.3,
               }}
+              onClick={onClick}
             >
               {value}
             </Link>
@@ -473,6 +496,7 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
     }
     sku
     title
+    quantityAvailable
     unitPrice {
       amount
       currencyCode

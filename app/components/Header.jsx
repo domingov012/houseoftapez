@@ -1,5 +1,5 @@
 import {Await, Link, NavLink} from '@remix-run/react';
-import {Suspense} from 'react';
+import {Suspense, useRef, useState} from 'react';
 import {useRootLoaderData} from '~/root';
 import {Image} from '@shopify/hydrogen';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -8,13 +8,29 @@ import {
   faSearch,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import DropMenu from '../components/DropMenu.jsx';
+
 /**
  * @param {HeaderProps}
  */
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
+
+  const [showMenu, setShowMenu] = useState(false);
+  const shopMenuRef = useRef();
+
+  function handleMenuDisplay() {
+    shopMenuRef.current.classList.remove('h-0');
+    shopMenuRef.current.classList.add('h-[65vh]');
+  }
+
+  function closeMenu() {
+    shopMenuRef.current.classList.remove('h-[65vh]');
+    shopMenuRef.current.classList.add('h-0');
+  }
+
   return (
-    <header className="navbar">
+    <header className="navbar relative">
       <div className="news-display-container">
         <div className="news">NOVEDADES</div>
       </div>
@@ -31,32 +47,28 @@ export function Header({header, isLoggedIn, cart}) {
           </Link>
         </div>
         <div className="drop-down-menu">
-          <NavLink prefetch="intent" to="/shop" className="drop-down">
-            SHOP
-            <div className="menu">
-              <div className="menu-column">
-                <h3>col1</h3>
-              </div>
-              <div className="menu-column">
-                <h3>col2</h3>
-              </div>
-              <div className="menu-column">
-                <h3>col2</h3>
-              </div>
-            </div>
+          <NavLink
+            prefetch="intent"
+            to="/shop"
+            className="drop-down"
+            onMouseEnter={() => handleMenuDisplay()}
+          >
+            TIENDA
+          </NavLink>
+          <NavLink prefetch="intent" to="/tutorials" className="drop-down">
+            TUTORIALES
           </NavLink>
           <NavLink prefetch="intent" className="drop-down">
-            TAPE TUTORIALS
-          </NavLink>
-          <NavLink prefetch="intent" className="drop-down">
-            CONTACT
-          </NavLink>
-          <NavLink prefetch="intent" className="drop-down">
-            ABOUT US
+            CONTACTO
           </NavLink>
         </div>
         <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
       </div>
+      <DropMenu
+        reference={shopMenuRef}
+        onLeave={closeMenu}
+        onClick={closeMenu}
+      />
     </header>
   );
 }
