@@ -136,8 +136,13 @@ export default function App() {
       <body>
         <Layout {...data}>
           {navigation.state !== 'idle' ? (
-            <div className="absolute top-0 left-0 w-[100vw] h-[100vh] bg-black bg-opacity-75 z-20 flex justify-center items-center">
-              Loading...
+            // <div className="absolute top-0 left-0 w-[100vw] h-[100vh] bg-black bg-opacity-75 z-20 flex justify-center items-center">
+            //   Loading...
+            // </div>
+            <div class="fixed inset-0 bg-black bg-opacity-75 z-20">
+              <div class="flex justify-center items-center h-full">
+                Loading...
+              </div>
             </div>
           ) : null}
           <Outlet />
