@@ -75,7 +75,7 @@ export default function TutorialsPage() {
           />
           <div className="absolute flex h-full bg-black bg-opacity-50">
             <div className="tutorials-title title-font-2">
-              APRENDE A TAPEAR COMO UN PROFESIONAL
+              APLICA TAPE COMO UN PROFESIONAL
             </div>
           </div>
         </div>

@@ -110,7 +110,12 @@ function CartLineItem({layout, line}) {
             <strong className="title-font-1 text-xl">{product.title}</strong>
           </p>
         </Link>
-        <CartLinePrice layout={layout} line={line} as="span" />
+        <CartLinePrice
+          layout={layout}
+          line={line}
+          originalPrice={merchandise.price}
+          as="span"
+        />
         {/* <ul>
           {selectedOptions.map((option) => (
             <li key={option.name}>
@@ -286,7 +291,12 @@ function CartLineQuantity({line, maxQ, layout}) {
  *   [key: string]: any;
  * }}
  */
-function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
+function CartLinePrice({
+  line,
+  originalPrice,
+  priceType = 'regular',
+  ...passthroughProps
+}) {
   if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount) return null;
 
   const moneyV2 =
@@ -298,14 +308,44 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
     return null;
   }
 
+  function viewCollections() {
+    return line.merchandise.product.collections.nodes.some((collection) => {
+      return collection.title === 'TODO TAPES';
+    });
+  }
+  const isTape = viewCollections();
+  // originalPrice.amount = originalPrice.amount * line.quantity;
+
   return (
     <div>
-      <Money
-        withoutTrailingZeros
-        {...passthroughProps}
-        data={moneyV2}
-        className="text-font"
-      />
+      {line.quantity >= 4 && isTape ? (
+        <div className="flex flex-col">
+          <Money
+            withoutTrailingZeros
+            {...passthroughProps}
+            data={{
+              amount: (
+                parseInt(originalPrice.amount) * parseInt(line.quantity)
+              ).toString(),
+              currencyCode: originalPrice.currencyCode,
+            }}
+            className="text-font discounted-price-true"
+          />
+          <Money
+            withoutTrailingZeros
+            {...passthroughProps}
+            data={moneyV2}
+            className="text-font text-red-400"
+          />
+        </div>
+      ) : (
+        <Money
+          withoutTrailingZeros
+          {...passthroughProps}
+          data={moneyV2}
+          className="text-font"
+        />
+      )}
     </div>
   );
 }

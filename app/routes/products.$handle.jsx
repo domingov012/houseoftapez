@@ -84,13 +84,13 @@ export async function loader({params, request, context}) {
     variables: {handle},
   });
 
-  const overview = await storefront.query(OVERVIEW_QUERY, {
+  const overview = storefront.query(OVERVIEW_QUERY, {
     variables: {overview_info_id},
   });
 
-  const feature_array = await Promise.all(
+  const feature_array = Promise.all(
     feature_id_array.map(async (id) => {
-      const feature = await storefront.query(FEATURE_QUERY, {
+      const feature = storefront.query(FEATURE_QUERY, {
         variables: {id},
       });
       return feature;
@@ -126,28 +126,51 @@ function redirectToFirstVariant({product, request}) {
 export default function Product() {
   /** @type {LoaderReturnData} */
   const {product, variants, overview, feature_array} = useLoaderData();
-  const {selectedVariant} = product;
+  const {selectedVariant, collections} = product;
+
+  let isTape = false;
+  collections.nodes.forEach((collection) => {
+    if (collection.title === 'TODO TAPES') {
+      isTape = true;
+    }
+  });
+  console.log(feature_array);
 
   return (
     <>
       <div className="product">
         <ProductImageAndInfo
           image={selectedVariant?.image}
-          overview={overview}
-          features={feature_array}
           product={product.title}
         />
         <ProductMain
           selectedVariant={selectedVariant}
           product={product}
           variants={variants}
+          isTape={isTape}
         />
       </div>
       <div className="flex flex-col items-center justify-center">
-        <ProductOverview metaobject={overview.metaobject} />
-        {feature_array.length > 0 && (
-          <ProductFeatures features={feature_array} product={product.title} />
-        )}
+        <Suspense fallback={<div>Cargando Overview</div>}>
+          <Await resolve={overview}>
+            {(overview) => <ProductOverview metaobject={overview.metaobject} />}
+          </Await>
+        </Suspense>
+
+        <Suspense fallback={<div>Cargando Features...</div>}>
+          <Await resolve={feature_array}>
+            {(feature_array) => {
+              if (feature_array.length > 0) {
+                return (
+                  <ProductFeatures
+                    features={feature_array}
+                    product={product.title}
+                  />
+                );
+              }
+            }}
+          </Await>
+        </Suspense>
       </div>
     </>
   );
@@ -156,7 +179,7 @@ export default function Product() {
 /**
  * @param {{image: ProductVariantFragment['image']}}
  */
-function ProductImageAndInfo({image, overview, features, product}) {
+function ProductImageAndInfo({image, product}) {
   if (!image) {
     return <div className="product-image" />;
   }
@@ -189,11 +212,11 @@ function ProductFeatures({features, product}) {
 function ProductOverview({metaobject}) {
   return (
     <div className="overview-container">
-      <h1 className="prod-name-title big ">
+      <h1 className="prod-name-title big pr-2">
         ¿QUÉ ES <span className="highlight">{metaobject.fields[2]?.value}</span>
         {'  '}?
       </h1>
-      <div>
+      <div className="pl-2">
         <div className="smid text-font">{metaobject.fields[0]?.value}</div>
         <br />
         <div className="smid text-font">{metaobject.fields[1]?.value}</div>
@@ -209,8 +232,11 @@ function ProductOverview({metaobject}) {
  *   variants: Promise<ProductVariantsQuery>;
  * }}
  */
-function ProductMain({selectedVariant, product, variants}) {
+function ProductMain({selectedVariant, product, variants, isTape}) {
   const {title, descriptionHtml} = product;
+
+  const [discount, setDiscount] = useState(false);
+
   return (
     <div className="product-main">
       <h1 className="prod-name-title big">{title}</h1>
@@ -219,7 +245,7 @@ function ProductMain({selectedVariant, product, variants}) {
         dangerouslySetInnerHTML={{__html: descriptionHtml}}
         className="text-xl prod-description text-font"
       />
-      <ProductPrice selectedVariant={selectedVariant} />
+      <ProductPrice selectedVariant={selectedVariant} isDiscounted={discount} />
       <br />
       <Suspense
         fallback={
@@ -239,6 +265,8 @@ function ProductMain({selectedVariant, product, variants}) {
               product={product}
               selectedVariant={selectedVariant}
               variants={data.product?.variants.nodes || []}
+              setDiscount={setDiscount}
+              isTape={isTape}
             />
           )}
         </Await>
@@ -256,7 +284,7 @@ function ProductMain({selectedVariant, product, variants}) {
  *   selectedVariant: ProductFragment['selectedVariant'];
  * }}
  */
-function ProductPrice({selectedVariant}) {
+function ProductPrice({selectedVariant, isDiscounted}) {
   return (
     <div className="product-price">
       {selectedVariant?.compareAtPrice ? (
@@ -275,11 +303,29 @@ function ProductPrice({selectedVariant}) {
         </>
       ) : (
         selectedVariant?.price && (
+          <div className="flex items-center">
+            <Money
+              data={selectedVariant?.price}
+              className={`prod-price-expanded mid text-font mt-5 discounted-price-${isDiscounted}`}
+            />
+            <div className="mid text-font mt-5 ml-2">c/u</div>
+          </div>
+        )
+      )}
+      {isDiscounted && (
+        <div className="flex items-center">
           <Money
-            data={selectedVariant?.price}
+            data={{
+              amount: (
+                parseInt(selectedVariant?.price.amount) * 0.8
+              ).toString(),
+              currencyCode: selectedVariant?.price.currencyCode,
+            }}
             className="prod-price-expanded mid text-font mt-5"
           />
-        )
+          <div className="mid text-font mt-5 ml-2">c/u</div>
+          <div className="mid text-font mt-5 ml-3 text-red-500">-20% off</div>
+        </div>
       )}
     </div>
   );
@@ -292,15 +338,33 @@ function ProductPrice({selectedVariant}) {
  *   variants: Array<ProductVariantFragment>;
  * }}
  */
-function ProductForm({product, selectedVariant, variants}) {
+function ProductForm({
+  product,
+  selectedVariant,
+  variants,
+  setDiscount,
+  isTape,
+}) {
   const [quantity, setQuantity] = useState(1);
 
   function updateQuantity(n) {
     if (n === 1 && selectedVariant.quantityAvailable > quantity) {
       setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
+
+      if (quantity + 1 >= 4 && isTape) {
+        setDiscount(true);
+      }
     } else if (n === -1) {
       setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
+      if (quantity - 1 < 4 && isTape) {
+        setDiscount(false);
+      }
     }
+  }
+
+  function selectVariant() {
+    setQuantity(1);
+    setDiscount(false);
   }
 
   return (
@@ -314,7 +378,7 @@ function ProductForm({product, selectedVariant, variants}) {
           <ProductOptions
             key={option.name}
             option={option}
-            onClick={() => setQuantity(1)}
+            onClick={selectVariant}
           />
         )}
       </VariantSelector>
@@ -512,6 +576,11 @@ const PRODUCT_FRAGMENT = `#graphql
     handle
     descriptionHtml
     description
+    collections(first: 5) {
+      nodes {
+        title
+      }
+    }
     options {
       name
       values

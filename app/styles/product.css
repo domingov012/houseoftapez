@@ -85,6 +85,10 @@
   transition: color 0.5s ease;
 }
 
+.discounted-price-true {
+  text-decoration: line-through;
+}
+
 .preview-container:hover .prod-name {
   color: var(--primary-color);
 }

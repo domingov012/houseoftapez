@@ -47,6 +47,11 @@ export const CART_QUERY_FRAGMENT = `#graphql
           handle
           title
           id
+          collections(first: 5) {
+            nodes {
+              title
+            }
+          }
         }
         selectedOptions {
           name

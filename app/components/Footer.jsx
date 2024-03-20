@@ -5,13 +5,7 @@ import {useRootLoaderData} from '~/root';
  * @param {FooterQuery & {shop: HeaderQuery['shop']}}
  */
 export function Footer({menu, shop}) {
-  return (
-    <footer className="footer">
-      {menu && shop?.primaryDomain?.url && (
-        <FooterMenu menu={menu} primaryDomainUrl={shop.primaryDomain.url} />
-      )}
-    </footer>
-  );
+  return <footer className="footer"></footer>;
 }
 
 /**
