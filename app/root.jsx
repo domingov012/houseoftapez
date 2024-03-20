@@ -21,6 +21,7 @@ import productStyles from './styles/product.css';
 import shopStyles from './styles/shop.css';
 import tailwindStyle from './tailwind.css';
 import {Layout} from '~/components/Layout';
+import Loading from './components/ui/LoadingScreen.jsx';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -135,16 +136,7 @@ export default function App() {
       </head>
       <body>
         <Layout {...data}>
-          {navigation.state !== 'idle' ? (
-            // <div className="absolute top-0 left-0 w-[100vw] h-[100vh] bg-black bg-opacity-75 z-20 flex justify-center items-center">
-            //   Loading...
-            // </div>
-            <div class="fixed inset-0 bg-black bg-opacity-75 z-20">
-              <div class="flex justify-center items-center h-full">
-                Loading...
-              </div>
-            </div>
-          ) : null}
+          {navigation.state !== 'idle' ? <Loading /> : null}
           <Outlet />
         </Layout>
         <ScrollRestoration nonce={nonce} />

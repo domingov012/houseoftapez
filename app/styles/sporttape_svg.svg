@@ -1,0 +1,25 @@
+<svg width="147" height="110" viewBox="0 0 147 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+<ellipse cx="73.5" cy="91" rx="73.5" ry="19" fill="white"/>
+<ellipse cx="73" cy="90" rx="70" ry="17" fill="black"/>
+<rect y="19" width="147" height="72" fill="white"/>
+<rect x="3" y="19" width="140" height="72" fill="black"/>
+<rect x="3" y="19" width="140" height="72" stroke="black"/>
+<ellipse cx="73.5" cy="19" rx="73.5" ry="19" fill="white"/>
+<ellipse cx="73" cy="19.5" rx="28" ry="6.5" fill="black"/>
+<path d="M106 35L114 40" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 44L114 40" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 44L114 49" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 53L114 49" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 53L114 58" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 62L114 58" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 62L114 67" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 71L114 67" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 71L114 76" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 80L114 76" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 80L114 85" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 89L114 85" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 89L114 94" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 98L114 94" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 98L114 103" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M106 107L114 103" stroke="white" stroke-width="2" stroke-linecap="round"/>
+</svg>
