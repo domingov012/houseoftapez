@@ -19,6 +19,10 @@
 }
 
 .news {
+  overflow: hidden;
+  position: relative;
+  height: 20px;
+  width: 100vw;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
   color: var(--third-color);
@@ -26,6 +30,15 @@
     overflow-x: hidden;
     font-size: 12px;
   }
+}
+
+.scrolling-text {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  transform: translateX(100%);
+  animation: cssmarquee 20s linear infinite;
 }
 
 .main-nav {
@@ -383,5 +396,14 @@
 
   .drop-down {
     margin-left: 5px;
+  }
+}
+
+@keyframes cssmarquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
   }
 }

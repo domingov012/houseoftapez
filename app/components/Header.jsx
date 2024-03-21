@@ -34,8 +34,8 @@ export function Header({header, isLoggedIn, cart}) {
   return (
     <header className="navbar relative">
       <div className="news-display-container">
-        <marquee className="news whitespace-nowrap">
-          <div className="flex">
+        <div className="news whitespace-nowrap">
+          <div className="scrolling-text flex">
             <div className="ml-auto mr-auto text-black whitespace-nowrap">
               <FontAwesomeIcon icon={faTags} className="mr-2" />
               20% off al llevar 4 tapes del mismo tipo
@@ -46,7 +46,7 @@ export function Header({header, isLoggedIn, cart}) {
               Envío gratis en compras sobre CLP 50.000
             </div>
           </div>
-        </marquee>
+        </div>
       </div>
       <div className="main-nav">
         <HeaderMenuMobileToggle />
