@@ -7,6 +7,8 @@ import {
   faCartShopping,
   faSearch,
   faUser,
+  faTags,
+  faTruckFast,
 } from '@fortawesome/free-solid-svg-icons';
 import DropMenu from '../components/DropMenu.jsx';
 
@@ -32,7 +34,19 @@ export function Header({header, isLoggedIn, cart}) {
   return (
     <header className="navbar relative">
       <div className="news-display-container">
-        <div className="news">NOVEDADES</div>
+        <marquee className="news whitespace-nowrap">
+          <div className="flex">
+            <div className="ml-auto mr-auto text-black whitespace-nowrap">
+              <FontAwesomeIcon icon={faTags} className="mr-2" />
+              20% off al llevar 4 tapes del mismo tipo
+            </div>
+            <div className="ml-auto mr-auto text-black"> | </div>
+            <div className="ml-auto mr-auto text-black whitespace-nowrap">
+              <FontAwesomeIcon icon={faTruckFast} className="mr-2" />
+              Envío gratis en compras sobre CLP 50.000
+            </div>
+          </div>
+        </marquee>
       </div>
       <div className="main-nav">
         <HeaderMenuMobileToggle />

@@ -1,6 +1,26 @@
 import {NavLink} from '@remix-run/react';
+import {useRef, useState} from 'react';
 
 export default function DropMenu({reference, onLeave, onClick}) {
+  const [showZinc, setShowZinc] = useState(false);
+  const [showEAB, setShowEAB] = useState(false);
+
+  function showZincOptions(e) {
+    if (e) {
+      setShowZinc(true);
+    } else {
+      setShowZinc(false);
+    }
+  }
+
+  function showEABOptions(e) {
+    if (e) {
+      setShowEAB(true);
+    } else {
+      setShowEAB(false);
+    }
+  }
+
   return (
     <div
       ref={reference}
@@ -20,20 +40,80 @@ export default function DropMenu({reference, onLeave, onClick}) {
               >
                 K-TAPE
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 prefetch="intent"
                 to="/products/zinc-oxide"
                 className="nav-menu-item text-font"
               >
                 ZINC OXIDE
-              </NavLink>
-              <NavLink
+              </NavLink> */}
+              <div className="overflow-hidden">
+                {showZinc ? (
+                  <div
+                    onMouseLeave={() => showZincOptions(false)}
+                    className="flex"
+                  >
+                    <NavLink
+                      prefetch="intent"
+                      to="/products/zinc-oxide"
+                      className="nav-menu-item-option text-font mr-auto"
+                    >
+                      WHITE
+                    </NavLink>
+                    <NavLink
+                      prefetch="intent"
+                      to="/products/zinc-oxide-tan"
+                      className="nav-menu-item-option text-font mr-auto text-orange-400"
+                    >
+                      TAN
+                    </NavLink>
+                  </div>
+                ) : (
+                  <div
+                    onMouseEnter={() => showZincOptions(true)}
+                    className="nav-menu-item text-font"
+                  >
+                    ZINC OXIDE
+                  </div>
+                )}
+              </div>
+              {/* <NavLink
                 prefetch="intent"
                 to="/products/eab-tear"
                 className="nav-menu-item text-font"
               >
                 EAB TAPES
-              </NavLink>
+              </NavLink> */}
+              <div className="overflow-hidden">
+                {showEAB ? (
+                  <div
+                    onMouseLeave={() => showEABOptions(false)}
+                    className="flex"
+                  >
+                    <NavLink
+                      prefetch="intent"
+                      to="/products/eab-tear"
+                      className="nav-menu-item text-font mr-auto"
+                    >
+                      TEAR
+                    </NavLink>
+                    <NavLink
+                      prefetch="intent"
+                      to="/products/non-tear-eab"
+                      className="nav-menu-item text-font mr-auto"
+                    >
+                      NON-TEAR
+                    </NavLink>
+                  </div>
+                ) : (
+                  <div
+                    onMouseEnter={() => showEABOptions(true)}
+                    className="nav-menu-item text-font"
+                  >
+                    EAB TAPES
+                  </div>
+                )}
+              </div>
               <NavLink
                 prefetch="intent"
                 to="/products/coban"
