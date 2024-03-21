@@ -92,8 +92,10 @@ function SearchAside() {
 function MobileMenuAside({menu, shop}) {
   const storeRef = useRef();
   const tapeRef = useRef();
+  const categoryRef = useRef();
 
   function revealMenu(e, ref) {
+    console.log(ref);
     if (e) {
       ref.current.classList.remove('h-12');
       ref.current.classList.add('h-fit');
@@ -115,12 +117,12 @@ function MobileMenuAside({menu, shop}) {
         <div className="flex flex-col h-3/4 ml-6">
           <div
             ref={storeRef}
-            className="h-12 overflow-hidden transition-all"
+            className="h-12 overflow-hidden"
             onMouseEnter={() => revealMenu(true, storeRef)}
             onMouseLeave={() => revealMenu(false, storeRef)}
           >
             <div className="drop-down">TIENDA</div>
-            <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201]">
+            <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201]  bg-black bg-opacity-35 w-full">
               <div
                 ref={tapeRef}
                 className="h-12 overflow-hidden"
@@ -128,7 +130,14 @@ function MobileMenuAside({menu, shop}) {
                 onMouseLeave={() => revealMenu(false, tapeRef)}
               >
                 <div className="drop-down">TAPES</div>
-                <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto">
+                <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto bg-black bg-opacity-45">
+                  <NavLink
+                    prefetch="intent"
+                    to="/shop"
+                    className="nav-menu-item text-font text-[#e5d201]"
+                  >
+                    VER TODOS
+                  </NavLink>
                   <NavLink
                     prefetch="intent"
                     to="/products/k-tape"
@@ -180,8 +189,21 @@ function MobileMenuAside({menu, shop}) {
                   </NavLink>
                 </div>
               </div>
+              <div
+                ref={categoryRef}
+                className="h-12 overflow-hidden"
+                onMouseEnter={() => revealMenu(true, categoryRef)}
+                onMouseLeave={() => revealMenu(false, categoryRef)}
+              >
+                <div className="drop-down">CATEGORIAS</div>
+                <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto">
+                  <div>hol</div>
+                  <div>hol</div>
+                  <div>hol</div>
+                  <div>hol</div>
+                </div>
+              </div>
               <div className="drop-down">PACKS</div>
-              <div className="drop-down">CATEGORIAS</div>
             </div>
           </div>
           {/* <NavLink
