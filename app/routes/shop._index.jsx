@@ -26,9 +26,6 @@ export default function Shop(props) {
           props.filterKey ? props.filterKey : 'TODOS LOS PRODUCTOS'
         }`}</div>
       </div>
-      {/* <div className="grid-container visible-section"> */}
-      {/* <div className="filters-container">filters</div> */}
-      {/* <div className="products-grid "> */}
       <Pagination connection={products}>
         {({nodes, PreviousLink, NextLink}) => (
           <>
@@ -85,6 +82,7 @@ query AllProducts(
             currencyCode
         }
       }
+      tags
     }
     pageInfo {
       hasPreviousPage

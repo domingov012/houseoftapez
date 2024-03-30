@@ -19,6 +19,7 @@ import navbarStyles from './styles/navbar.css';
 import homeStyles from './styles/home.css';
 import productStyles from './styles/product.css';
 import shopStyles from './styles/shop.css';
+import contactStyles from './styles/contact.css';
 import tailwindStyle from './tailwind.css';
 import {Layout} from '~/components/Layout';
 import Loading from './components/ui/LoadingScreen.jsx';
@@ -44,6 +45,7 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 export function links() {
   return [
     {rel: 'stylesheet', href: tailwindStyle},
+    {rel: 'stylesheet', href: contactStyles},
     {rel: 'stylesheet', href: navbarStyles},
     {rel: 'stylesheet', href: homeStyles},
     {rel: 'stylesheet', href: productStyles},

@@ -32,9 +32,11 @@ export function CartMain({layout, cart}) {
  */
 function CartDetails({layout, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
+  console.log('CART: ', cart);
 
   return (
     <div className={`cart-details-${layout}`}>
+      {/* <CartLines lines={null} layout={layout} /> */}
       <CartLines lines={cart?.lines} layout={layout} />
       {cartHasItems && (
         <CartSummary cost={cart.cost} layout={layout}>
@@ -53,6 +55,7 @@ function CartDetails({layout, cart}) {
  * }}
  */
 function CartLines({lines, layout}) {
+  console.log('LINES: ', lines);
   if (!lines) return null;
 
   return (
@@ -73,9 +76,11 @@ function CartLines({lines, layout}) {
  * }}
  */
 function CartLineItem({layout, line}) {
+  console.log('MERCH: ', line);
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions, quantityAvailable} =
     merchandise;
+
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const height = layout === 'page' ? 'h-[20vh]' : '';
 

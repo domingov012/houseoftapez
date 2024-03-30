@@ -103,6 +103,13 @@
   border: 2px solid var(--secondary-color);
 }
 
+.compare-grid-item {
+  text-align: center;
+  font-size: x-large;
+  padding: 10px;
+  border: 1px solid var(--secondary-color);
+}
+
 .add-button {
   display: flex;
   align-items: center;
@@ -152,6 +159,21 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
+}
+
+.tag {
+  position: absolute;
+  left: 65%;
+  top: 5%;
+  color: black;
+  z-index: 20;
+  background-color: #e5d201;
+  width: 45%;
+  text-align: center;
+  @media (max-width: 912px) {
+    width: 80%;
+    left: 45%;
+  }
 }
 
 @media (max-width: 912px) {

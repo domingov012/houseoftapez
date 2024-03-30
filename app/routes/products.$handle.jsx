@@ -14,6 +14,8 @@ import {
 
 import {getVariantUrl} from '~/lib/variants';
 import Feature from '../components/Features.jsx';
+import ProductPreview from '~/components/ProductPreview.jsx';
+import Ahorros from '../components/Ahorros.jsx';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -54,10 +56,24 @@ export async function loader({params, request, context}) {
     throw new Response(null, {status: 404});
   }
 
-  const overview_info_id = product.metafields[1].value;
-  const feature_id_array = product.metafields[0]
-    ? JSON.parse(product.metafields[0].value)
-    : [];
+  let ahorro_array;
+  let pack_products;
+  let overview_info_id;
+  let feature_id_array;
+  if (product?.tags.includes('pack')) {
+    // es pack. Pedir productos query.
+    pack_products = product.metafields[2]
+      ? JSON.parse(product.metafields[2].value)
+      : [];
+
+    ahorro_array = JSON.parse(product.metafields[3].value).info;
+  } else {
+    overview_info_id = product.metafields[1].value;
+    feature_id_array = product.metafields[0]
+      ? JSON.parse(product.metafields[0].value)
+      : [];
+  }
+
   const firstVariant = product.variants.nodes[0];
   const firstVariantIsDefault = Boolean(
     firstVariant.selectedOptions.find(
@@ -84,20 +100,47 @@ export async function loader({params, request, context}) {
     variables: {handle},
   });
 
-  const overview = storefront.query(OVERVIEW_QUERY, {
-    variables: {overview_info_id},
+  // overview si no es pack
+  const overview = overview_info_id
+    ? storefront.query(OVERVIEW_QUERY, {
+        variables: {overview_info_id},
+      })
+    : null;
+
+  // features si no es pack
+  const feature_array = feature_id_array
+    ? Promise.all(
+        feature_id_array.map(async (id) => {
+          const feature = storefront.query(FEATURE_QUERY, {
+            variables: {id},
+          });
+          return feature;
+        }),
+      )
+    : [];
+
+  // components si es pack
+  const pack_products_array = pack_products
+    ? Promise.all(
+        pack_products.map(async (id) => {
+          console.log('ID : ', id);
+          const pack_product = storefront.query(PACK_PRODUCTS_QUERY, {
+            variables: {id},
+          });
+          return pack_product;
+        }),
+      )
+    : [];
+
+  console.log('PACK PRODUCTS: ', pack_products_array);
+  return defer({
+    product,
+    variants,
+    overview,
+    feature_array,
+    pack_products_array,
+    ahorro_array,
   });
-
-  const feature_array = Promise.all(
-    feature_id_array.map(async (id) => {
-      const feature = storefront.query(FEATURE_QUERY, {
-        variables: {id},
-      });
-      return feature;
-    }),
-  );
-
-  return defer({product, variants, overview, feature_array});
 }
 
 /**
@@ -125,7 +168,14 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants, overview, feature_array} = useLoaderData();
+  const {
+    product,
+    variants,
+    overview,
+    feature_array,
+    pack_products_array,
+    ahorro_array,
+  } = useLoaderData();
   const {selectedVariant, collections} = product;
 
   let isTape = false;
@@ -153,7 +203,13 @@ export default function Product() {
       <div className="flex flex-col items-center justify-center">
         <Suspense fallback={<div>Cargando Overview</div>}>
           <Await resolve={overview}>
-            {(overview) => <ProductOverview metaobject={overview.metaobject} />}
+            {(overview) =>
+              overview ? (
+                <ProductOverview metaobject={overview.metaobject} />
+              ) : (
+                <></>
+              )
+            }
           </Await>
         </Suspense>
 
@@ -166,6 +222,40 @@ export default function Product() {
                     features={feature_array}
                     product={product.title}
                   />
+                );
+              }
+            }}
+          </Await>
+        </Suspense>
+
+        <Suspense fallback={<div>Cargando Productos</div>}>
+          <Await resolve={pack_products_array}>
+            {(pack_products_array) => {
+              if (pack_products_array.length > 0) {
+                const components = pack_products_array.map((product) => {
+                  return <ProductPreview productData={product.product} />;
+                });
+                return (
+                  <div className="flex flex-col mt-20 items-center justify-center">
+                    <h1 className="title-font-2 text-7xl">
+                      PACK{' '}
+                      <span className="text-[#e5d201]">{product.title}</span>{' '}
+                      INCLUYE
+                    </h1>
+                    <div className="flex w-[99vw] mt-10 p-10 gap-5 bg-[#e5d201] items-center justify-center">
+                      {components}
+                    </div>
+                    <Suspense fallback={<div>CARGANDO AHORROS</div>}>
+                      <Await resolve={ahorro_array}>
+                        {(ahorro_array) => (
+                          <Ahorros
+                            ahorro_array={ahorro_array}
+                            price={selectedVariant.price}
+                          />
+                        )}
+                      </Await>
+                    </Suspense>
+                  </div>
                 );
               }
             }}
@@ -530,6 +620,36 @@ const OVERVIEW_QUERY = `#graphql
   }
   `;
 
+const PACK_PRODUCTS_QUERY = `#graphql
+  query FindPackProduct(
+    $country: CountryCode
+    $id: ID!
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    product(id: $id) {
+      handle
+      images(first: 10) {
+        nodes {
+          height
+          id
+          url
+          width
+        }
+      }
+      title
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+        maxVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+    }
+  }`;
+
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
@@ -597,9 +717,10 @@ const PRODUCT_FRAGMENT = `#graphql
       description
       title
     }
-    metafields(identifiers:  [{key: "features", namespace: "custom"}, {key: "product_overview", namespace: "custom"}] ) {
+    metafields(identifiers:  [{key: "features", namespace: "custom"}, {key: "product_overview", namespace: "custom"}, {key: "pack_products", namespace: "custom"}, {key: "ahorros", namespace: "custom"}] ) {
       value
     }
+    tags
   }
   ${PRODUCT_VARIANT_FRAGMENT}
 `;

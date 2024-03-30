@@ -4,20 +4,15 @@ import {useRef, useState} from 'react';
 export default function DropMenu({reference, onLeave, onClick}) {
   const [showZinc, setShowZinc] = useState(false);
   const [showEAB, setShowEAB] = useState(false);
+  const [showHouse, setShowHouse] = useState(false);
+  const [showCandado, setShowCandado] = useState(false);
+  const [showKine, setShowKine] = useState(false);
 
-  function showZincOptions(e) {
+  function showOptions(e, setFunc) {
     if (e) {
-      setShowZinc(true);
+      setFunc(true);
     } else {
-      setShowZinc(false);
-    }
-  }
-
-  function showEABOptions(e) {
-    if (e) {
-      setShowEAB(true);
-    } else {
-      setShowEAB(false);
+      setFunc(false);
     }
   }
 
@@ -50,7 +45,7 @@ export default function DropMenu({reference, onLeave, onClick}) {
               <div className="overflow-hidden">
                 {showZinc ? (
                   <div
-                    onMouseLeave={() => showZincOptions(false)}
+                    onMouseLeave={() => showOptions(false, setShowZinc)}
                     className="flex"
                   >
                     <NavLink
@@ -70,7 +65,7 @@ export default function DropMenu({reference, onLeave, onClick}) {
                   </div>
                 ) : (
                   <div
-                    onMouseEnter={() => showZincOptions(true)}
+                    onMouseEnter={() => showOptions(true, setShowZinc)}
                     className="nav-menu-item text-font"
                   >
                     ZINC OXIDE
@@ -87,7 +82,7 @@ export default function DropMenu({reference, onLeave, onClick}) {
               <div className="overflow-hidden">
                 {showEAB ? (
                   <div
-                    onMouseLeave={() => showEABOptions(false)}
+                    onMouseLeave={() => showOptions(false, setShowEAB)}
                     className="flex"
                   >
                     <NavLink
@@ -107,7 +102,7 @@ export default function DropMenu({reference, onLeave, onClick}) {
                   </div>
                 ) : (
                   <div
-                    onMouseEnter={() => showEABOptions(true)}
+                    onMouseEnter={() => showOptions(true, setShowEAB)}
                     className="nav-menu-item text-font"
                   >
                     EAB TAPES
@@ -143,9 +138,97 @@ export default function DropMenu({reference, onLeave, onClick}) {
             <h2 className="title-font-1 text-2xl">PACKS</h2>
             <div className="grid grid-cols-2 gap-1 mt-5">
               <div className="nav-menu-item text-font">SALTADOR</div>
-              <div className="nav-menu-item text-font">HOUSE</div>
-              <div className="nav-menu-item text-font">KINE PREMIUM</div>
-              <div className="nav-menu-item text-font">KINE BÁSICO</div>
+              <div className="overflow-hidden">
+                {showHouse ? (
+                  <div
+                    onMouseLeave={() => showOptions(false, setShowHouse)}
+                    className="flex"
+                  >
+                    <NavLink
+                      prefetch="intent"
+                      to="/products/eab-tear"
+                      className="nav-menu-item text-font mr-auto"
+                    >
+                      L
+                    </NavLink>
+                    <NavLink
+                      prefetch="intent"
+                      to="/products/non-tear-eab"
+                      className="nav-menu-item text-font mr-auto font-black"
+                    >
+                      XL
+                    </NavLink>
+                  </div>
+                ) : (
+                  <div
+                    onMouseEnter={() => showOptions(true, setShowHouse)}
+                    className="nav-menu-item text-font"
+                  >
+                    HOUSE
+                  </div>
+                )}
+              </div>
+              <div className="overflow-hidden">
+                {showKine ? (
+                  <div
+                    onMouseLeave={() => showOptions(false, setShowKine)}
+                    className="flex"
+                  >
+                    <NavLink
+                      prefetch="intent"
+                      to="/products/eab-tear"
+                      className="nav-menu-item text-font mr-auto"
+                    >
+                      L
+                    </NavLink>
+                    <NavLink
+                      prefetch="intent"
+                      to="/products/non-tear-eab"
+                      className="nav-menu-item text-font mr-auto font-black"
+                    >
+                      XL
+                    </NavLink>
+                  </div>
+                ) : (
+                  <div
+                    onMouseEnter={() => showOptions(true, setShowKine)}
+                    className="nav-menu-item text-font"
+                  >
+                    KINE PREMIUM
+                  </div>
+                )}
+              </div>
+              {/* <div className="nav-menu-item text-font">KINE BÁSICO</div> */}
+              <div className="overflow-hidden">
+                {showCandado ? (
+                  <div
+                    onMouseLeave={() => showOptions(false, setShowCandado)}
+                    className="flex"
+                  >
+                    <NavLink
+                      prefetch="intent"
+                      to="/products/eab-tear"
+                      className="nav-menu-item text-font mr-auto"
+                    >
+                      L
+                    </NavLink>
+                    <NavLink
+                      prefetch="intent"
+                      to="/products/non-tear-eab"
+                      className="nav-menu-item text-font mr-auto font-black"
+                    >
+                      XL
+                    </NavLink>
+                  </div>
+                ) : (
+                  <div
+                    onMouseEnter={() => showOptions(true, setShowCandado)}
+                    className="nav-menu-item text-font"
+                  >
+                    CANDADO
+                  </div>
+                )}
+              </div>
               <div className="nav-menu-item text-font"></div>
               <div className="nav-menu-item text-font"></div>
               <div className="nav-menu-item text-font"></div>

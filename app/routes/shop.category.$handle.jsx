@@ -40,15 +40,25 @@ export default function Category(props) {
 
   return (
     <div ref={ref} className="flex flex-col">
-      <div className="relative w-[95%] mr-auto ml-auto mt-2">
-        <Image data={imageData} aspectRatio="16/10" className="w-full" />
-        <div className="flex flex-col absolute top-0 left-[50%] w-1/2 h-full bg-black bg-opacity-50 text-right pr-10">
+      <div className="relative w-[95%] mr-auto ml-auto mt-2 overflow-hidden">
+        <Image
+          data={imageData}
+          aspectRatio="16/10"
+          className="category-image"
+        />
+        <div className="category-description">
           <div className="title-font-1 text-5xl mb-auto mt-[10%] p-3">{`${
             category ? category : 'TODOS LOS PRODUCTOS'
           }`}</div>
           <div
             dangerouslySetInnerHTML={{__html: description}}
-            className="text-font text-xl mb-auto p-3 rounded-md"
+            className="text-font text-xl mb-auto p-3 rounded-md title-category"
+          />
+        </div>
+        <div className="category-description-mobile">
+          <div
+            dangerouslySetInnerHTML={{__html: description}}
+            className="text-font text-xl mb-auto p-3 rounded-md z-[9]"
           />
         </div>
       </div>
@@ -99,6 +109,7 @@ query CategoryProducts(
         id
         title
         handle
+        tags
         images(first: 1) {
           nodes {
             url

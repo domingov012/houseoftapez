@@ -40,6 +40,7 @@ export default function Homepage() {
   const refTutorial = useRef();
   const refPacks = useRef();
   const refRecommend = useRef();
+  const contactRef = useRef();
 
   // SCROLL ANIMATIONS //
   useEffect(() => {
@@ -55,10 +56,11 @@ export default function Homepage() {
     observer.observe(refTutorial.current);
     observer.observe(refPacks.current);
     observer.observe(refRecommend.current);
+    observer.observe(contactRef.current);
   }, []);
   return (
     <div>
-      <SportTapeSection reference={refSTS} />
+      <SportTapeSection reference1={refSTS} reference2={contactRef} />
       <Popular reference={refPopular} products={data.popularProducts} />
       <TutorialsSection reference={refTutorial} />
       <PacksBanner reference={refPacks} />
@@ -169,6 +171,7 @@ const POPULAR_PRODUCTS_QUERY = `#graphql
             id
             title
             handle
+            tags
             priceRange {
               maxVariantPrice {
                 amount
@@ -202,6 +205,10 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
         amount
         currencyCode
       }
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
     }
     images(first: 1) {
       nodes {
@@ -212,6 +219,7 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
         height
       }
     }
+    tags
   }
   query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {

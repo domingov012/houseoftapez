@@ -1,3 +1,4 @@
+import {NavLink} from '@remix-run/react';
 import {useRef, useEffect} from 'react';
 
 export default function TutorialsSection(props) {
@@ -58,7 +59,9 @@ export default function TutorialsSection(props) {
             aprender a asegurar lo que necesites antes de un entrenamiento o
             partido!
           </p>
-          <div className="tutorial-button middle">Browse Tutorials</div>
+          <NavLink to="/tutorials" className="tutorial-button middle">
+            Ver Tutoriales
+          </NavLink>
         </div>
       </div>
     </section>

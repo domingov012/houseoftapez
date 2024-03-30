@@ -105,6 +105,11 @@ function MobileMenuAside({menu, shop}) {
     }
   }
 
+  function closeAside(event) {
+    event.preventDefault();
+    window.location.href = event.currentTarget.href;
+  }
+
   return (
     menu &&
     shop?.primaryDomain?.url && (
@@ -132,6 +137,7 @@ function MobileMenuAside({menu, shop}) {
                 <div className="drop-down">TAPES</div>
                 <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto bg-black bg-opacity-45">
                   <NavLink
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/shop"
                     className="nav-menu-item text-font text-[#e5d201]"
@@ -139,6 +145,7 @@ function MobileMenuAside({menu, shop}) {
                     VER TODOS
                   </NavLink>
                   <NavLink
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/k-tape"
                     className="nav-menu-item text-font"
@@ -146,6 +153,7 @@ function MobileMenuAside({menu, shop}) {
                     K-TAPE
                   </NavLink>
                   <NavLink
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/zinc-oxide"
                     className="nav-menu-item-option text-font mr-auto"
@@ -153,6 +161,7 @@ function MobileMenuAside({menu, shop}) {
                     ZINC OXIDE WHITE
                   </NavLink>
                   <NavLink
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/zinc-oxide-tan"
                     className="nav-menu-item-option text-font mr-auto"
@@ -160,6 +169,7 @@ function MobileMenuAside({menu, shop}) {
                     ZINC OXIDE TAN
                   </NavLink>
                   <NavLink
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/eab-tear"
                     className="nav-menu-item text-font mr-auto"
@@ -167,6 +177,7 @@ function MobileMenuAside({menu, shop}) {
                     TEAR EAB
                   </NavLink>
                   <NavLink
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/non-tear-eab"
                     className="nav-menu-item text-font mr-auto"
@@ -174,6 +185,7 @@ function MobileMenuAside({menu, shop}) {
                     NON-TEAR EAB
                   </NavLink>
                   <NavLink
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/coban"
                     className="nav-menu-item text-font"
@@ -181,6 +193,7 @@ function MobileMenuAside({menu, shop}) {
                     COHESIVE BANDAGE
                   </NavLink>
                   <NavLink
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/fixation-tape"
                     className="nav-menu-item text-font"
@@ -195,15 +208,38 @@ function MobileMenuAside({menu, shop}) {
                 onMouseEnter={() => revealMenu(true, categoryRef)}
                 onMouseLeave={() => revealMenu(false, categoryRef)}
               >
-                <div className="drop-down">CATEGORIAS</div>
+                <div className="drop-down">CATEGORÍAS</div>
                 <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto">
-                  <div>hol</div>
-                  <div>hol</div>
-                  <div>hol</div>
-                  <div>hol</div>
+                  <NavLink
+                    prefetch="intent"
+                    className="nav-menu-item text-font"
+                    to="/shop/category/tape-elasticos"
+                  >
+                    Elásticos
+                  </NavLink>
+                  <NavLink
+                    prefetch="intent"
+                    className="nav-menu-item text-font"
+                    to="/shop/category/tape-rigidos"
+                  >
+                    No elásticos
+                  </NavLink>
+                  <NavLink
+                    prefetch="intent"
+                    className="nav-menu-item text-font"
+                    to="/shop/category/Accesorios"
+                  >
+                    Accesorios
+                  </NavLink>
+                  <NavLink
+                    prefetch="intent"
+                    className="nav-menu-item text-font text-[#e5d201]"
+                    to="/shop/category/packs"
+                  >
+                    Packs
+                  </NavLink>
                 </div>
               </div>
-              <div className="drop-down">PACKS</div>
             </div>
           </div>
           {/* <NavLink
@@ -214,10 +250,20 @@ function MobileMenuAside({menu, shop}) {
           >
             TIENDA
           </NavLink> */}
-          <NavLink prefetch="intent" to="/tutorials" className="drop-down">
+          <NavLink
+            onClick={closeAside}
+            prefetch="intent"
+            to="/tutorials"
+            className="drop-down"
+          >
             TUTORIALES
           </NavLink>
-          <NavLink prefetch="intent" className="drop-down">
+          <NavLink
+            onClick={closeAside}
+            prefetch="intent"
+            className="drop-down"
+            to="/contacto"
+          >
             CONTACTO
           </NavLink>
         </div>

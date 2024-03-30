@@ -72,7 +72,7 @@ export function Header({header, isLoggedIn, cart}) {
           <NavLink prefetch="intent" to="/tutorials" className="drop-down">
             TUTORIALES
           </NavLink>
-          <NavLink prefetch="intent" className="drop-down">
+          <NavLink prefetch="intent" to="/contacto" className="drop-down">
             CONTACTO
           </NavLink>
         </div>
