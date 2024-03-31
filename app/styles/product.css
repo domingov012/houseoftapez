@@ -104,8 +104,8 @@
 }
 
 .compare-grid-item {
+  font-size: clamp(12px, 5vw, 20px);
   text-align: center;
-  font-size: x-large;
   padding: 10px;
   border: 1px solid var(--secondary-color);
 }
@@ -159,6 +159,37 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
+}
+
+.pack-info-title {
+  font-size: clamp(50px, 10vw, 72px);
+  line-height: 1;
+  @media (max-width: 912px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.pack-subproduct-width {
+  width: 33.3%;
+  @media (max-width: 912px) {
+    width: 66.6%;
+  }
+}
+
+.pack-subproducts-wrapper {
+  display: flex;
+  width: 99vw;
+  margin-top: 40px;
+  padding: 40px;
+  gap: 20px;
+  background-color: #e5d201;
+  /* align-items: center; */
+  justify-content: center;
+  overflow-x: auto;
+  @media (max-width: 912px) {
+    justify-content: flex-start;
+  }
 }
 
 .tag {

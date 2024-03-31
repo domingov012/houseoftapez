@@ -233,18 +233,20 @@ export default function Product() {
             {(pack_products_array) => {
               if (pack_products_array.length > 0) {
                 const components = pack_products_array.map((product) => {
-                  return <ProductPreview productData={product.product} />;
+                  return (
+                    <div className="pack-subproduct-width">
+                      <ProductPreview productData={product.product} />
+                    </div>
+                  );
                 });
                 return (
                   <div className="flex flex-col mt-20 items-center justify-center">
-                    <h1 className="title-font-2 text-7xl">
+                    <h1 className="title-font-2 pack-info-title">
                       PACK{' '}
                       <span className="text-[#e5d201]">{product.title}</span>{' '}
                       INCLUYE
                     </h1>
-                    <div className="flex w-[99vw] mt-10 p-10 gap-5 bg-[#e5d201] items-center justify-center">
-                      {components}
-                    </div>
+                    <div className="pack-subproducts-wrapper">{components}</div>
                     <Suspense fallback={<div>CARGANDO AHORROS</div>}>
                       <Await resolve={ahorro_array}>
                         {(ahorro_array) => (
@@ -524,7 +526,7 @@ function ProductOptions({option, onClick}) {
         {option.values.map(({value, isAvailable, isActive, to}) => {
           return option.name === 'Color' ? (
             <Link
-              className={`product-options-item color active-${isActive}`}
+              className={`product-options-item color bg-color-${value} active-${isActive}`}
               key={option.name + value}
               prefetch="intent"
               preventScrollReset

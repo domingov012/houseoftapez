@@ -98,7 +98,7 @@ function Popular({reference, products}) {
   return (
     <section ref={reference} className="half-container hidden-section">
       <div className="popular-container">
-        <div className="title-banner">LOS MAS VENDIDOS</div>
+        <div className="title-banner">LOS MÁS VENDIDOS</div>
         <div className="products-container">
           {products.collection.products.edges.map((product, index) => (
             <div

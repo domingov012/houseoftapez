@@ -52,8 +52,9 @@ export default function Contacto() {
       </section>
 
       {/* CONTACT INFO */}
-      <section className="h-[100vh]">
-        <div className="pl-10">
+      <section className="main-contact-section">
+        <div className="absolute bg-2 -z-10"></div>
+        <div className="flex flex-col p-10 justify-center">
           <h1 className="title-font-2 text-3xl">INFORMACION DE CONTACTO</h1>
           <div className="flex items-center h-10">
             <FontAwesomeIcon
@@ -83,10 +84,40 @@ export default function Contacto() {
             </div> */}
           </div>
         </div>
+        <div className="contact-info-text">
+          <div className="contact-info-section">
+            <h1 className="title-font-2 text-2xl mt-5">COMPRAS AL POR MAYOR</h1>
+            <div className="text-font text-xl">
+              Si eres representante de un club u organización, y te gustaría
+              gestionar un pedido personalizado al por mayor, envíanos un
+              correo! Nos pondremos en contacto y formarás parte de la familia
+              HOUSE OF TAPEZ.
+            </div>
+          </div>
+          <div className="contact-info-section">
+            <h1 className="title-font-2 text-2xl mt-5">
+              SÍGUENOS EN REDES SOCIALES
+            </h1>
+            <div className="text-font text-xl">
+              Mantente al tanto de las últimas noticias, ofertas y novedades que
+              tenemos preparadas para ti. Síguenos en Instagram para no perderte
+              nada, y así comprar tape de la forma más conveniente y al mejor
+              precio!
+            </div>
+          </div>
+          <div className="contact-info-section">
+            <h1 className="title-font-2 text-2xl mt-5">PREGUNTAS GENERALES</h1>
+            <div className="text-font text-xl">
+              Si tienes dudas sobre precios, stock, envíos u otras consultas
+              generales, contáctanos vía dm o correo. Nos pondremos en contácto!
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* FAQ SECTION */}
       <div className="faq-wrapper">
+        <h1>FAQ</h1>
         <div className="faq-section">
           <div className="h-[100px] flex items-center">
             <div className="mr-auto">FAQ</div>

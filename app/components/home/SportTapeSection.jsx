@@ -63,17 +63,17 @@ export default function SportTapeSection(props) {
                 <div className="mb-10">
                   Estos clubes deportivos de Chile confían en nuestros
                   productos. Únete a nuestra familia y asegúra a tu club con
-                  SPORTTAPE
+                  SPORTTAPE **EDITAR**
                 </div>
                 <NavLink
                   to="/contacto"
                   prefetch="intent"
                   className="contact-button w-1/2"
                 >
-                  ¡CONTACTANOS!
+                  ¡CONTÁCTANOS!
                 </NavLink>
               </div>
-              <div className="clubs-grid">
+              {/* <div className="clubs-grid">
                 <img
                   className="club-logo"
                   src="https://cdn.shopify.com/s/files/1/0643/3554/4485/files/cda-removebg-preview.png?v=1711807275"
@@ -98,7 +98,7 @@ export default function SportTapeSection(props) {
                   className="club-logo"
                   src="https://cdn.shopify.com/s/files/1/0643/3554/4485/files/Old-Newladers-nuevo-1.png?v=1711811026"
                 />
-              </div>
+              </div> */}
             </div>
             <div className="absolute contact-swim-bg -z-10"></div>
           </div>

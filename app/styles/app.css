@@ -254,6 +254,30 @@ aside li {
 .footer {
   background: var(--color-dark);
   margin-top: auto;
+  min-height: 50vh;
+}
+
+.footer-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  @media (max-width: 912px) {
+    display: none;
+  }
+}
+
+.footer-logos-mobile {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  @media (max-width: 912px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .footer-menu-missing {
@@ -261,11 +285,32 @@ aside li {
   margin: 1rem;
 }
 
+.footer-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  padding: 40px;
+  @media (max-width: 912px) {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+}
+
 .footer-menu {
-  align-items: center;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
   padding: 1rem;
+}
+
+.footer-menu > h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+}
+
+.footer-menu > h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
 }
 
 .footer-menu a {
@@ -731,6 +776,16 @@ aside li {
   width: 40px;
   height: 40px;
   border-radius: 20px;
+}
+
+.bg-color-branded {
+  background-position: left;
+  background-image: url('https://cdn.shopify.com/s/files/1/0643/3554/4485/files/branded.png?v=1711909696');
+}
+
+.bg-color-punk {
+  background-position: center;
+  background-image: url('https://cdn.shopify.com/s/files/1/0643/3554/4485/files/punk2.jpg?v=1711909946');
 }
 
 .active-true {

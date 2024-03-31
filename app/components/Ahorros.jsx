@@ -9,7 +9,6 @@ export default function Ahorros({ahorro_array, price}) {
     <div className="grid grid-cols-2 w-3/4 self-center mt-10">
       {ahorro_array.map((field) => {
         sum += field.price;
-        console.log(field.price, typeof field.price);
         return (
           <>
             <div className="compare-grid-item text-font">
@@ -30,9 +29,12 @@ export default function Ahorros({ahorro_array, price}) {
         className="compare-grid-item text-font discounted-price-true"
         data={{amount: sum.toString(), currencyCode: 'CLP'}}
       />
-      <div></div>
+      <div className="compare-grid-item text-font text-[#e5d201] font-black">
+        {' '}
+        PRECIO PACK:{' '}
+      </div>
       <Money
-        className="compare-grid-item text-font text-red-500"
+        className="compare-grid-item text-font text-[#e5d201] font-black"
         data={price}
       />
     </div>
