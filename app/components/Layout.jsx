@@ -94,16 +94,21 @@ function MobileMenuAside({menu, shop}) {
   const [tapeTouched, settapeTouched] = useState(false);
   const [categoryTouched, setcategoryTouched] = useState(false);
   const storeRef = useRef();
+  const storeChildRef = useRef();
   const tapeRef = useRef();
+  const tapeChildRef = useRef();
   const categoryRef = useRef();
+  const categoryChildRef = useRef();
 
-  function revealMenu(ref, state, setTouched) {
+  function revealMenu(ref, state, setTouched, child) {
     if (state) {
       ref.current.classList.remove('h-fit');
+      child.current.classList.add('hidden');
       ref.current.classList.add('h-12');
     } else {
       ref.current.classList.remove('h-12');
-      ref.current.classList.add('h-fit');
+      child.current.classList.add('h-fit');
+      ref.current.classList.remove('hidden');
     }
     setTouched((prev) => !prev);
   }
@@ -129,15 +134,23 @@ function MobileMenuAside({menu, shop}) {
             <div
               className="drop-down"
               onTouchStart={() =>
-                revealMenu(storeRef, storeTouched, setStoreTouched)
+                revealMenu(
+                  storeRef,
+                  storeTouched,
+                  setStoreTouched,
+                  storeChildRef,
+                )
               }
             >
               TIENDA
             </div>
-            <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201]  bg-black bg-opacity-35 w-full">
+            <div
+              ref={storeChildRef}
+              className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201]  bg-black bg-opacity-35 w-full"
+            >
               <div className="h-12 overflow-hidden">
                 <NavLink
-                  onTouchStart={closeAside}
+                  onClick={closeAside}
                   className="drop-down"
                   prefetch="intent"
                   to="/shop"
@@ -149,14 +162,22 @@ function MobileMenuAside({menu, shop}) {
                 <div
                   className="drop-down"
                   onTouchStart={() =>
-                    revealMenu(tapeRef, tapeTouched, settapeTouched)
+                    revealMenu(
+                      tapeRef,
+                      tapeTouched,
+                      settapeTouched,
+                      tapeChildRef,
+                    )
                   }
                 >
                   TAPES
                 </div>
-                <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto bg-black bg-opacity-45">
+                <div
+                  ref={tapeChildRef}
+                  className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto bg-black bg-opacity-45"
+                >
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/shop"
                     className="nav-menu-item text-font text-[#e5d201]"
@@ -164,7 +185,7 @@ function MobileMenuAside({menu, shop}) {
                     VER TODOS
                   </NavLink>
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/k-tape"
                     className="nav-menu-item text-font"
@@ -172,7 +193,7 @@ function MobileMenuAside({menu, shop}) {
                     K-TAPE
                   </NavLink>
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/zinc-oxide"
                     className="nav-menu-item-option text-font mr-auto"
@@ -180,7 +201,7 @@ function MobileMenuAside({menu, shop}) {
                     ZINC OXIDE WHITE
                   </NavLink>
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/zinc-oxide-tan"
                     className="nav-menu-item-option text-font mr-auto"
@@ -188,7 +209,7 @@ function MobileMenuAside({menu, shop}) {
                     ZINC OXIDE TAN
                   </NavLink>
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/eab-tear"
                     className="nav-menu-item text-font mr-auto"
@@ -196,7 +217,7 @@ function MobileMenuAside({menu, shop}) {
                     TEAR EAB
                   </NavLink>
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/non-tear-eab"
                     className="nav-menu-item text-font mr-auto"
@@ -204,7 +225,7 @@ function MobileMenuAside({menu, shop}) {
                     NON-TEAR EAB
                   </NavLink>
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/coban"
                     className="nav-menu-item text-font"
@@ -212,7 +233,7 @@ function MobileMenuAside({menu, shop}) {
                     COHESIVE BANDAGE
                   </NavLink>
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     to="/products/fixation-tape"
                     className="nav-menu-item text-font"
@@ -225,14 +246,22 @@ function MobileMenuAside({menu, shop}) {
                 <div
                   className="drop-down"
                   onTouchStart={() =>
-                    revealMenu(categoryRef, categoryTouched, setcategoryTouched)
+                    revealMenu(
+                      categoryRef,
+                      categoryTouched,
+                      setcategoryTouched,
+                      categoryChildRef,
+                    )
                   }
                 >
                   CATEGORÍAS
                 </div>
-                <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto">
+                <div
+                  ref={categoryChildRef}
+                  className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto"
+                >
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     className="nav-menu-item text-font"
                     to="/shop/category/tape-elasticos"
@@ -240,7 +269,7 @@ function MobileMenuAside({menu, shop}) {
                     Elásticos
                   </NavLink>
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     className="nav-menu-item text-font"
                     to="/shop/category/tape-rigidos"
@@ -248,7 +277,7 @@ function MobileMenuAside({menu, shop}) {
                     No elásticos
                   </NavLink>
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     className="nav-menu-item text-font"
                     to="/shop/category/Accesorios"
@@ -256,7 +285,7 @@ function MobileMenuAside({menu, shop}) {
                     Accesorios
                   </NavLink>
                   <NavLink
-                    onTouchStart={closeAside}
+                    onClick={closeAside}
                     prefetch="intent"
                     className="nav-menu-item text-font text-[#e5d201]"
                     to="/shop/category/packs"
