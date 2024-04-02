@@ -323,7 +323,7 @@ function CartLinePrice({
 
   return (
     <div>
-      {line.quantity >= 4 && isTape ? (
+      {line.quantity >= 6 && isTape ? (
         <div className="flex flex-col">
           <Money
             withoutTrailingZeros

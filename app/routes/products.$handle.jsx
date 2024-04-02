@@ -443,12 +443,12 @@ function ProductForm({
     if (n === 1 && selectedVariant.quantityAvailable > quantity) {
       setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
 
-      if (quantity + 1 >= 4 && isTape) {
+      if (quantity + 1 >= 6 && isTape) {
         setDiscount(true);
       }
     } else if (n === -1) {
       setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
-      if (quantity - 1 < 4 && isTape) {
+      if (quantity - 1 < 6 && isTape) {
         setDiscount(false);
       }
     }
