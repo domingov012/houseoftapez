@@ -293,6 +293,7 @@ aside li {
     display: flex;
     flex-direction: column;
     padding: 10px;
+    min-height: 100vh;
   }
 }
 
@@ -301,6 +302,9 @@ aside li {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
   padding: 1rem;
+  @media (max-width: 912px) {
+    margin-bottom: auto;
+  }
 }
 
 .footer-menu > h1 {
