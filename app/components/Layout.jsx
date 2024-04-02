@@ -90,26 +90,31 @@ function SearchAside() {
  * }}
  */
 function MobileMenuAside({menu, shop}) {
+  const [storeTouched, setStoreTouched] = useState(false);
+  const [tapeTouched, settapeTouched] = useState(false);
+  const [categoryTouched, setcategoryTouched] = useState(false);
   const storeRef = useRef();
   const tapeRef = useRef();
   const categoryRef = useRef();
 
-  function revealMenu(e, ref) {
-    console.log(ref);
-    if (e) {
-      ref.current.classList.remove('h-12');
-      ref.current.classList.add('h-fit');
-    } else {
+  function revealMenu(ref, state, setTouched) {
+    if (state) {
       ref.current.classList.remove('h-fit');
       ref.current.classList.add('h-12');
+    } else {
+      ref.current.classList.remove('h-12');
+      ref.current.classList.add('h-fit');
     }
+    setTouched((prev) => !prev);
   }
 
   function closeAside(event) {
+    setStoreTouched(false);
+    settapeTouched(false);
+    setcategoryTouched(false);
     event.preventDefault();
     window.location.href = event.currentTarget.href;
   }
-
   return (
     menu &&
     shop?.primaryDomain?.url && (
@@ -119,25 +124,39 @@ function MobileMenuAside({menu, shop}) {
           viewport="mobile"
           primaryDomainUrl={shop.primaryDomain.url}
         /> */}
-        <div className="flex flex-col h-3/4 ml-6">
-          <div
-            ref={storeRef}
-            className="h-12 overflow-hidden"
-            onMouseEnter={() => revealMenu(true, storeRef)}
-            onMouseLeave={() => revealMenu(false, storeRef)}
-          >
-            <div className="drop-down">TIENDA</div>
+        <div className="flex flex-col h-3/4 ml-6 gap-4">
+          <div ref={storeRef} className="h-12 overflow-hidden">
+            <div
+              className="drop-down"
+              onTouchStart={() =>
+                revealMenu(storeRef, storeTouched, setStoreTouched)
+              }
+            >
+              TIENDA
+            </div>
             <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201]  bg-black bg-opacity-35 w-full">
-              <div
-                ref={tapeRef}
-                className="h-12 overflow-hidden"
-                onMouseEnter={() => revealMenu(true, tapeRef)}
-                onMouseLeave={() => revealMenu(false, tapeRef)}
-              >
-                <div className="drop-down">TAPES</div>
+              <div className="h-12 overflow-hidden">
+                <NavLink
+                  onTouchStart={closeAside}
+                  className="drop-down"
+                  prefetch="intent"
+                  to="/shop"
+                >
+                  VER TODO
+                </NavLink>
+              </div>
+              <div ref={tapeRef} className="h-12 overflow-hidden">
+                <div
+                  className="drop-down"
+                  onTouchStart={() =>
+                    revealMenu(tapeRef, tapeTouched, settapeTouched)
+                  }
+                >
+                  TAPES
+                </div>
                 <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto bg-black bg-opacity-45">
                   <NavLink
-                    onClick={closeAside}
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     to="/shop"
                     className="nav-menu-item text-font text-[#e5d201]"
@@ -145,7 +164,7 @@ function MobileMenuAside({menu, shop}) {
                     VER TODOS
                   </NavLink>
                   <NavLink
-                    onClick={closeAside}
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     to="/products/k-tape"
                     className="nav-menu-item text-font"
@@ -153,7 +172,7 @@ function MobileMenuAside({menu, shop}) {
                     K-TAPE
                   </NavLink>
                   <NavLink
-                    onClick={closeAside}
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     to="/products/zinc-oxide"
                     className="nav-menu-item-option text-font mr-auto"
@@ -161,7 +180,7 @@ function MobileMenuAside({menu, shop}) {
                     ZINC OXIDE WHITE
                   </NavLink>
                   <NavLink
-                    onClick={closeAside}
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     to="/products/zinc-oxide-tan"
                     className="nav-menu-item-option text-font mr-auto"
@@ -169,7 +188,7 @@ function MobileMenuAside({menu, shop}) {
                     ZINC OXIDE TAN
                   </NavLink>
                   <NavLink
-                    onClick={closeAside}
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     to="/products/eab-tear"
                     className="nav-menu-item text-font mr-auto"
@@ -177,7 +196,7 @@ function MobileMenuAside({menu, shop}) {
                     TEAR EAB
                   </NavLink>
                   <NavLink
-                    onClick={closeAside}
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     to="/products/non-tear-eab"
                     className="nav-menu-item text-font mr-auto"
@@ -185,7 +204,7 @@ function MobileMenuAside({menu, shop}) {
                     NON-TEAR EAB
                   </NavLink>
                   <NavLink
-                    onClick={closeAside}
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     to="/products/coban"
                     className="nav-menu-item text-font"
@@ -193,7 +212,7 @@ function MobileMenuAside({menu, shop}) {
                     COHESIVE BANDAGE
                   </NavLink>
                   <NavLink
-                    onClick={closeAside}
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     to="/products/fixation-tape"
                     className="nav-menu-item text-font"
@@ -202,15 +221,18 @@ function MobileMenuAside({menu, shop}) {
                   </NavLink>
                 </div>
               </div>
-              <div
-                ref={categoryRef}
-                className="h-12 overflow-hidden"
-                onMouseEnter={() => revealMenu(true, categoryRef)}
-                onMouseLeave={() => revealMenu(false, categoryRef)}
-              >
-                <div className="drop-down">CATEGORÍAS</div>
+              <div ref={categoryRef} className="h-12 overflow-hidden">
+                <div
+                  className="drop-down"
+                  onTouchStart={() =>
+                    revealMenu(categoryRef, categoryTouched, setcategoryTouched)
+                  }
+                >
+                  CATEGORÍAS
+                </div>
                 <div className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto">
                   <NavLink
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     className="nav-menu-item text-font"
                     to="/shop/category/tape-elasticos"
@@ -218,6 +240,7 @@ function MobileMenuAside({menu, shop}) {
                     Elásticos
                   </NavLink>
                   <NavLink
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     className="nav-menu-item text-font"
                     to="/shop/category/tape-rigidos"
@@ -225,6 +248,7 @@ function MobileMenuAside({menu, shop}) {
                     No elásticos
                   </NavLink>
                   <NavLink
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     className="nav-menu-item text-font"
                     to="/shop/category/Accesorios"
@@ -232,6 +256,7 @@ function MobileMenuAside({menu, shop}) {
                     Accesorios
                   </NavLink>
                   <NavLink
+                    onTouchStart={closeAside}
                     prefetch="intent"
                     className="nav-menu-item text-font text-[#e5d201]"
                     to="/shop/category/packs"
