@@ -61,9 +61,12 @@ export default function SportTapeSection(props) {
             <div className="clubs-text">
               <div className="text-font club-text-p">
                 <div className="mb-10">
-                  Estos clubes deportivos de Chile confían en nuestros
+                  {/* Estos clubes deportivos de Chile confían en nuestros
                   productos. Únete a nuestra familia y asegúra a tu club con
-                  SPORTTAPE **EDITAR**
+                  SPORTTAPE **EDITAR** */}
+                  Estamos trabajando con distintos clubes deportivos de Chile,
+                  que confían en la calidad de nuestros productos! Únete a
+                  nuestra familia y asegúra a tu club con SPORTTAPE.
                 </div>
                 <NavLink
                   to="/contacto"

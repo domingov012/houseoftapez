@@ -365,6 +365,20 @@
   margin-left: auto;
 }
 
+.cart-count-notif {
+  display: flex;
+  color: black;
+  background-color: var(--secondary-color);
+  left: 50%;
+  border-radius: 30px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  translate: 0 -15px;
+}
+
 /* ------------ MEDIA QUERIES ----------- */
 
 @media (max-width: 912px) {

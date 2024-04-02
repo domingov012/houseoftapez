@@ -139,7 +139,7 @@ export function HeaderMenu({menu, primaryDomainUrl, viewport}) {
 function HeaderCtas({isLoggedIn, cart}) {
   return (
     <nav className="header-ctas" role="navigation">
-      <NavLink prefetch="intent" to="/account" className="icon-action">
+      {/* <NavLink prefetch="intent" to="/account" className="icon-action">
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
             {(isLoggedIn) =>
@@ -152,8 +152,8 @@ function HeaderCtas({isLoggedIn, cart}) {
           </Await>
           <FontAwesomeIcon icon={faUser} className="icon" />
         </Suspense>
-      </NavLink>
-      <SearchToggle />
+      </NavLink> */}
+      {/* <SearchToggle /> */}
       <CartToggle cart={cart} />
     </nav>
   );
@@ -181,9 +181,10 @@ function SearchToggle() {
  */
 function CartBadge({count}) {
   return (
-    <a href="#cart-aside" className="icon-action">
+    <a href="#cart-aside" className="relative icon-action">
       <label className="icon-label">Cart: {count}</label>
       <FontAwesomeIcon icon={faCartShopping} className="icon" />
+      {count > 0 && <div className="absolute cart-count-notif">{count}</div>}
     </a>
   );
 }
