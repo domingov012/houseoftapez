@@ -308,8 +308,8 @@ aside li {
 }
 
 .footer-menu-info {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  display: flex;
+  flex-direction: column;
   grid-gap: 1rem;
   padding: 1rem;
   @media (max-width: 912px) {
