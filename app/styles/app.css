@@ -307,6 +307,16 @@ aside li {
   }
 }
 
+.footer-menu-info {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 1rem;
+  padding: 1rem;
+  @media (max-width: 912px) {
+    margin-bottom: auto;
+  }
+}
+
 .footer-menu > h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 22px;
@@ -318,6 +328,20 @@ aside li {
 }
 
 .footer-menu a {
+  color: var(--color-light);
+}
+
+.footer-menu-info > h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+}
+
+.footer-menu-info > h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+}
+
+.footer-menu-info a {
   color: var(--color-light);
 }
 
