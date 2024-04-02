@@ -107,8 +107,8 @@ function MobileMenuAside({menu, shop}) {
       ref.current.classList.add('h-12');
     } else {
       ref.current.classList.remove('h-12');
-      child.current.classList.add('h-fit');
-      ref.current.classList.remove('hidden');
+      child.current.classList.remove('hidden');
+      ref.current.classList.add('h-fit');
     }
     setTouched((prev) => !prev);
   }
