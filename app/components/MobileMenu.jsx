@@ -33,15 +33,17 @@ export default function MobileMenu({reference, closeMenu}) {
       ref={reference}
       className="mobile-menu-hidden fixed top-0 left-0 bottom-0 right-0 bg-black bg-opacity-75 z-50"
     >
-      <div className="flex p-6 w-full mr-6 mt-[5vh] items-center">
-        <div className="title-font-2 p-[5px] text-3xl">MENÚ</div>
-        <FontAwesomeIcon
-          icon={faX}
-          className="text-3xl ml-auto p-[5px] cursor-pointer"
-          onClick={closeMenu}
-        />
+      <div className=" h-[20vh] w-full content-center">
+        <div className="flex pl-5 pr-5 items-center">
+          <div className="title-font-2 p-[5px] text-3xl">MENÚ</div>
+          <FontAwesomeIcon
+            icon={faX}
+            className="text-3xl ml-auto p-[5px] cursor-pointer"
+            onClick={closeMenu}
+          />
+        </div>
       </div>
-      <div className="flex flex-col h-3/4 p-6 gap-4">
+      <div className="flex flex-col h-[80vh] gap-4 pl-5 pr-5 overflow-auto">
         <div ref={storeRef} className="h-12 overflow-hidden">
           <div
             className="drop-down"
@@ -207,7 +209,7 @@ export default function MobileMenu({reference, closeMenu}) {
             TIENDA
           </NavLink> */}
         <NavLink
-          // onClick={closeAside}
+          onClick={closeMenu}
           prefetch="intent"
           className="drop-down"
           to="/tutorials"
@@ -215,7 +217,7 @@ export default function MobileMenu({reference, closeMenu}) {
           TUTORIALES
         </NavLink>
         <NavLink
-          //   onClick={() => closeAside(e, '/contacto')}
+          onClick={closeMenu}
           prefetch="intent"
           className="drop-down"
           to="/contacto"
