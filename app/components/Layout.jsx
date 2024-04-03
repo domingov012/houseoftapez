@@ -117,9 +117,10 @@ function MobileMenuAside({menu, shop}) {
     setStoreTouched(false);
     settapeTouched(false);
     setcategoryTouched(false);
-    event.preventDefault();
+    // event.preventDefault();
     window.location.href = event.currentTarget.href;
   }
+
   return (
     menu &&
     shop?.primaryDomain?.url && (
