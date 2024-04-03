@@ -305,15 +305,15 @@ function MobileMenuAside({menu, shop}) {
             TIENDA
           </NavLink> */}
           <NavLink
-            onTouchStart={closeAside}
+            onClick={closeAside}
             prefetch="intent"
-            to="/tutorials"
             className="drop-down"
+            to="/tutorials"
           >
             TUTORIALES
           </NavLink>
           <NavLink
-            onTouchStart={closeAside}
+            onClick={closeAside}
             prefetch="intent"
             className="drop-down"
             to="/contacto"
