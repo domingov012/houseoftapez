@@ -1,4 +1,4 @@
-import {useState, useRef} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import {NavLink, useNavigate} from '@remix-run/react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faX} from '@fortawesome/free-solid-svg-icons';
@@ -13,8 +13,6 @@ export default function MobileMenu({reference, closeMenu}) {
   const tapeChildRef = useRef();
   const categoryRef = useRef();
   const categoryChildRef = useRef();
-
-  const navigate = useNavigate();
 
   function revealMenu(ref, state, setTouched, child) {
     if (state) {
@@ -59,7 +57,7 @@ export default function MobileMenu({reference, closeMenu}) {
           >
             <div className="h-12 overflow-hidden">
               <NavLink
-                // onClick={closeAside}
+                onClick={closeMenu}
                 className="drop-down"
                 prefetch="intent"
                 to="/shop"
@@ -81,7 +79,7 @@ export default function MobileMenu({reference, closeMenu}) {
                 className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto bg-black bg-opacity-45"
               >
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   to="/shop"
                   className="nav-menu-item text-font text-[#e5d201]"
@@ -89,7 +87,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   VER TODOS
                 </NavLink>
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   to="/products/k-tape"
                   className="nav-menu-item text-font"
@@ -97,7 +95,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   K-TAPE
                 </NavLink>
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   to="/products/zinc-oxide"
                   className="nav-menu-item-option text-font mr-auto"
@@ -105,7 +103,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   ZINC OXIDE WHITE
                 </NavLink>
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   to="/products/zinc-oxide-tan"
                   className="nav-menu-item-option text-font mr-auto"
@@ -113,7 +111,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   ZINC OXIDE TAN
                 </NavLink>
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   to="/products/eab-tear"
                   className="nav-menu-item text-font mr-auto"
@@ -121,7 +119,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   TEAR EAB
                 </NavLink>
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   to="/products/non-tear-eab"
                   className="nav-menu-item text-font mr-auto"
@@ -129,7 +127,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   NON-TEAR EAB
                 </NavLink>
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   to="/products/coban"
                   className="nav-menu-item text-font"
@@ -137,7 +135,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   COHESIVE BANDAGE
                 </NavLink>
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   to="/products/fixation-tape"
                   className="nav-menu-item text-font"
@@ -165,7 +163,7 @@ export default function MobileMenu({reference, closeMenu}) {
                 className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto"
               >
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   className="nav-menu-item text-font"
                   to="/shop/category/tape-elasticos"
@@ -173,7 +171,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   Elásticos
                 </NavLink>
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   className="nav-menu-item text-font"
                   to="/shop/category/tape-rigidos"
@@ -181,7 +179,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   No elásticos
                 </NavLink>
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   className="nav-menu-item text-font"
                   to="/shop/category/Accesorios"
@@ -189,7 +187,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   Accesorios
                 </NavLink>
                 <NavLink
-                  //   onClick={closeAside}
+                  onClick={closeMenu}
                   prefetch="intent"
                   className="nav-menu-item text-font text-[#e5d201]"
                   to="/shop/category/packs"
