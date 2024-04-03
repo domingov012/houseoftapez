@@ -11,6 +11,7 @@ import {
   faTruckFast,
 } from '@fortawesome/free-solid-svg-icons';
 import DropMenu from '../components/DropMenu.jsx';
+import MobileMenu from '../components/MobileMenu.jsx';
 
 /**
  * @param {HeaderProps}
@@ -18,8 +19,9 @@ import DropMenu from '../components/DropMenu.jsx';
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
 
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenuMobile, setShowMenuMobile] = useState(false);
   const shopMenuRef = useRef();
+  const mobileMenuRef = useRef();
 
   function handleMenuDisplay() {
     shopMenuRef.current.classList.remove('h-0');
@@ -29,6 +31,15 @@ export function Header({header, isLoggedIn, cart}) {
   function closeMenu() {
     shopMenuRef.current.classList.remove('h-[65vh]');
     shopMenuRef.current.classList.add('h-0');
+  }
+
+  function toggleMenu() {
+    if (!showMenuMobile) {
+      mobileMenuRef.current.classList.add('mobile-menu-visible');
+    } else {
+      mobileMenuRef.current.classList.remove('mobile-menu-visible');
+    }
+    setShowMenuMobile((prev) => !prev);
   }
 
   return (
@@ -49,7 +60,7 @@ export function Header({header, isLoggedIn, cart}) {
         </div>
       </div>
       <div className="main-nav">
-        <HeaderMenuMobileToggle />
+        <HeaderMenuMobileToggle action={toggleMenu} />
         <div className="logo-container-1">
           <Link prefetch="intent" to="/">
             <Image
@@ -83,6 +94,7 @@ export function Header({header, isLoggedIn, cart}) {
         onLeave={closeMenu}
         onClick={closeMenu}
       />
+      <MobileMenu reference={mobileMenuRef} closeMenu={toggleMenu} />
     </header>
   );
 }
@@ -159,9 +171,9 @@ function HeaderCtas({isLoggedIn, cart}) {
   );
 }
 
-function HeaderMenuMobileToggle() {
+function HeaderMenuMobileToggle({action}) {
   return (
-    <a className="header-menu-mobile-toggle" href="#mobile-menu-aside">
+    <a className="header-menu-mobile-toggle" onClick={action}>
       <h3>☰</h3>
     </a>
   );
