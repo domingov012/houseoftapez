@@ -1,4 +1,4 @@
-import {Await, NavLink} from '@remix-run/react';
+import {Await, NavLink, useNavigate} from '@remix-run/react';
 import {Suspense, useRef, useState} from 'react';
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
@@ -100,6 +100,8 @@ function MobileMenuAside({menu, shop}) {
   const categoryRef = useRef();
   const categoryChildRef = useRef();
 
+  const navigate = useNavigate();
+
   function revealMenu(ref, state, setTouched, child) {
     if (state) {
       ref.current.classList.remove('h-fit');
@@ -113,12 +115,13 @@ function MobileMenuAside({menu, shop}) {
     setTouched((prev) => !prev);
   }
 
-  function closeAside(event) {
+  function closeAside(event, path) {
     setStoreTouched(false);
     settapeTouched(false);
     setcategoryTouched(false);
-    // event.preventDefault();
-    window.location.href = event.currentTarget.href;
+    event.preventDefault();
+    // window.location.href = event.currentTarget.href;
+    navigate(path);
   }
 
   return (
@@ -314,7 +317,7 @@ function MobileMenuAside({menu, shop}) {
             TUTORIALES
           </NavLink>
           <NavLink
-            onClick={closeAside}
+            onClick={() => closeAside(e, '/contacto')}
             prefetch="intent"
             className="drop-down"
             to="/contacto"
