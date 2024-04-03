@@ -305,7 +305,7 @@ function MobileMenuAside({menu, shop}) {
             TIENDA
           </NavLink> */}
           <NavLink
-            onClick={closeAside}
+            // onClick={closeAside}
             prefetch="intent"
             className="drop-down"
             to="/tutorials"
