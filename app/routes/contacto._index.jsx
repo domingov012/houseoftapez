@@ -134,7 +134,9 @@ export default function Contacto() {
       {/* FAQ SECTION */}
       {/* STYLES IN shop.css filter section (reused) */}
       <div className="faq-wrapper">
-        <h1>FAQ</h1>
+        <h1 className="title-font-1 w-full text-center text-6xl p-9 bg-[#e5d201] text-black">
+          FAQ
+        </h1>
 
         <Suspense fallback={<div>Loading faq....</div>}>
           <Await resolve={metaobjects}>
