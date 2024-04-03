@@ -2,14 +2,30 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   faPlus,
   faMinus,
-  faMailBulk,
-  faMailReply,
   faEnvelope,
+  faFilter,
+  faAngleDown,
 } from '@fortawesome/free-solid-svg-icons';
 import {faInstagram} from '@fortawesome/free-brands-svg-icons';
-import {useRef, useEffect, useState} from 'react';
+import {useRef, useEffect, useState, Suspense} from 'react';
+import {defer} from '@remix-run/server-runtime';
+import {Await, useLoaderData} from '@remix-run/react';
+import Faq from '~/components/Faq';
+
+export async function loader({context}) {
+  const {storefront} = context;
+
+  const {metaobjects} = await storefront.query(FAQ_QUERIE, {
+    variables: {type: 'faq'},
+  });
+
+  return defer({metaobjects});
+}
 
 export default function Contacto() {
+  const {metaobjects} = useLoaderData();
+  console.log(metaobjects);
+
   const [copy, setCopy] = useState(false);
   const bannerRef = useRef();
   const productsRef = useRef();
@@ -116,31 +132,38 @@ export default function Contacto() {
       </section>
 
       {/* FAQ SECTION */}
+      {/* STYLES IN shop.css filter section (reused) */}
       <div className="faq-wrapper">
         <h1>FAQ</h1>
-        <div className="faq-section">
-          <div className="h-[100px] flex items-center">
-            <div className="mr-auto">FAQ</div>
-            <FontAwesomeIcon icon={faPlus} className="mr-4 text-xl" />
-          </div>
-          <div className="max-h-[0px]" ref={contactInfoContent}>
-            AASSSS
-          </div>
-        </div>
-        <div className="faq-section">
-          <div className="h-[100px] flex items-center">
-            <div className="mr-auto">FAQ</div>
-            <FontAwesomeIcon icon={faPlus} className="mr-4 text-xl" />
-          </div>
-        </div>
-        <div className="faq-section last">
-          <div className="h-[100px] flex items-center">
-            <div className="mr-auto">FAQ</div>
-            <FontAwesomeIcon icon={faPlus} className="mr-4 text-xl" />
-          </div>
-        </div>
+
+        <Suspense fallback={<div>Loading faq....</div>}>
+          <Await resolve={metaobjects}>
+            {(metaobjects) => {
+              return metaobjects.nodes.map((faq) => (
+                <Faq title={faq.fields[0].value} answer={faq.fields[1].value} />
+              ));
+            }}
+          </Await>
+        </Suspense>
       </div>
       <section className="h-[100vh]"></section>
     </>
   );
 }
+
+const FAQ_QUERIE = `#graphql
+  query AllFAQ(
+    $country: CountryCode
+    $language: LanguageCode
+    $type: String!
+  ) @inContext(country: $country, language: $language) {
+    metaobjects(first: 10, type: $type) {
+      nodes {
+        fields {
+          type
+          value
+        }
+      }
+    }
+  }
+  `;

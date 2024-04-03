@@ -695,6 +695,20 @@ export type StoreCollectionsQuery = {
   };
 };
 
+export type AllFaqQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+  type: StorefrontAPI.Scalars['String']['input'];
+}>;
+
+export type AllFaqQuery = {
+  metaobjects: {
+    nodes: Array<{
+      fields: Array<Pick<StorefrontAPI.MetaobjectField, 'type' | 'value'>>;
+    }>;
+  };
+};
+
 export type PackProductQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
   handle: StorefrontAPI.Scalars['String']['input'];
@@ -1363,6 +1377,10 @@ interface GeneratedQueryTypes {
   '#graphql\n  fragment Collection on Collection {\n    id\n    title\n    handle\n    image {\n      id\n      url\n      altText\n      width\n      height\n    }\n  }\n  query StoreCollections(\n    $country: CountryCode\n    $endCursor: String\n    $first: Int\n    $language: LanguageCode\n    $last: Int\n    $startCursor: String\n  ) @inContext(country: $country, language: $language) {\n    collections(\n      first: $first,\n      last: $last,\n      before: $startCursor,\n      after: $endCursor\n    ) {\n      nodes {\n        ...Collection\n      }\n      pageInfo {\n        hasNextPage\n        hasPreviousPage\n        startCursor\n        endCursor\n      }\n    }\n  }\n': {
     return: StoreCollectionsQuery;
     variables: StoreCollectionsQueryVariables;
+  };
+  '#graphql\n  query AllFAQ(\n    $country: CountryCode\n    $language: LanguageCode\n    $type: String!\n  ) @inContext(country: $country, language: $language) {\n    metaobjects(first: 10, type: $type) {\n      nodes {\n        fields {\n          type\n          value\n        }\n      }\n    }\n  }\n  ': {
+    return: AllFAQQuery;
+    variables: AllFAQQueryVariables;
   };
   '#graphql\n    query PackProduct(\n        $country: CountryCode\n        $handle: String!\n        $language: LanguageCode\n    ) @inContext(country: $country, language: $language) {\n        product(handle: $handle) {\n            id\n            tags\n            title\n            priceRange {\n              maxVariantPrice {\n                amount\n                currencyCode\n              }\n              minVariantPrice {\n                amount\n                currencyCode\n              }\n            }\n            featuredImage {\n              altText\n              height\n              id\n              url\n              width\n            }\n            descriptionHtml\n            metafields(identifiers: {key: "pack_products", namespace: "custom"}) {\n                value\n            }\n            totalInventory\n            availableForSale\n            variants(first: 10) {\n              nodes {\n                id\n                price {\n                  amount\n                  currencyCode\n                }\n              }\n            }\n        }\n    }': {
     return: PackProductQuery;

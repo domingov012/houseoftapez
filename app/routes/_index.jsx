@@ -22,7 +22,6 @@ export async function loader({context}) {
   // const {collections} = await storefront.query(POPULAR_PRODUCTS_QUERY);
   // const popularProducts = collections.nodes[0];
   const popularProducts = await storefront.query(POPULAR_PRODUCTS_QUERY);
-  console.log('Popular: ', popularProducts.collection.products.edges);
   const recommendedProducts = storefront.query(RECOMMENDED_PRODUCTS_QUERY);
 
   return defer({
