@@ -14,7 +14,7 @@ export default function MobileMenu({reference, closeMenu}) {
   const categoryRef = useRef();
   const categoryChildRef = useRef();
 
-  function revealMenu(ref, state, setTouched, child) {
+  function revealMenu(ref, state, setTouched, child, e) {
     if (state) {
       ref.current.classList.remove('h-fit');
       child.current.classList.add('hidden');
@@ -24,8 +24,22 @@ export default function MobileMenu({reference, closeMenu}) {
       child.current.classList.remove('hidden');
       ref.current.classList.add('h-fit');
     }
-    setTouched((prev) => !prev);
+
+    if (!e) {
+      setTouched((prev) => !prev);
+    }
   }
+
+  function handleNavigation() {
+    setStoreTouched(false);
+    settapeTouched(false);
+    setcategoryTouched(false);
+    revealMenu(storeRef, true, setStoreTouched, storeChildRef, true);
+    revealMenu(tapeRef, true, settapeTouched, tapeChildRef, true);
+    revealMenu(categoryRef, true, setcategoryTouched, categoryChildRef, true);
+    closeMenu();
+  }
+
   return (
     <section
       ref={reference}
@@ -57,7 +71,7 @@ export default function MobileMenu({reference, closeMenu}) {
           >
             <div className="h-12 overflow-hidden">
               <NavLink
-                onClick={closeMenu}
+                onClick={() => handleNavigation()}
                 className="drop-down"
                 prefetch="intent"
                 to="/shop"
@@ -79,7 +93,7 @@ export default function MobileMenu({reference, closeMenu}) {
                 className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto bg-black bg-opacity-45"
               >
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   to="/shop"
                   className="nav-menu-item text-font text-[#e5d201]"
@@ -87,7 +101,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   VER TODOS
                 </NavLink>
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   to="/products/k-tape"
                   className="nav-menu-item text-font"
@@ -95,7 +109,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   K-TAPE
                 </NavLink>
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   to="/products/zinc-oxide"
                   className="nav-menu-item-option text-font mr-auto"
@@ -103,7 +117,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   ZINC OXIDE WHITE
                 </NavLink>
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   to="/products/zinc-oxide-tan"
                   className="nav-menu-item-option text-font mr-auto"
@@ -111,7 +125,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   ZINC OXIDE TAN
                 </NavLink>
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   to="/products/eab-tear"
                   className="nav-menu-item text-font mr-auto"
@@ -119,7 +133,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   TEAR EAB
                 </NavLink>
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   to="/products/non-tear-eab"
                   className="nav-menu-item text-font mr-auto"
@@ -127,7 +141,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   NON-TEAR EAB
                 </NavLink>
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   to="/products/coban"
                   className="nav-menu-item text-font"
@@ -135,7 +149,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   COHESIVE BANDAGE
                 </NavLink>
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   to="/products/fixation-tape"
                   className="nav-menu-item text-font"
@@ -163,7 +177,7 @@ export default function MobileMenu({reference, closeMenu}) {
                 className="pl-7 mt-3 mb-3 border-l-2 border-[#e5d201] max-h-36 overflow-auto"
               >
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   className="nav-menu-item text-font"
                   to="/shop/category/tape-elasticos"
@@ -171,7 +185,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   Elásticos
                 </NavLink>
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   className="nav-menu-item text-font"
                   to="/shop/category/tape-rigidos"
@@ -179,7 +193,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   No elásticos
                 </NavLink>
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   className="nav-menu-item text-font"
                   to="/shop/category/Accesorios"
@@ -187,7 +201,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   Accesorios
                 </NavLink>
                 <NavLink
-                  onClick={closeMenu}
+                  onClick={() => handleNavigation()}
                   prefetch="intent"
                   className="nav-menu-item text-font text-[#e5d201]"
                   to="/shop/category/packs"
@@ -207,7 +221,7 @@ export default function MobileMenu({reference, closeMenu}) {
             TIENDA
           </NavLink> */}
         <NavLink
-          onClick={closeMenu}
+          onClick={() => handleNavigation()}
           prefetch="intent"
           className="drop-down"
           to="/tutorials"
@@ -215,7 +229,7 @@ export default function MobileMenu({reference, closeMenu}) {
           TUTORIALES
         </NavLink>
         <NavLink
-          onClick={closeMenu}
+          onClick={() => handleNavigation()}
           prefetch="intent"
           className="drop-down"
           to="/contacto"
