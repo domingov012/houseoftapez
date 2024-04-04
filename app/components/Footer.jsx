@@ -84,11 +84,9 @@ export function Footer({menu, shop}) {
             PACKS
           </NavLink>
         </div>
-        <div className="footer-menu title-font-2 max-h-[60%]">
+        <div className="footer-menu-info title-font-2 max-h-[60%]">
           <h1>INFORMACIÓN</h1>
-          <div></div>
           <h2>CONTACTO</h2>
-          <div></div>
           <div className="flex">
             <FontAwesomeIcon
               icon={faInstagram}
@@ -101,7 +99,6 @@ export function Footer({menu, shop}) {
               @houseoftapez
             </a>
           </div>
-          <div></div>
           <div className="flex items-center h-10">
             <FontAwesomeIcon
               icon={faEnvelope}

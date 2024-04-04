@@ -408,6 +408,15 @@ section {
   display: none;
 }
 
+.mobile-menu-hidden {
+  transform: translateX(-100%);
+  transition: transform 0.2s ease-in;
+}
+
+.mobile-menu-visible {
+  transform: translateX(0%);
+}
+
 /* ---------------------- TRANSITIONS --------------------- */
 
 .hidden-section {

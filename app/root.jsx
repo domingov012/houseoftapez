@@ -23,6 +23,7 @@ import contactStyles from './styles/contact.css';
 import tailwindStyle from './tailwind.css';
 import {Layout} from '~/components/Layout';
 import Loading from './components/ui/LoadingScreen.jsx';
+import icon from './styles/sporttape_svg.svg';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -67,6 +68,10 @@ export function links() {
     {
       rel: 'preconnect',
       href: 'https://shop.app',
+    },
+    {
+      rel: 'icon',
+      href: icon,
     },
   ];
 }

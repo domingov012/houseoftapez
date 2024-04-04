@@ -293,6 +293,7 @@ aside li {
     display: flex;
     flex-direction: column;
     padding: 10px;
+    min-height: 100vh;
   }
 }
 
@@ -301,6 +302,19 @@ aside li {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
   padding: 1rem;
+  @media (max-width: 912px) {
+    margin-bottom: auto;
+  }
+}
+
+.footer-menu-info {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1rem;
+  padding: 1rem;
+  @media (max-width: 912px) {
+    margin-bottom: auto;
+  }
 }
 
 .footer-menu > h1 {
@@ -314,6 +328,20 @@ aside li {
 }
 
 .footer-menu a {
+  color: var(--color-light);
+}
+
+.footer-menu-info > h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+}
+
+.footer-menu-info > h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+}
+
+.footer-menu-info a {
   color: var(--color-light);
 }
 

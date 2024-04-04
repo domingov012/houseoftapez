@@ -9,8 +9,10 @@ import {
   faUser,
   faTags,
   faTruckFast,
+  faTruck,
 } from '@fortawesome/free-solid-svg-icons';
 import DropMenu from '../components/DropMenu.jsx';
+import MobileMenu from '../components/MobileMenu.jsx';
 
 /**
  * @param {HeaderProps}
@@ -18,8 +20,9 @@ import DropMenu from '../components/DropMenu.jsx';
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
 
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenuMobile, setShowMenuMobile] = useState(false);
   const shopMenuRef = useRef();
+  const mobileMenuRef = useRef();
 
   function handleMenuDisplay() {
     shopMenuRef.current.classList.remove('h-0');
@@ -31,6 +34,15 @@ export function Header({header, isLoggedIn, cart}) {
     shopMenuRef.current.classList.add('h-0');
   }
 
+  function toggleMenu() {
+    if (!showMenuMobile) {
+      mobileMenuRef.current.classList.add('mobile-menu-visible');
+    } else {
+      mobileMenuRef.current.classList.remove('mobile-menu-visible');
+    }
+    setShowMenuMobile((prev) => !prev);
+  }
+
   return (
     <header className="navbar relative">
       <div className="news-display-container">
@@ -38,18 +50,23 @@ export function Header({header, isLoggedIn, cart}) {
           <div className="scrolling-text flex">
             <div className="ml-auto mr-auto text-black whitespace-nowrap">
               <FontAwesomeIcon icon={faTags} className="mr-2" />
-              20% off al llevar 4 tapes del mismo tipo
+              20% off al llevar 6 tapes del mismo tipo
+            </div>
+            <div className="ml-auto mr-auto text-black"> | </div>
+            <div className="ml-auto mr-auto text-black whitespace-nowrap">
+              <FontAwesomeIcon icon={faTruck} className="mr-2" />
+              Envío gratis en compras sobre CLP 50.000
             </div>
             <div className="ml-auto mr-auto text-black"> | </div>
             <div className="ml-auto mr-auto text-black whitespace-nowrap">
               <FontAwesomeIcon icon={faTruckFast} className="mr-2" />
-              Envío gratis en compras sobre CLP 50.000
+              Envíos express el mismo día (pedir antes de las 10AM)
             </div>
           </div>
         </div>
       </div>
       <div className="main-nav">
-        <HeaderMenuMobileToggle />
+        <HeaderMenuMobileToggle action={toggleMenu} />
         <div className="logo-container-1">
           <Link prefetch="intent" to="/">
             <Image
@@ -83,6 +100,7 @@ export function Header({header, isLoggedIn, cart}) {
         onLeave={closeMenu}
         onClick={closeMenu}
       />
+      <MobileMenu reference={mobileMenuRef} closeMenu={toggleMenu} />
     </header>
   );
 }
@@ -159,9 +177,9 @@ function HeaderCtas({isLoggedIn, cart}) {
   );
 }
 
-function HeaderMenuMobileToggle() {
+function HeaderMenuMobileToggle({action}) {
   return (
-    <a className="header-menu-mobile-toggle" href="#mobile-menu-aside">
+    <a className="header-menu-mobile-toggle" onClick={action}>
       <h3>☰</h3>
     </a>
   );
