@@ -1430,7 +1430,7 @@ interface GeneratedQueryTypes {
     return: CategoryProductsQuery;
     variables: CategoryProductsQueryVariables;
   };
-  '#graphql\n    query Tutoriales(\n        $country: CountryCode\n        $language: LanguageCode\n    ) @inContext(country: $country, language: $language) {\n        metaobjects(type: "Tutorial", first: 10) {\n            nodes {\n                handle\n                fields {\n                    key\n                    value\n                }\n            }\n        }\n    }': {
+  '#graphql\n    query Tutoriales(\n        $country: CountryCode\n        $language: LanguageCode\n    ) @inContext(country: $country, language: $language) {\n        metaobjects(type: "Tutorial", first: 20) {\n            nodes {\n                handle\n                fields {\n                    key\n                    value\n                }\n            }\n        }\n    }': {
     return: TutorialesQuery;
     variables: TutorialesQueryVariables;
   };

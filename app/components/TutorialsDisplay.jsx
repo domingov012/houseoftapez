@@ -4,14 +4,15 @@ import Tutorial from '../components/Tutorial.jsx';
 export default function TutorialsDisplay({productsArray, tutorialArray}) {
   const [filter, setFilter] = useState('TODOS');
   const allTutorials = tutorialArray.map((tutorial, i) => {
-    console.log('MAPPING FILTER');
+    console.log('TUTORIALS:', tutorial.fields);
     let tutorialComponent = (
       <Tutorial
         key={tutorial.handle}
         i={i}
-        title={tutorial.fields[3].value}
-        embededUrl={tutorial.fields[2].value}
+        title={tutorial.fields[4].value}
+        embededUrl={tutorial.fields[3].value}
         productsRefArray={productsArray[i]}
+        desc={tutorial.fields[1].value}
       />
     );
     if (filter === 'TODOS') {
@@ -91,6 +92,22 @@ export default function TutorialsDisplay({productsArray, tutorialArray}) {
           }
         >
           MUSCULAR
+        </div>
+        <div
+          onClick={() => setFilter('ESPALDA')}
+          className={
+            filter === 'ESPALDA' ? 'selected-filter' : 'non-selected-filter'
+          }
+        >
+          ESPALDA
+        </div>
+        <div
+          onClick={() => setFilter('TIPS')}
+          className={
+            filter === 'TIPS' ? 'selected-filter' : 'non-selected-filter'
+          }
+        >
+          TIPS
         </div>
       </div>
       <div>{allTutorials}</div>

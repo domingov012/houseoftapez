@@ -12,6 +12,10 @@ import {defer} from '@remix-run/server-runtime';
 import {Await, useLoaderData} from '@remix-run/react';
 import Faq from '~/components/Faq';
 
+export const meta = () => {
+  return [{title: `HOT | CONTACTO`}];
+};
+
 export async function loader({context}) {
   const {storefront} = context;
 

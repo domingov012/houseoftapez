@@ -3,6 +3,10 @@ import {json} from '@shopify/remix-oxygen';
 import {Pagination, getPaginationVariables, Image} from '@shopify/hydrogen';
 import ProductPreview from '../components/ProductPreview';
 
+export const meta = () => {
+  return [{title: 'HOT | SHOP'}];
+};
+
 /**
  * @param {LoaderFunctionArgs}
  */

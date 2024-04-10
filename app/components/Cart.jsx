@@ -415,9 +415,10 @@ function CartDiscounts({discountCodes, layout}) {
       <UpdateDiscountForm discountCodes={codes}>
         <div className="flex flex-col mt-3">
           <label className={`text-font text-[${textSize}] text-[#e5d201]`}>
-            ¿Parte de un club? Introduce su código:
+            ¿Parte de un club o tienes descuento? Introduce su código en el
+            checkout.
           </label>
-          <div className="mt-4">
+          {/* <div className="mt-4">
             <input
               type="text"
               name="discountCode"
@@ -431,7 +432,7 @@ function CartDiscounts({discountCodes, layout}) {
             >
               PROBAR
             </button>
-          </div>
+          </div> */}
         </div>
       </UpdateDiscountForm>
     </div>

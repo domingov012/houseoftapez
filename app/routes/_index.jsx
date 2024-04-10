@@ -11,7 +11,7 @@ import PacksBanner from '~/components/home/PacksBanner';
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'HOUSE OF TAPEZ | INICIO'}];
+  return [{title: 'HOUSE OF TAPEZ'}];
 };
 
 /**
