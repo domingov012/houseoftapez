@@ -72,6 +72,7 @@ export function links() {
     {
       rel: 'shortcut icon',
       href: icon,
+      type: 'image/x-icon'
     },
   ];
 }
