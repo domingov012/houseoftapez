@@ -70,8 +70,8 @@ export function links() {
       href: 'https://shop.app',
     },
     {
-      rel: 'icon',
-      href: icon,
+      rel: 'shortcut icon',
+      href: '../public/favicon.ico',
     },
   ];
 }
