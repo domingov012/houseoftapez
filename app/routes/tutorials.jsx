@@ -2,6 +2,10 @@ import {useLoaderData, defer, Await} from '@remix-run/react';
 import TutorialsDisplay from '../components/TutorialsDisplay.jsx';
 import {useRef, useEffect, Suspense} from 'react';
 
+export const meta = () => {
+  return [{title: 'HOT | TUTORIALES'}];
+};
+
 export async function loader({context}) {
   const {storefront} = context;
 
@@ -11,8 +15,13 @@ export async function loader({context}) {
 
   const products_array = Promise.all(
     tutorial_metaobjects.metaobjects.nodes.map((tutorial, i) => {
+      console.log('TUTORIALS 0:', tutorial.fields[0]);
+      console.log('TUTORIALS 1:', tutorial.fields[1]);
+      console.log('TUTORIALS 2:', tutorial.fields[2]);
+      console.log('TUTORIALS 3:', tutorial.fields[3]);
+      console.log('TUTORIALS 4:', tutorial.fields[4]);
       let array = Promise.all(
-        JSON.parse(tutorial.fields[1].value).map((id) => {
+        JSON.parse(tutorial.fields[2].value).map((id) => {
           if (id in productIdSet) {
             return productIdHandle[id];
           } else {
@@ -27,7 +36,6 @@ export async function loader({context}) {
       return array;
     }),
   );
-  console.log('ARRAY: ', products_array);
   return defer({
     tutorials: tutorial_metaobjects,
     products: products_array,
@@ -99,7 +107,7 @@ const TUTORIALS_QUERY = `#graphql
         $country: CountryCode
         $language: LanguageCode
     ) @inContext(country: $country, language: $language) {
-        metaobjects(type: "Tutorial", first: 10) {
+        metaobjects(type: "Tutorial", first: 20) {
             nodes {
                 handle
                 fields {

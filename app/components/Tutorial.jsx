@@ -1,6 +1,12 @@
 import ProductPreview from './ProductPreview';
 
-export default function Tutorial({title, i, embededUrl, productsRefArray}) {
+export default function Tutorial({
+  title,
+  i,
+  embededUrl,
+  productsRefArray,
+  desc,
+}) {
   const isEven = i % 2 === 0;
   const color = isEven ? '#e5d201' : '#000';
   const text = isEven ? '#000' : 'white';
@@ -12,12 +18,7 @@ export default function Tutorial({title, i, embededUrl, productsRefArray}) {
 
       <div className="flex flex-col items-center">
         <h1 className="title-font-1 pt-5 text-2xl text-center">{title}</h1>
-        <div className="video-description text-font">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
-          voluptas ducimus ipsam blanditiis tempore quisquam iste. Sequi modi
-          nobis aliquam impedit autem perspiciatis pariatur ipsum nesciunt,
-          quasi, rem fugiat. Ab.
-        </div>
+        <div className="video-description text-font">{desc}</div>
       </div>
       <div className={`products-necesary-container border-[${text}]`}>
         <h1 className="title-font-1 pt-5 text-2xl">TAPES NECESARIOS: </h1>

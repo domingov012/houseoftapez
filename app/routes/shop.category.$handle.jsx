@@ -4,6 +4,10 @@ import {Pagination, getPaginationVariables, Image} from '@shopify/hydrogen';
 import ProductPreview from '../components/ProductPreview';
 import {useEffect, useRef} from 'react';
 
+export const meta = ({data}) => {
+  return [{title: `HOT | ${data?.category ?? ''}`}];
+};
+
 /**
  * @param {LoaderFunctionArgs}
  */

@@ -659,6 +659,8 @@ aside li {
   padding-right: 8px;
   text-align: center;
   font-size: clamp(14px, 5vw, 20px);
+  overflow-y: auto;
+  max-height: 50vh;
 }
 
 .products-necesary-container {
