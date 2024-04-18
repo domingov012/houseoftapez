@@ -87,7 +87,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   revealMenu(tapeRef, tapeTouched, settapeTouched, tapeChildRef)
                 }
               >
-                TAPES
+                TAPEZ
               </div>
               <div
                 ref={tapeChildRef}
@@ -191,7 +191,7 @@ export default function MobileMenu({reference, closeMenu}) {
                   className="nav-menu-item text-font"
                   to="/shop/category/tape-rigidos"
                 >
-                  No elásticos
+                  RÍGIDOS
                 </NavLink>
                 <NavLink
                   onClick={() => handleNavigation()}

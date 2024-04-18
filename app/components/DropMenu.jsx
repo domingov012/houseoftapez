@@ -26,7 +26,7 @@ export default function DropMenu({reference, onLeave, onClick}) {
       <div className=" w-11/12 h-full m-auto flex flex-col">
         <div className="grid grid-cols-3 gap-16 mb-auto">
           <div className="pl-5 pt-5 flex flex-col">
-            <h2 className="title-font-1 text-2xl">TAPES</h2>
+            <h2 className="title-font-1 text-2xl">TAPEZ</h2>
             <div className="grid grid-cols-2 gap-1 mt-5">
               <NavLink
                 prefetch="intent"
@@ -248,7 +248,7 @@ export default function DropMenu({reference, onLeave, onClick}) {
                 to="shop/category/tape-rigidos"
                 className="nav-menu-item text-font"
               >
-                NO ELÁSTICOS
+                TAPES RÍGIDOS
               </NavLink>
               <NavLink
                 prefetch="intent"

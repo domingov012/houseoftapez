@@ -50,7 +50,7 @@ export function Header({header, isLoggedIn, cart}) {
           <div className="scrolling-text flex">
             <div className="ml-auto mr-auto text-black whitespace-nowrap">
               <FontAwesomeIcon icon={faTags} className="mr-2" />
-              20% off al llevar 6 tapes del mismo tipo
+              15% off al llevar 6 tapes del mismo tipo
             </div>
             <div className="ml-auto mr-auto text-black"> | </div>
             <div className="ml-auto mr-auto text-black whitespace-nowrap">

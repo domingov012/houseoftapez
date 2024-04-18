@@ -53,7 +53,7 @@ export function Footer({menu, shop}) {
             to="shop/category/tape-rigidos"
             className="hover:text-[#e5d201] text-font text-sm"
           >
-            NO ELÁSTICOS
+            RÍGIDOS
           </NavLink>
           <NavLink
             prefetch="intent"

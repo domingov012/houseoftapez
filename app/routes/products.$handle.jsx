@@ -409,14 +409,14 @@ function ProductPrice({selectedVariant, isDiscounted}) {
           <Money
             data={{
               amount: (
-                parseInt(selectedVariant?.price.amount) * 0.8
+                parseInt(selectedVariant?.price.amount) * 0.85
               ).toString(),
               currencyCode: selectedVariant?.price.currencyCode,
             }}
             className="prod-price-expanded mid text-font mt-5"
           />
           <div className="mid text-font mt-5 ml-2">c/u</div>
-          <div className="mid text-font mt-5 ml-3 text-red-500">-20% off</div>
+          <div className="mid text-font mt-5 ml-3 text-red-500">-15% off</div>
         </div>
       )}
     </div>
