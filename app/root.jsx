@@ -71,7 +71,8 @@ export function links() {
     },
     {
       rel: 'shortcut icon',
-      href: '../public/favicon.ico',
+      href: icon,
+      type: 'image/x-icon'
     },
   ];
 }
