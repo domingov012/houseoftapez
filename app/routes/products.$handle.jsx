@@ -524,7 +524,9 @@ function ProductOptions({option, onClick}) {
       <h5 className="text-font mr-4">{option.name}: </h5>
       <div className="product-options-grid">
         {option.values.map(({value, isAvailable, isActive, to}) => {
-          return option.name === 'Color' ? (
+          return (option.name === 'Color') |
+            option.name.includes('TEAR EAB') |
+            option.name.includes('SOCK TAPE') ? (
             <Link
               className={`product-options-item color bg-color-${value} active-${isActive}`}
               key={option.name + value}
