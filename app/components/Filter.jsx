@@ -20,7 +20,7 @@ export default function Filter(props) {
                   <div className="flex items-center justify-center w-full h-20 bg-[url('https://cdn.shopify.com/s/files/1/0643/3554/4485/files/ktape-small-2.jpg?v=1709231624')] bg-no-repeat bg-cover bg-center hover:text-lg transition-all">
                     <NavLink
                       prefetch="intent"
-                      to="shop/category/Accesorios"
+                      to="category/Accesorios"
                       className="title-font-1 cursor-pointer text-[#e5d201] mx-auto"
                     >
                       ACCESORIOS
@@ -29,7 +29,7 @@ export default function Filter(props) {
                   <div className="flex items-center justify-center w-full h-20 bg-[url('https://cdn.shopify.com/s/files/1/0643/3554/4485/files/eab-small.jpg?v=1709244528')] bg-no-repeat bg-cover bg-center hover:text-lg transition-all">
                     <NavLink
                       prefetch="intent"
-                      to="shop/category/packs"
+                      to="category/packs"
                       className="title-font-1 cursor-pointer text-[#e5d201] mx-auto"
                     >
                       PACKS
@@ -38,19 +38,19 @@ export default function Filter(props) {
                   <div className="flex items-center justify-center w-full h-20 bg-[url('https://cdn.shopify.com/s/files/1/0643/3554/4485/files/thumbtape-small.jpg?v=1709232087')] bg-no-repeat bg-cover bg-center hover:text-lg transition-all">
                     <NavLink
                       prefetch="intent"
-                      to="shop/category/tape-elasticos"
+                      to="category/tape-elasticos"
                       className="title-font-1 cursor-pointer text-[#e5d201] mx-auto"
                     >
-                      ELASTICOS
+                      ELÁSTICOS
                     </NavLink>
                   </div>
                   <div className="flex items-center justify-center w-full h-20 bg-[url('https://cdn.shopify.com/s/files/1/0643/3554/4485/files/zincoxide-small.jpg?v=1709238973')] bg-no-repeat bg-cover bg-center hover:text-lg transition-all">
                     <NavLink
                       prefetch="intent"
-                      to="shop/category/tape-rigidos"
+                      to="category/tape-rigidos"
                       className="title-font-1 cursor-pointer text-[#e5d201] mx-auto"
                     >
-                      NO ELASTICOS
+                      RÍGIDOS
                     </NavLink>
                   </div>
                 </div>

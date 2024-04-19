@@ -25,6 +25,10 @@ import {Layout} from '~/components/Layout';
 import Loading from './components/ui/LoadingScreen.jsx';
 import icon from './styles/sporttape_svg.svg';
 
+import fontstyle from '@fortawesome/fontawesome-svg-core/styles.css';
+import {config} from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false;
+
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -45,6 +49,7 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 
 export function links() {
   return [
+    {rel: 'stylesheet', href: fontstyle},
     {rel: 'stylesheet', href: tailwindStyle},
     {rel: 'stylesheet', href: contactStyles},
     {rel: 'stylesheet', href: navbarStyles},
@@ -72,7 +77,7 @@ export function links() {
     {
       rel: 'shortcut icon',
       href: icon,
-      type: 'image/x-icon'
+      type: 'image/x-icon',
     },
   ];
 }
@@ -234,6 +239,7 @@ const HEADER_QUERY = `#graphql
     brand {
       logo {
         image {
+          height
           url
         }
       }

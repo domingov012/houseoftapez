@@ -66,7 +66,7 @@ export default function SportTapeSection(props) {
                   SPORTTAPE **EDITAR** */}
                   Estamos trabajando con distintos clubes deportivos de Chile,
                   que confían en la calidad de nuestros productos! Únete a
-                  nuestra familia y asegúra a tu club con SPORTTAPE.
+                  nuestra familia y asegura a tu club con SPORTTAPE.
                 </div>
                 <NavLink
                   to="/contacto"
