@@ -438,14 +438,20 @@ function ProductForm({
   isTape,
 }) {
   const [quantity, setQuantity] = useState(1);
+  const [quantityAlert, setQuantityAlert] = useState(false);
 
   function updateQuantity(n) {
+    if (quantityAlert) {
+      setQuantityAlert(false);
+    }
     if (n === 1 && selectedVariant.quantityAvailable > quantity) {
       setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
 
       if (quantity + 1 >= 6 && isTape) {
         setDiscount(true);
       }
+    } else if (n === 1 && selectedVariant.quantityAvailable <= quantity) {
+      setQuantityAlert(true);
     } else if (n === -1) {
       setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
       if (quantity - 1 < 6 && isTape) {
@@ -457,6 +463,7 @@ function ProductForm({
   function selectVariant() {
     setQuantity(1);
     setDiscount(false);
+    setQuantityAlert(false);
   }
 
   return (
@@ -484,13 +491,25 @@ function ProductForm({
           <FontAwesomeIcon icon={faPlus} />
         </div>
       </div>
-      {selectedVariant.quantityAvailable <= 5 && (
+      {/* Para mostrar stock restante cuando queda poco */}
+      {/* {selectedVariant.quantityAvailable <= 5 && (
         <div className="text-font text-red-500 pb-4">
           {selectedVariant.quantityAvailable !== 0
             ? `Solo quedan ${selectedVariant.quantityAvailable} en stock!`
             : ''}
         </div>
+      )} */}
+      {selectedVariant.quantityAvailable === 0 && (
+        <div className="text-font text-red-500 pb-4">
+          No hay stock disponible para esta variante!
+        </div>
       )}
+      {quantityAlert && (
+        <div className="text-font text-red-500 pb-4">
+          No es posible seleccionar más cantidad (:/)
+        </div>
+      )}
+
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
