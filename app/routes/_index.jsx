@@ -1,11 +1,14 @@
 import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
-import {Suspense, useRef, useEffect} from 'react';
+import {Suspense, useRef, useEffect, useState} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import SportTapeSection from '~/components/home/SportTapeSection.jsx';
+import SportTapeSection2 from '~/components/home/SportTapeSection2';
 import ProductPreview from '~/components/ProductPreview';
 import TutorialsSection from '~/components/home/TutorialsSection';
 import PacksBanner from '~/components/home/PacksBanner';
+import PickUpBanner from '~/components/home/PickUpBanner';
+import Carousel from '~/components/home/Carousel';
 
 /**
  * @type {MetaFunction}
@@ -50,16 +53,42 @@ export default function Homepage() {
         }
       });
     });
-    observer.observe(refSTS.current);
+    // observer.observe(refSTS.current);
     observer.observe(refPopular.current);
     observer.observe(refTutorial.current);
     observer.observe(refPacks.current);
     observer.observe(refRecommend.current);
     observer.observe(contactRef.current);
   }, []);
+
+  const mainRef = useRef();
+  const pickupRef = useRef();
+
+  const [colorArray, setColorArray] = useState([1, 0]);
+
+  // MAIN BANNER ANIMATION //
+  useEffect(() => {
+    const banner_observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          console.log(entry.target);
+        }
+      });
+    });
+    // banner_observer.observe(refSTS.current);
+    banner_observer.observe(pickupRef.current);
+    banner_observer.observe(mainRef.current);
+  }, []);
+
   return (
     <div>
-      <SportTapeSection reference1={refSTS} reference2={contactRef} />
+      <Carousel
+        view1={<SportTapeSection reference={mainRef} />}
+        view2={<PickUpBanner reference={pickupRef} />}
+      />
+
+      <SportTapeSection2 reference2={contactRef} />
+
       <Popular reference={refPopular} products={data.popularProducts} />
       <TutorialsSection reference={refTutorial} />
       <PacksBanner reference={refPacks} />

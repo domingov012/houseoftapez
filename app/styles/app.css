@@ -883,14 +883,14 @@ aside li {
 
 ::-webkit-scrollbar {
   width: 5px;
-  height: 5px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
   background: #888;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--secondary-color);
-  border-radius: 10px;
+  /* border-radius: 10px; */
   transition: background 0.5s ease;
 }
 ::-webkit-scrollbar-thumb:hover {
