@@ -38,7 +38,10 @@
   margin: 0;
   text-align: center;
   transform: translateX(100%);
-  animation: cssmarquee 20s linear infinite;
+  animation: cssmarqueeDesktop 20s linear infinite;
+  @media (max-width: 48em) {
+    animation: cssmarqueeMobile 20s linear infinite;
+  }
 }
 
 .main-nav {
@@ -413,7 +416,16 @@
   }
 }
 
-@keyframes cssmarquee {
+@keyframes cssmarqueeMobile {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-230%);
+  }
+}
+
+@keyframes cssmarqueeDesktop {
   0% {
     transform: translateX(100%);
   }

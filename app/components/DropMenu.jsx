@@ -26,7 +26,7 @@ export default function DropMenu({reference, onLeave, onClick}) {
       <div className=" w-11/12 h-full m-auto flex flex-col">
         <div className="grid grid-cols-3 gap-16 mb-auto">
           <div className="pl-5 pt-5 flex flex-col">
-            <h2 className="title-font-1 text-2xl">TAPES</h2>
+            <h2 className="title-font-1 text-2xl">TAPEZ</h2>
             <div className="grid grid-cols-2 gap-1 mt-5">
               <NavLink
                 prefetch="intent"
@@ -35,13 +35,6 @@ export default function DropMenu({reference, onLeave, onClick}) {
               >
                 K-TAPE
               </NavLink>
-              {/* <NavLink
-                prefetch="intent"
-                to="/products/zinc-oxide"
-                className="nav-menu-item text-font"
-              >
-                ZINC OXIDE
-              </NavLink> */}
               <div className="overflow-hidden">
                 {showZinc ? (
                   <div
@@ -72,13 +65,6 @@ export default function DropMenu({reference, onLeave, onClick}) {
                   </div>
                 )}
               </div>
-              {/* <NavLink
-                prefetch="intent"
-                to="/products/eab-tear"
-                className="nav-menu-item text-font"
-              >
-                EAB TAPES
-              </NavLink> */}
               <div className="overflow-hidden">
                 {showEAB ? (
                   <div
@@ -137,7 +123,13 @@ export default function DropMenu({reference, onLeave, onClick}) {
           <div className="pl-5 pt-5">
             <h2 className="title-font-1 text-2xl">PACKS</h2>
             <div className="grid grid-cols-2 gap-1 mt-5">
-              <div className="nav-menu-item text-font">SALTADOR</div>
+              <NavLink
+                prefetch="intent"
+                to="/products/saltador"
+                className="nav-menu-item text-font"
+              >
+                SALTADOR
+              </NavLink>
               <div className="overflow-hidden">
                 {showHouse ? (
                   <div
@@ -146,14 +138,14 @@ export default function DropMenu({reference, onLeave, onClick}) {
                   >
                     <NavLink
                       prefetch="intent"
-                      to="/products/eab-tear"
+                      to="/products/house-l"
                       className="nav-menu-item text-font mr-auto"
                     >
                       L
                     </NavLink>
                     <NavLink
                       prefetch="intent"
-                      to="/products/non-tear-eab"
+                      to="/products/house-xl"
                       className="nav-menu-item text-font mr-auto font-black"
                     >
                       XL
@@ -176,14 +168,14 @@ export default function DropMenu({reference, onLeave, onClick}) {
                   >
                     <NavLink
                       prefetch="intent"
-                      to="/products/eab-tear"
+                      to="/products/kine-premium-l"
                       className="nav-menu-item text-font mr-auto"
                     >
                       L
                     </NavLink>
                     <NavLink
                       prefetch="intent"
-                      to="/products/non-tear-eab"
+                      to="/products/kine-premium-xl"
                       className="nav-menu-item text-font mr-auto font-black"
                     >
                       XL
@@ -207,14 +199,14 @@ export default function DropMenu({reference, onLeave, onClick}) {
                   >
                     <NavLink
                       prefetch="intent"
-                      to="/products/eab-tear"
+                      to="/products/candado-l"
                       className="nav-menu-item text-font mr-auto"
                     >
                       L
                     </NavLink>
                     <NavLink
                       prefetch="intent"
-                      to="/products/non-tear-eab"
+                      to="/products/candado-xl"
                       className="nav-menu-item text-font mr-auto font-black"
                     >
                       XL
@@ -232,7 +224,13 @@ export default function DropMenu({reference, onLeave, onClick}) {
               <div className="nav-menu-item text-font"></div>
               <div className="nav-menu-item text-font"></div>
               <div className="nav-menu-item text-font"></div>
-              <div className="nav-menu-button text-font">VER PACKS →</div>
+              <NavLink
+                prefetch="intent"
+                to="shop/category/packs"
+                className="nav-menu-button text-font"
+              >
+                VER PACKS →
+              </NavLink>
             </div>
           </div>
           <div className="pl-5 pt-5">
@@ -250,7 +248,7 @@ export default function DropMenu({reference, onLeave, onClick}) {
                 to="shop/category/tape-rigidos"
                 className="nav-menu-item text-font"
               >
-                NO ELÁSTICOS
+                TAPES RÍGIDOS
               </NavLink>
               <NavLink
                 prefetch="intent"

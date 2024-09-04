@@ -409,14 +409,14 @@ function ProductPrice({selectedVariant, isDiscounted}) {
           <Money
             data={{
               amount: (
-                parseInt(selectedVariant?.price.amount) * 0.8
+                parseInt(selectedVariant?.price.amount) * 0.85
               ).toString(),
               currencyCode: selectedVariant?.price.currencyCode,
             }}
             className="prod-price-expanded mid text-font mt-5"
           />
           <div className="mid text-font mt-5 ml-2">c/u</div>
-          <div className="mid text-font mt-5 ml-3 text-red-500">-20% off</div>
+          <div className="mid text-font mt-5 ml-3 text-red-500">-15% off</div>
         </div>
       )}
     </div>
@@ -438,14 +438,20 @@ function ProductForm({
   isTape,
 }) {
   const [quantity, setQuantity] = useState(1);
+  const [quantityAlert, setQuantityAlert] = useState(false);
 
   function updateQuantity(n) {
+    if (quantityAlert) {
+      setQuantityAlert(false);
+    }
     if (n === 1 && selectedVariant.quantityAvailable > quantity) {
       setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
 
       if (quantity + 1 >= 6 && isTape) {
         setDiscount(true);
       }
+    } else if (n === 1 && selectedVariant.quantityAvailable <= quantity) {
+      setQuantityAlert(true);
     } else if (n === -1) {
       setQuantity((prev) => (prev === 1 && n === -1 ? 1 : prev + n));
       if (quantity - 1 < 6 && isTape) {
@@ -457,6 +463,7 @@ function ProductForm({
   function selectVariant() {
     setQuantity(1);
     setDiscount(false);
+    setQuantityAlert(false);
   }
 
   return (
@@ -484,13 +491,25 @@ function ProductForm({
           <FontAwesomeIcon icon={faPlus} />
         </div>
       </div>
-      {selectedVariant.quantityAvailable <= 5 && (
+      {/* Para mostrar stock restante cuando queda poco */}
+      {/* {selectedVariant.quantityAvailable <= 5 && (
         <div className="text-font text-red-500 pb-4">
           {selectedVariant.quantityAvailable !== 0
             ? `Solo quedan ${selectedVariant.quantityAvailable} en stock!`
             : ''}
         </div>
+      )} */}
+      {selectedVariant.quantityAvailable === 0 && (
+        <div className="text-font text-red-500 pb-4">
+          No hay stock disponible para esta variante!
+        </div>
       )}
+      {quantityAlert && (
+        <div className="text-font text-red-500 pb-4">
+          No es posible seleccionar más cantidad (:/)
+        </div>
+      )}
+
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
@@ -524,7 +543,9 @@ function ProductOptions({option, onClick}) {
       <h5 className="text-font mr-4">{option.name}: </h5>
       <div className="product-options-grid">
         {option.values.map(({value, isAvailable, isActive, to}) => {
-          return option.name === 'Color' ? (
+          return (option.name === 'Color') |
+            option.name.includes('TEAR EAB') |
+            option.name.includes('SOCK TAPE') ? (
             <Link
               className={`product-options-item color bg-color-${value} active-${isActive}`}
               key={option.name + value}

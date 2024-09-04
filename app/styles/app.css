@@ -687,6 +687,12 @@ aside li {
   }
 }
 
+.long-scroll-true {
+  @media (max-width: 48em) {
+    justify-content: flex-start;
+  }
+}
+
 .video-container {
   padding-left: 3%;
   padding-right: 3%;

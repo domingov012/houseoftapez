@@ -75,7 +75,7 @@ export default function Contacto() {
       <section className="main-contact-section">
         <div className="absolute bg-2 -z-10"></div>
         <div className="flex flex-col p-10 justify-center">
-          <h1 className="title-font-2 text-3xl">INFORMACION DE CONTACTO</h1>
+          <h1 className="title-font-2 text-3xl">INFORMACIÓN DE CONTACTO</h1>
           <div className="flex items-center h-10">
             <FontAwesomeIcon
               icon={faInstagram}

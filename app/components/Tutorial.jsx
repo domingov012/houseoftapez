@@ -11,6 +11,7 @@ export default function Tutorial({
   const color = isEven ? '#e5d201' : '#000';
   const text = isEven ? '#000' : 'white';
   console.log('productsArray: ', productsRefArray);
+  const long = productsRefArray.length >= 3;
   return (
     <div className={`video-container video-even-layout-${isEven}`}>
       {isEven && <YouTubeEmbed embedUrl={embededUrl} color={text} />}
@@ -22,7 +23,7 @@ export default function Tutorial({
       </div>
       <div className={`products-necesary-container border-[${text}]`}>
         <h1 className="title-font-1 pt-5 text-2xl">TAPES NECESARIOS: </h1>
-        <div className="scrollable">
+        <div className={`scrollable long-scroll-${long}`}>
           {productsRefArray.map((product) => (
             <div className="w-3/4 mt-3">
               <ProductPreview productData={product.product} />

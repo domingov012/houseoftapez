@@ -19,7 +19,8 @@ import MobileMenu from '../components/MobileMenu.jsx';
  */
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
-
+  shop.brand.logo.image.height = '100';
+  console.log('IMAGE DATA ', shop.brand.logo.image);
   const [showMenuMobile, setShowMenuMobile] = useState(false);
   const shopMenuRef = useRef();
   const mobileMenuRef = useRef();
@@ -50,14 +51,14 @@ export function Header({header, isLoggedIn, cart}) {
           <div className="scrolling-text flex">
             <div className="ml-auto mr-auto text-black whitespace-nowrap">
               <FontAwesomeIcon icon={faTags} className="mr-2" />
-              20% off al llevar 6 tapes del mismo tipo
+              15% off al llevar 6 tapes del mismo tipo
             </div>
-            <div className="ml-auto mr-auto text-black"> | </div>
+            <div className="ml-auto mr-auto min-w-10 text-black"> | </div>
             <div className="ml-auto mr-auto text-black whitespace-nowrap">
               <FontAwesomeIcon icon={faTruck} className="mr-2" />
               Envío gratis en compras sobre CLP 50.000
             </div>
-            <div className="ml-auto mr-auto text-black"> | </div>
+            <div className="ml-auto mr-auto min-w-10 text-black"> | </div>
             <div className="ml-auto mr-auto text-black whitespace-nowrap">
               <FontAwesomeIcon icon={faTruckFast} className="mr-2" />
               Envíos express el mismo día (pedir antes de las 10AM)
