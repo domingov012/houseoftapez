@@ -71,7 +71,6 @@ export default function Homepage() {
     const banner_observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log(entry.target);
         }
       });
     });
@@ -83,8 +82,8 @@ export default function Homepage() {
   return (
     <div>
       <Carousel
-        view1={<SportTapeSection reference={mainRef} />}
-        view2={<PickUpBanner reference={pickupRef} />}
+        view1={<PickUpBanner reference={pickupRef} />}
+        view2={<SportTapeSection reference={mainRef} />}
       />
 
       <SportTapeSection2 reference2={contactRef} />
@@ -122,7 +121,6 @@ function Popular({reference, products}) {
     observer.observe(ref3.current);
     observer.observe(ref4.current);
   }, []);
-  console.log('popular-component', products.collection.products.edges[0]);
   return (
     <section ref={reference} className="half-container hidden-section">
       <div className="popular-container">
@@ -149,7 +147,6 @@ function Popular({reference, products}) {
  * }}
  */
 function RecommendedProducts({reference, products}) {
-  console.log('recommended: ', products);
   return (
     <section
       ref={reference}

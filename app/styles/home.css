@@ -142,14 +142,21 @@ section {
 .pickup-info-text {
   font-size: 20px;
   @media (max-width: 912px) {
-    font-size: clamp(12px, 3vw, 18px);
+    font-size: clamp(12px, 3vh, 20px);
+  }
+}
+
+.arrow-icon {
+  font-size: 30px;
+  @media (max-width: 912px) {
+    font-size: clamp(18px, 3vw, 24px);
   }
 }
 
 .pickup-icon {
   width: 10vw;
   @media (max-width: 912px) {
-    width: 25vw;
+    width: 20vw;
   }
 }
 
@@ -168,6 +175,7 @@ section {
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   justify-content: flex-start;
+  scroll-behavior: smooth;
   gap: 10px;
 }
 
@@ -184,10 +192,12 @@ section {
   height: 100%;
   width: 50vw;
   background: rgba(0, 0, 0, 0.4);
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   @media (max-width: 912px) {
     width: 100vw;
+    padding-left: 7vh;
+    padding-right: 7vh;
   }
 }
 
@@ -488,6 +498,12 @@ section {
   display: none;
 }
 
+.mobile-col {
+  @media (max-width: 912px) {
+    flex-direction: column;
+  }
+}
+
 .mobile-menu-hidden {
   transform: translateX(-100%);
   transition: transform 0.2s ease-in;
@@ -495,6 +511,19 @@ section {
 
 .mobile-menu-visible {
   transform: translateX(0%);
+}
+
+.mobile-only {
+  display: none;
+  @media (max-width: 912px) {
+    display: flex;
+  }
+}
+
+.desktop-only {
+  @media (max-width: 912px) {
+    display: none;
+  }
 }
 
 /* ---------------------- TRANSITIONS --------------------- */

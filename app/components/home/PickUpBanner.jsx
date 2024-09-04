@@ -14,8 +14,15 @@ export default function PickUpBanner(props) {
             <span className="text-[#e5d201]">PUNTO DE RETIRO</span>!
           </h1>
           <div className="flex flex-col items-center justify-center flex-1 gap-11 mb-10">
-            <div className="flex gap-10">
+            {/* <div className="gap-5 mobile-only">
               <img src="locationIcon.svg" className="pickup-icon"></img>
+              <img src="calendarIcon.svg" className="ml-auto pickup-icon"></img>
+            </div> */}
+            <div className="flex gap-10 mobile-col">
+              <img
+                src="locationIcon.svg"
+                className="pickup-icon desktop-only"
+              ></img>
               <p className="text-font text-left my-auto pickup-info-text">
                 Selecciona la opción<br></br>
                 <span className="text-[#e5d201] text-font">
@@ -25,13 +32,17 @@ export default function PickUpBanner(props) {
                 en la pantalla de pago y dejaremos tu pedido listo para retirar!
               </p>
             </div>
-            <div className="flex gap-10">
+            <div className="flex gap-10 mobile-col">
               <p className="text-font text-left my-auto pickup-info-text">
-                HORARIOS: Martes y Jueves de hora - hora
-                <br></br>
-                DIRECCION: direccion del punto
+                HORARIOS:{' '}
+                <span className="text-[#e5d201] text-font">
+                  Martes y Jueves de 12:00 - 20:00hrs
+                </span>
               </p>
-              <img src="calendarIcon.svg" className="ml-auto pickup-icon"></img>
+              <img
+                src="calendarIcon.svg"
+                className="ml-auto pickup-icon desktop-only"
+              ></img>
             </div>
             <NavLink
               to="/shop"
