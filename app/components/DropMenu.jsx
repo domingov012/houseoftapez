@@ -125,7 +125,7 @@ export default function DropMenu({reference, onLeave, onClick}) {
             <div className="grid grid-cols-2 gap-1 mt-5">
               <NavLink
                 prefetch="intent"
-                to="/products/saltador"
+                to="/products/new-saltador"
                 className="nav-menu-item text-font"
               >
                 SALTADOR
@@ -138,14 +138,14 @@ export default function DropMenu({reference, onLeave, onClick}) {
                   >
                     <NavLink
                       prefetch="intent"
-                      to="/products/house-l"
+                      to="/products/new-house-l"
                       className="nav-menu-item text-font mr-auto"
                     >
                       L
                     </NavLink>
                     <NavLink
                       prefetch="intent"
-                      to="/products/house-xl"
+                      to="/products/new-house-xl"
                       className="nav-menu-item text-font mr-auto font-black"
                     >
                       XL
@@ -168,14 +168,14 @@ export default function DropMenu({reference, onLeave, onClick}) {
                   >
                     <NavLink
                       prefetch="intent"
-                      to="/products/kine-premium-l"
+                      to="/products/new-kine-premium-l"
                       className="nav-menu-item text-font mr-auto"
                     >
                       L
                     </NavLink>
                     <NavLink
                       prefetch="intent"
-                      to="/products/kine-premium-xl"
+                      to="/products/new-kine-premium-xl"
                       className="nav-menu-item text-font mr-auto font-black"
                     >
                       XL
@@ -199,14 +199,14 @@ export default function DropMenu({reference, onLeave, onClick}) {
                   >
                     <NavLink
                       prefetch="intent"
-                      to="/products/candado-l"
+                      to="/products/new-candado-l"
                       className="nav-menu-item text-font mr-auto"
                     >
                       L
                     </NavLink>
                     <NavLink
                       prefetch="intent"
-                      to="/products/candado-xl"
+                      to="/products/new-candado-xl"
                       className="nav-menu-item text-font mr-auto font-black"
                     >
                       XL
