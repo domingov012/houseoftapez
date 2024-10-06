@@ -218,6 +218,8 @@ function CartLineRemoveButton({lineIds}) {
  */
 function CartLineQuantity({line, maxQ, layout}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
+  console.log('LINE QUANTITY: ', line.quantity);
+  console.log('LINE ass: ', line);
   const {id: lineId, quantity} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
@@ -314,9 +316,13 @@ function CartLinePrice({
   }
 
   function viewCollections() {
-    return line.merchandise.product.collections.nodes.some((collection) => {
-      return collection.title === 'TODO TAPES';
-    });
+    try {
+      return line.merchandise.product.collections.nodes.some((collection) => {
+        return collection.title === 'TODO TAPES';
+      });
+    } catch (err) {
+      return null;
+    }
   }
   const isTape = viewCollections();
   // originalPrice.amount = originalPrice.amount * line.quantity;

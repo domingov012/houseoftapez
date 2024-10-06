@@ -20,7 +20,6 @@ import MobileMenu from '../components/MobileMenu.jsx';
 export function Header({header, isLoggedIn, cart}) {
   const {shop, menu} = header;
   shop.brand.logo.image.height = '100';
-  console.log('IMAGE DATA ', shop.brand.logo.image);
   const [showMenuMobile, setShowMenuMobile] = useState(false);
   const shopMenuRef = useRef();
   const mobileMenuRef = useRef();
