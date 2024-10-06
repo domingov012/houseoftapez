@@ -184,7 +184,6 @@ export default function Product() {
       isTape = true;
     }
   });
-  console.log(feature_array);
 
   return (
     <>
@@ -291,7 +290,9 @@ function ProductImageAndInfo({image, product}) {
 
 function ProductFeatures({features, product}) {
   const features_array = features.map((object, index) => {
-    return <Feature index={index} fields={object.metaobject.fields} />;
+    return (
+      <Feature key={index} index={index} fields={object.metaobject.fields} />
+    );
   });
   return (
     <div className="all-features-container">
@@ -440,6 +441,8 @@ function ProductForm({
   const [quantity, setQuantity] = useState(1);
   const [quantityAlert, setQuantityAlert] = useState(false);
 
+  console.log('SELECTED VARIANT: ', selectedVariant);
+
   function updateQuantity(n) {
     if (quantityAlert) {
       setQuantityAlert(false);
@@ -543,7 +546,7 @@ function ProductOptions({option, onClick}) {
       <h5 className="text-font mr-4">{option.name}: </h5>
       <div className="product-options-grid">
         {option.values.map(({value, isAvailable, isActive, to}) => {
-          return (option.name === 'Color') |
+          return option.name.includes('Color') |
             option.name.includes('TEAR EAB') |
             option.name.includes('SOCK TAPE') ? (
             <Link
@@ -592,6 +595,7 @@ function ProductOptions({option, onClick}) {
  */
 function AddToCartButton({analytics, children, disabled, lines, onClick}) {
   const className = children === 'AGREGAR AL CARRO' ? 'add-button' : 'no-stock';
+  console.log('BUTTON LINES: ', lines);
   return (
     <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
