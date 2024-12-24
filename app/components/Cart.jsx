@@ -218,13 +218,15 @@ function CartLineRemoveButton({lineIds}) {
  */
 function CartLineQuantity({line, maxQ, layout}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
-  console.log('LINE QUANTITY: ', line.quantity);
-  console.log('LINE ass: ', line);
   const {id: lineId, quantity} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
   const [isLoading, setIsLoading] = useState(false);
   const [stockMessage, setStockMessage] = useState(false);
+
+  const isCourse =
+    line.merchandise.product.collections.nodes[0]?.title == 'CURSOS';
+  console.log(isCourse);
 
   useEffect(() => {
     setIsLoading(false);
@@ -247,18 +249,20 @@ function CartLineQuantity({line, maxQ, layout}) {
     <>
       <div className={`cart-line-quantity-${layout} flex w-full`}>
         {/* <div>Cantidad: &nbsp;&nbsp;</div> */}
-        <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
-          <button
-            aria-label="Decrease quantity"
-            disabled={quantity <= 1}
-            name="decrease-quantity"
-            value={prevQuantity}
-            className="quantity-selector"
-            onClick={decreaseQuantityLoader}
-          >
-            <FontAwesomeIcon icon={faMinus} />
-          </button>
-        </CartLineUpdateButton>
+        {!isCourse && (
+          <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
+            <button
+              aria-label="Decrease quantity"
+              disabled={quantity <= 1}
+              name="decrease-quantity"
+              value={prevQuantity}
+              className="quantity-selector"
+              onClick={decreaseQuantityLoader}
+            >
+              <FontAwesomeIcon icon={faMinus} />
+            </button>
+          </CartLineUpdateButton>
+        )}
         <div className="text-xl flex text-font items-center ml-2 mr-2">
           {isLoading ? (
             <Spinner h="20" w="20" color="text-[#e5d201]" />
@@ -266,19 +270,21 @@ function CartLineQuantity({line, maxQ, layout}) {
             quantity
           )}
         </div>
-        <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
-          <button
-            aria-label="Increase quantity"
-            name="increase-quantity"
-            value={nextQuantity}
-            // disabled={quantity === }
-            className="quantity-selector"
-            onClick={increaseQuantityLoader}
-            // onClick={() => console.log(nextQuantity)}
-          >
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
-        </CartLineUpdateButton>
+        {!isCourse && (
+          <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
+            <button
+              aria-label="Increase quantity"
+              name="increase-quantity"
+              value={nextQuantity}
+              // disabled={quantity === }
+              className="quantity-selector"
+              onClick={increaseQuantityLoader}
+              // onClick={() => console.log(nextQuantity)}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
+          </CartLineUpdateButton>
+        )}
         &nbsp; &nbsp; &nbsp; &nbsp;
         <CartLineRemoveButton lineIds={[lineId]} />
       </div>

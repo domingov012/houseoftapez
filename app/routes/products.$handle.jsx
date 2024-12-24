@@ -66,7 +66,9 @@ export async function loader({params, request, context}) {
       ? JSON.parse(product.metafields[2].value)
       : [];
 
-    ahorro_array = JSON.parse(product.metafields[3].value).info;
+    ahorro_array = product.metafields[3]
+      ? JSON.parse(product.metafields[3].value).info
+      : [];
   } else {
     overview_info_id = product.metafields[1].value;
     feature_id_array = product.metafields[0]
@@ -74,6 +76,7 @@ export async function loader({params, request, context}) {
       : [];
   }
 
+  const isCourse = product?.tags.includes('curso');
   const firstVariant = product.variants.nodes[0];
   const firstVariantIsDefault = Boolean(
     firstVariant.selectedOptions.find(
@@ -140,6 +143,7 @@ export async function loader({params, request, context}) {
     feature_array,
     pack_products_array,
     ahorro_array,
+    isCourse,
   });
 }
 
@@ -175,6 +179,7 @@ export default function Product() {
     feature_array,
     pack_products_array,
     ahorro_array,
+    isCourse,
   } = useLoaderData();
   const {selectedVariant, collections} = product;
 
@@ -197,6 +202,7 @@ export default function Product() {
           product={product}
           variants={variants}
           isTape={isTape}
+          isCourse={isCourse}
         />
       </div>
       <div className="flex flex-col items-center justify-center">
@@ -325,7 +331,7 @@ function ProductOverview({metaobject}) {
  *   variants: Promise<ProductVariantsQuery>;
  * }}
  */
-function ProductMain({selectedVariant, product, variants, isTape}) {
+function ProductMain({selectedVariant, product, variants, isTape, isCourse}) {
   const {title, descriptionHtml} = product;
 
   const [discount, setDiscount] = useState(false);
@@ -360,6 +366,7 @@ function ProductMain({selectedVariant, product, variants, isTape}) {
               variants={data.product?.variants.nodes || []}
               setDiscount={setDiscount}
               isTape={isTape}
+              isCourse={isCourse}
             />
           )}
         </Await>
@@ -437,6 +444,7 @@ function ProductForm({
   variants,
   setDiscount,
   isTape,
+  isCourse,
 }) {
   const [quantity, setQuantity] = useState(1);
   const [quantityAlert, setQuantityAlert] = useState(false);
@@ -444,6 +452,9 @@ function ProductForm({
   console.log('SELECTED VARIANT: ', selectedVariant);
 
   function updateQuantity(n) {
+    if (isCourse) {
+      return;
+    }
     if (quantityAlert) {
       setQuantityAlert(false);
     }
@@ -486,13 +497,20 @@ function ProductForm({
       </VariantSelector>
       <br />
       <div className="flex items-center text-3xl">
-        <div className="quantity-selector" onClick={() => updateQuantity(-1)}>
-          <FontAwesomeIcon icon={faMinus} />
+        {!isCourse && (
+          <div className="quantity-selector" onClick={() => updateQuantity(-1)}>
+            <FontAwesomeIcon icon={faMinus} />
+          </div>
+        )}
+        <div className="text-font p-2 text-4xl">
+          {' '}
+          {isCourse ? '¡inscríbete ya!' : quantity}{' '}
         </div>
-        <div className="text-font p-2 text-4xl"> {quantity} </div>
-        <div className="quantity-selector" onClick={() => updateQuantity(1)}>
-          <FontAwesomeIcon icon={faPlus} />
-        </div>
+        {!isCourse && (
+          <div className="quantity-selector" onClick={() => updateQuantity(1)}>
+            <FontAwesomeIcon icon={faPlus} />
+          </div>
+        )}
       </div>
       {/* Para mostrar stock restante cuando queda poco */}
       {/* {selectedVariant.quantityAvailable <= 5 && (
