@@ -223,10 +223,11 @@ function CartLineQuantity({line, maxQ, layout}) {
   const nextQuantity = Number((quantity + 1).toFixed(0));
   const [isLoading, setIsLoading] = useState(false);
   const [stockMessage, setStockMessage] = useState(false);
+  console.log(line);
 
-  const isCourse =
-    line.merchandise.product.collections.nodes[0]?.title == 'CURSOS';
-  console.log(isCourse);
+  const isCourse = !line.merchandise.requiresShipping;
+  //   line.merchandise.product.collections.nodes[0]?.title == 'CURSOS';
+  // console.log(isCourse);
 
   useEffect(() => {
     setIsLoading(false);
