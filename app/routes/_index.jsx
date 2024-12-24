@@ -8,6 +8,7 @@ import ProductPreview from '~/components/ProductPreview';
 import TutorialsSection from '~/components/home/TutorialsSection';
 import PacksBanner from '~/components/home/PacksBanner';
 import PickUpBanner from '~/components/home/PickUpBanner';
+import CourseBanner from '~/components/home/Course';
 import Carousel from '~/components/home/Carousel';
 
 /**
@@ -63,6 +64,7 @@ export default function Homepage() {
 
   const mainRef = useRef();
   const pickupRef = useRef();
+  const courseRef = useRef();
 
   const [colorArray, setColorArray] = useState([1, 0]);
 
@@ -75,14 +77,15 @@ export default function Homepage() {
       });
     });
     // banner_observer.observe(refSTS.current);
-    banner_observer.observe(pickupRef.current);
+    banner_observer.observe(courseRef.current);
     banner_observer.observe(mainRef.current);
   }, []);
 
   return (
     <div>
       <Carousel
-        view1={<PickUpBanner reference={pickupRef} />}
+        // view1={<PickUpBanner reference={pickupRef} />}
+        view1={<CourseBanner reference={courseRef} />}
         view2={<SportTapeSection reference={mainRef} />}
       />
 
