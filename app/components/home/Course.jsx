@@ -28,7 +28,7 @@ export default function PickUpBanner(props) {
               prefetch="intent"
               className="browse-button-2 mx-auto"
             >
-              Ver más
+              Ver el curso
             </NavLink>
           </div>
         </div>
