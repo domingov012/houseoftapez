@@ -7,6 +7,7 @@ import SportTapeSection2 from '~/components/home/SportTapeSection2';
 import ProductPreview from '~/components/ProductPreview';
 import TutorialsSection from '~/components/home/TutorialsSection';
 import PacksBanner from '~/components/home/PacksBanner';
+import PacksBanner2 from '~/components/home/PacksBanner2';
 import PickUpBanner from '~/components/home/PickUpBanner';
 import CourseBanner from '~/components/home/Course';
 import Carousel from '~/components/home/Carousel';
@@ -85,7 +86,8 @@ export default function Homepage() {
     <div>
       <Carousel
         // view1={<PickUpBanner reference={pickupRef} />}
-        view1={<CourseBanner reference={courseRef} />}
+        // view1={<CourseBanner reference={courseRef} />}
+        view1={<PacksBanner2 reference={courseRef} />}
         view2={<SportTapeSection reference={mainRef} />}
       />
 
