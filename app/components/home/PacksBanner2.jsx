@@ -4,7 +4,7 @@ export default function PickUpBanner2(props) {
   return (
     <>
       <section
-        className="relative flex w-full justify-around px-5 pb-5"
+        className="relative flex w-full justify-around px-4 pb-5"
         ref={props.reference}
       >
         <div
@@ -16,8 +16,12 @@ export default function PickUpBanner2(props) {
             backgroundPosition: 'center',
           }}
         >
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col gap-8 justify-center px-24">
-            <h1 className="title-font text-white text-5xl font-bold max-w-2xl">
+          <div
+            className="
+              absolute inset-0 bg-black bg-opacity-50 flex flex-col gap-8 justify-center 
+              px-8 sm:px-12 md:px-24 lg:px-24 xl:px-24"
+          >
+            <h1 className="title-font text-white text-3xl xl:text-5xl font-bold max-w-2xl">
               NUESTROS PACKS
             </h1>
             <p className="text-font text-white text-lg mt-4 max-w-xl">
