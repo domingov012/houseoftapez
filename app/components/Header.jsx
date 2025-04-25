@@ -10,6 +10,7 @@ import {
   faTags,
   faTruckFast,
   faTruck,
+  faBox,
 } from '@fortawesome/free-solid-svg-icons';
 import DropMenu from '../components/DropMenu.jsx';
 import MobileMenu from '../components/MobileMenu.jsx';
@@ -48,6 +49,11 @@ export function Header({header, isLoggedIn, cart}) {
       <div className="news-display-container">
         <div className="news whitespace-nowrap">
           <div className="scrolling-text flex">
+            <div className="ml-auto mr-auto text-black whitespace-nowrap">
+              <FontAwesomeIcon icon={faBox} className="mr-2" />
+              Retiro en bodega Martes y Jueves
+            </div>
+            <div className="ml-auto mr-auto min-w-10 text-black"> | </div>
             <div className="ml-auto mr-auto text-black whitespace-nowrap">
               <FontAwesomeIcon icon={faTags} className="mr-2" />
               15% off al llevar 6 tapes del mismo tipo
