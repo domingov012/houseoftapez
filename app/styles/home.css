@@ -214,13 +214,14 @@ section {
 .family-title {
   color: white;
   width: 100%;
-  text-align: center;
+  /* text-align: center; */
   font-size: clamp(30px, 5vw, 48px);
 }
 
 .family-container {
   position: relative;
   width: 100%;
+  min-height: 600px;
   border-left-width: 8px;
   border-color: #000000;
   background: rgba(0, 0, 0, 0.3);
@@ -277,6 +278,7 @@ section {
   width: 100%;
   filter: blur(2px);
   background-position: center;
+  background-size: cover;
   background-image: url('https://cdn.shopify.com/s/files/1/0643/3554/4485/files/SPORTTAPE02-samuelledwards-289.jpg?v=1711812316');
 }
 
