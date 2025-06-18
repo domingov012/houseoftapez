@@ -9,11 +9,11 @@ export default function SportTapeSection2(props) {
       ref={props.reference2}
     >
       <div className="flex-container-home">
-        <img
+        {/* <img
           src="https://cdn.shopify.com/s/files/1/0643/3554/4485/files/spt-chr.jpg?v=1711806188"
           alt="chilerugbyxsporttape"
           className="half-image"
-        />
+        /> */}
         <div className="family-container">
           <h1 className="h-10vh family-title title-font-2">
             ÚNETE A LA FAMILIA{' '}
