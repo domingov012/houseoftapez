@@ -53,9 +53,9 @@ export default function QuizResults({
             {/* Matching Packs */}
             {matchingPacks.length > 0 && (
               <div className="quiz-packs-section">
-                <h3 className="quiz-packs-title">PACKS CON ESTE PRODUCTO</h3>
+                <h3 className="quiz-packs-title">COMBÍNALO CON ESTOS PACKS</h3>
                 <div className="quiz-packs-grid">
-                  {matchingPacks.map((pack) => (
+                  {matchingPacks.slice(0, 4).map((pack) => (
                     <Link
                       key={pack.id}
                       to={`/products/${pack.handle}`}
