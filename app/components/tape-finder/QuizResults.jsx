@@ -1,15 +1,20 @@
 import {Link} from '@remix-run/react';
 import {Image, Money} from '@shopify/hydrogen';
 
-export default function QuizResults({results, onRestart}) {
-  const hasResults = results && results.length > 0;
+export default function QuizResults({
+  topResult,
+  matchingPacks,
+  otherResults,
+  onRestart,
+}) {
+  const hasResults = topResult !== null;
 
   return (
     <div className="quiz-results">
       <h2 className="quiz-results-title">
         {hasResults ? (
           <>
-            TE RECOMENDAMOS <span className="highlight">ESTOS PRODUCTOS</span>
+            TE RECOMENDAMOS <span className="highlight">ESTE PRODUCTO</span>
           </>
         ) : (
           'NO ENCONTRAMOS COINCIDENCIAS'
@@ -17,34 +22,99 @@ export default function QuizResults({results, onRestart}) {
       </h2>
 
       {hasResults ? (
-        <div className="quiz-results-grid">
-          {results.map((product, index) => (
-            <Link
-              key={product.id}
-              to={`/products/${product.handle}`}
-              className="quiz-result-card"
-            >
-              {index === 0 && (
+        <>
+          {/* Top Result Section */}
+          <div className="quiz-top-section">
+            {/* Main Recommendation */}
+            <div className="quiz-top-result">
+              <Link
+                to={`/products/${topResult.handle}`}
+                className="quiz-result-card quiz-result-card-large"
+              >
                 <span className="quiz-result-badge">Mejor opción</span>
-              )}
-              {product.featuredImage && (
-                <Image
-                  data={product.featuredImage}
-                  aspectRatio="1/1"
-                  sizes="(min-width: 768px) 300px, 100vw"
-                  className="quiz-result-image"
-                />
-              )}
-              <div className="quiz-result-info">
-                <h3 className="quiz-result-title">{product.title}</h3>
-                <Money
-                  data={product.priceRange.minVariantPrice}
-                  className="quiz-result-price"
-                />
+                {topResult.featuredImage && (
+                  <Image
+                    data={topResult.featuredImage}
+                    aspectRatio="1/1"
+                    sizes="(min-width: 768px) 400px, 100vw"
+                    className="quiz-result-image"
+                  />
+                )}
+                <div className="quiz-result-info">
+                  <h3 className="quiz-result-title">{topResult.title}</h3>
+                  <Money
+                    data={topResult.priceRange.minVariantPrice}
+                    className="quiz-result-price"
+                  />
+                </div>
+              </Link>
+            </div>
+
+            {/* Matching Packs */}
+            {matchingPacks.length > 0 && (
+              <div className="quiz-packs-section">
+                <h3 className="quiz-packs-title">PACKS CON ESTE PRODUCTO</h3>
+                <div className="quiz-packs-grid">
+                  {matchingPacks.map((pack) => (
+                    <Link
+                      key={pack.id}
+                      to={`/products/${pack.handle}`}
+                      className="quiz-pack-card"
+                    >
+                      {pack.featuredImage && (
+                        <Image
+                          data={pack.featuredImage}
+                          aspectRatio="1/1"
+                          sizes="(min-width: 768px) 200px, 50vw"
+                          className="quiz-pack-image"
+                        />
+                      )}
+                      <div className="quiz-pack-info">
+                        <h4 className="quiz-pack-title">{pack.title}</h4>
+                        <Money
+                          data={pack.priceRange.minVariantPrice}
+                          className="quiz-pack-price"
+                        />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </Link>
-          ))}
-        </div>
+            )}
+          </div>
+
+          {/* Other Results Section */}
+          {otherResults.length > 0 && (
+            <div className="quiz-other-section">
+              <h3 className="quiz-other-title">OTRAS OPCIONES</h3>
+              <div className="quiz-other-grid">
+                {otherResults.map((product) => (
+                  <Link
+                    key={product.id}
+                    to={`/products/${product.handle}`}
+                    className="quiz-result-card"
+                  >
+                    {product.featuredImage && (
+                      <Image
+                        data={product.featuredImage}
+                        aspectRatio="1/1"
+                        sizes="(min-width: 768px) 250px, 100vw"
+                        className="quiz-result-image"
+                      />
+                    )}
+                    <div className="quiz-result-info">
+                      <h3 className="quiz-result-title">{product.title}</h3>
+                      <Money
+                        data={product.priceRange.minVariantPrice}
+                        className="quiz-result-price"
+                      />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       ) : (
         <p className="quiz-no-results">
           No encontramos productos que coincidan exactamente con tus
