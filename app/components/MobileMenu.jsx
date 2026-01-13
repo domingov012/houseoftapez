@@ -233,6 +233,14 @@ export default function MobileMenu({reference, closeMenu}) {
           onClick={() => handleNavigation()}
           prefetch="intent"
           className="drop-down"
+          to="/tape-finder"
+        >
+          TAPE FINDER
+        </NavLink>
+        <NavLink
+          onClick={() => handleNavigation()}
+          prefetch="intent"
+          className="drop-down"
           to="/contacto"
         >
           CONTACTO

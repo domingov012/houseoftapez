@@ -1,56 +1,98 @@
-import {useEffect, useState, useRef} from 'react';
+import {useEffect, useState, useRef, useCallback} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {
-  faArrowAltCircleLeft,
-  faArrowAltCircleRight,
-  faArrowLeft,
-  faArrowRight,
-} from '@fortawesome/free-solid-svg-icons';
+import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons';
 
-export default function Carousel({view1, view2}) {
-  const [bannerArray, setBannerArray] = useState([view1, view2]);
-  const ref1 = useRef();
-  const ref2 = useRef();
-  const carouselRef = useRef();
+const AUTO_ROTATE_INTERVAL = 5000; // 5 seconds
 
-  function nextBanner(i) {
-    setBannerArray((prev) => {
-      let copy = [...prev];
-      let first = copy.shift();
-      console.log([...copy, first]);
-      return [...copy, first];
-    });
-  }
+export default function Carousel({view1, view2, view3}) {
+  const views = view3 ? [view1, view2, view3] : [view1, view2];
+  const totalSlides = views.length;
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const timerRef = useRef(null);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
+
+  const goToPrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
+
+  const goToSlide = useCallback((index) => {
+    setCurrentIndex(index);
+  }, []);
+
+  // Auto-rotate effect
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      goToNext();
+    }, AUTO_ROTATE_INTERVAL);
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [goToNext]);
+
+  // Reset timer when manually navigating
+  const handleManualNav = useCallback(
+    (action) => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+      action();
+      // Restart the timer after manual navigation
+      timerRef.current = setInterval(() => {
+        goToNext();
+      }, AUTO_ROTATE_INTERVAL);
+    },
+    [goToNext],
+  );
 
   return (
-    <div className="relative">
-      <FontAwesomeIcon
-        icon={faArrowLeft}
-        className="absolute top-[40vh] z-30 text-yellow-300 arrow-icon p-5 cursor-pointer"
-        onClick={() => {
-          carouselRef.current.scrollLeft -= 1000;
-        }}
-      />
-      <FontAwesomeIcon
-        icon={faArrowRight}
-        className="absolute top-[40vh] right-0 z-30 text-yellow-300 arrow-icon p-5 cursor-pointer "
-        onClick={() => (carouselRef.current.scrollLeft += 1000)}
-      />
-      <div className="main-banner-carousel" ref={carouselRef}>
-        <div className="main-banner-option" ref={ref1}>
-          {bannerArray[0]}
-        </div>
-        <div className="main-banner-option" ref={ref2}>
-          {bannerArray[1]}
-        </div>
+    <div className="carousel-container">
+      {/* Navigation Arrows */}
+      <button
+        className="carousel-arrow carousel-arrow-left"
+        onClick={() => handleManualNav(goToPrev)}
+        aria-label="Previous slide"
+      >
+        <FontAwesomeIcon icon={faArrowLeft} />
+      </button>
+      <button
+        className="carousel-arrow carousel-arrow-right"
+        onClick={() => handleManualNav(goToNext)}
+        aria-label="Next slide"
+      >
+        <FontAwesomeIcon icon={faArrowRight} />
+      </button>
+
+      {/* Slides Container */}
+      <div className="carousel-track">
+        {views.map((view, index) => (
+          <div
+            key={index}
+            className={`carousel-slide ${index === currentIndex ? 'active' : ''}`}
+            aria-hidden={index !== currentIndex}
+          >
+            {view}
+          </div>
+        ))}
       </div>
-      {/* selector */}
-      {/* <div className="flex banner-selector border-white border-[3px] rounded-xl">
-        <svg width="60" height="24">
-          <circle cx="25%" cy="50%" r="6" fill="#e5d201" />
-          <circle cx="75%" cy="50%" r="6" fill="white" />
-        </svg>
-      </div> */}
+
+      {/* Indicator Dots */}
+      <div className="carousel-indicators">
+        {views.map((_, index) => (
+          <button
+            key={index}
+            className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => handleManualNav(() => goToSlide(index))}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -20,6 +20,7 @@ import homeStyles from './styles/home.css';
 import productStyles from './styles/product.css';
 import shopStyles from './styles/shop.css';
 import contactStyles from './styles/contact.css';
+import tapeFinderStyles from './styles/tape-finder.css';
 import tailwindStyle from './tailwind.css';
 import {Layout} from '~/components/Layout';
 import Loading from './components/ui/LoadingScreen.jsx';
@@ -56,6 +57,7 @@ export function links() {
     {rel: 'stylesheet', href: homeStyles},
     {rel: 'stylesheet', href: productStyles},
     {rel: 'stylesheet', href: shopStyles},
+    {rel: 'stylesheet', href: tapeFinderStyles},
     {rel: 'stylesheet', href: appStyles},
     {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
     {

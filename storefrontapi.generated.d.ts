@@ -1446,6 +1446,35 @@ export type CategoryProductsQuery = {
   >;
 };
 
+export type TapeFinderProductsQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type TapeFinderProductsQuery = {
+  products: {
+    nodes: Array<
+      Pick<
+        StorefrontAPI.Product,
+        'id' | 'title' | 'handle' | 'description' | 'tags'
+      > & {
+        featuredImage?: StorefrontAPI.Maybe<
+          Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+        >;
+        priceRange: {
+          minVariantPrice: Pick<
+            StorefrontAPI.MoneyV2,
+            'amount' | 'currencyCode'
+          >;
+        };
+        metafields: Array<
+          StorefrontAPI.Maybe<Pick<StorefrontAPI.Metafield, 'key' | 'value'>>
+        >;
+      }
+    >;
+  };
+};
+
 export type TutorialesQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
   language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
@@ -1581,6 +1610,10 @@ interface GeneratedQueryTypes {
   '#graphql\nquery CategoryProducts(\n  $country: CountryCode\n  $language: LanguageCode\n  $first: Int\n  $last: Int\n  $startCursor: String\n  $endCursor: String\n  $handle: String\n) @inContext(country: $country, language: $language) {\n  collection(handle: $handle) {\n    title\n    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {\n      nodes { \n        id\n        title\n        handle\n        tags\n        images(first: 1) {\n          nodes {\n            url\n            id\n            altText\n          }\n        }\n        priceRange {\n          maxVariantPrice {\n            amount\n            currencyCode\n          }\n          minVariantPrice {\n            amount\n            currencyCode\n          }\n        }\n      }\n      pageInfo {\n        hasPreviousPage\n        hasNextPage\n        startCursor\n        endCursor\n      }\n    }\n    image {\n      url\n    }\n    descriptionHtml\n  }\n}\n': {
     return: CategoryProductsQuery;
     variables: CategoryProductsQueryVariables;
+  };
+  '#graphql\n  query TapeFinderProducts($country: CountryCode, $language: LanguageCode)\n    @inContext(country: $country, language: $language) {\n    products(first: 20, query: "tag:tape") {\n      nodes {\n        id\n        title\n        handle\n        description\n        featuredImage {\n          url\n          altText\n          width\n          height\n        }\n        priceRange {\n          minVariantPrice {\n            amount\n            currencyCode\n          }\n        }\n        metafields(identifiers: [\n          {namespace: "tape_finder", key: "injury_category"},\n          {namespace: "tape_finder", key: "body_parts"},\n          {namespace: "tape_finder", key: "purpose"},\n          {namespace: "tape_finder", key: "experience_level"}\n        ]) {\n          key\n          value\n        }\n        tags\n      }\n    }\n  }\n': {
+    return: TapeFinderProductsQuery;
+    variables: TapeFinderProductsQueryVariables;
   };
   '#graphql\n    query Tutoriales(\n        $country: CountryCode\n        $language: LanguageCode\n    ) @inContext(country: $country, language: $language) {\n        metaobjects(type: "Tutorial", first: 20) {\n            nodes {\n                handle\n                fields {\n                    key\n                    value\n                }\n            }\n        }\n    }': {
     return: TutorialesQuery;

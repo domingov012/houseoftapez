@@ -95,6 +95,9 @@ export function Header({header, isLoggedIn, cart}) {
           <NavLink prefetch="intent" to="/tutorials" className="drop-down">
             TUTORIALES
           </NavLink>
+          <NavLink prefetch="intent" to="/tape-finder" className="drop-down">
+            TAPE FINDER
+          </NavLink>
           <NavLink prefetch="intent" to="/contacto" className="drop-down">
             CONTACTO
           </NavLink>
