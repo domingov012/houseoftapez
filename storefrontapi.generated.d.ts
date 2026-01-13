@@ -1452,12 +1452,30 @@ export type TapeFinderProductsQueryVariables = StorefrontAPI.Exact<{
 }>;
 
 export type TapeFinderProductsQuery = {
-  products: {
+  tapes: {
     nodes: Array<
       Pick<
         StorefrontAPI.Product,
         'id' | 'title' | 'handle' | 'description' | 'tags'
       > & {
+        featuredImage?: StorefrontAPI.Maybe<
+          Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+        >;
+        priceRange: {
+          minVariantPrice: Pick<
+            StorefrontAPI.MoneyV2,
+            'amount' | 'currencyCode'
+          >;
+        };
+        metafields: Array<
+          StorefrontAPI.Maybe<Pick<StorefrontAPI.Metafield, 'key' | 'value'>>
+        >;
+      }
+    >;
+  };
+  packs: {
+    nodes: Array<
+      Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
         featuredImage?: StorefrontAPI.Maybe<
           Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
         >;
@@ -1611,7 +1629,7 @@ interface GeneratedQueryTypes {
     return: CategoryProductsQuery;
     variables: CategoryProductsQueryVariables;
   };
-  '#graphql\n  query TapeFinderProducts($country: CountryCode, $language: LanguageCode)\n    @inContext(country: $country, language: $language) {\n    products(first: 20, query: "tag:tape") {\n      nodes {\n        id\n        title\n        handle\n        description\n        featuredImage {\n          url\n          altText\n          width\n          height\n        }\n        priceRange {\n          minVariantPrice {\n            amount\n            currencyCode\n          }\n        }\n        metafields(identifiers: [\n          {namespace: "tape_finder", key: "injury_category"},\n          {namespace: "tape_finder", key: "body_parts"},\n          {namespace: "tape_finder", key: "purpose"},\n          {namespace: "tape_finder", key: "experience_level"}\n        ]) {\n          key\n          value\n        }\n        tags\n      }\n    }\n  }\n': {
+  '#graphql\n  query TapeFinderProducts($country: CountryCode, $language: LanguageCode)\n    @inContext(country: $country, language: $language) {\n    tapes: products(first: 20, query: "tag:tape") {\n      nodes {\n        id\n        title\n        handle\n        description\n        featuredImage {\n          url\n          altText\n          width\n          height\n        }\n        priceRange {\n          minVariantPrice {\n            amount\n            currencyCode\n          }\n        }\n        metafields(identifiers: [\n          {namespace: "tape_finder", key: "sport"},\n          {namespace: "tape_finder", key: "injury_category"},\n          {namespace: "tape_finder", key: "body_parts"},\n          {namespace: "tape_finder", key: "purpose"},\n          {namespace: "tape_finder", key: "support_level"},\n          {namespace: "tape_finder", key: "scoring"}\n        ]) {\n          key\n          value\n        }\n        tags\n      }\n    }\n    packs: products(first: 20, query: "tag:pack") {\n      nodes {\n        id\n        title\n        handle\n        featuredImage {\n          url\n          altText\n          width\n          height\n        }\n        priceRange {\n          minVariantPrice {\n            amount\n            currencyCode\n          }\n        }\n        metafields(identifiers: [\n          {namespace: "custom", key: "pack_products"}\n        ]) {\n          key\n          value\n        }\n      }\n    }\n  }\n': {
     return: TapeFinderProductsQuery;
     variables: TapeFinderProductsQueryVariables;
   };

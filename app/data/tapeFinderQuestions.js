@@ -1,4 +1,42 @@
 export const questions = {
+  sport: {
+    id: 'sport',
+    question: '¿Qué deporte practicas?',
+    type: 'single',
+    options: [
+      {value: 'rugby', label: 'Rugby'},
+      {value: 'futbol', label: 'Fútbol'},
+      {value: 'running', label: 'Running / Trekking'},
+      {value: 'hockey', label: 'Hockey'},
+      {value: 'otro', label: 'Otro'},
+    ],
+    metafieldKey: 'sport',
+  },
+
+  purpose: {
+    id: 'purpose',
+    question: '¿Cuál es tu objetivo?',
+    type: 'single',
+    options: [
+      {
+        value: 'actividad',
+        label: 'Usar durante actividad',
+        description: 'Quiero soporte mientras entreno/juego',
+      },
+      {
+        value: 'prevencion',
+        label: 'Prevención',
+        description: 'Quiero evitar lesiones futuras',
+      },
+      {
+        value: 'otro',
+        label: 'Otro uso',
+        description: 'Grip en accesorios, sujetar calcetines, etc.',
+      },
+    ],
+    metafieldKey: 'purpose',
+  },
+
   injury_category: {
     id: 'injury_category',
     question: '¿Qué tipo de lesión o molestia tienes?',
@@ -32,13 +70,12 @@ export const questions = {
         {value: 'gemelo', label: 'Gemelo / Pantorrilla'},
         {value: 'muslo', label: 'Muslo / Cuádriceps'},
         {value: 'espalda', label: 'Espalda'},
-        {value: 'hombro', label: 'Hombro'},
         {value: 'cuello', label: 'Cuello'},
       ],
       articular: [
         {value: 'tobillo', label: 'Tobillo'},
         {value: 'rodilla', label: 'Rodilla'},
-        {value: 'muneca', label: 'Muñeca'},
+        {value: 'muneca', label: 'Muñeca / Dedos'},
         {value: 'codo', label: 'Codo'},
         {value: 'hombro', label: 'Hombro'},
       ],
@@ -51,40 +88,52 @@ export const questions = {
     metafieldKey: 'body_parts',
   },
 
-  purpose: {
-    id: 'purpose',
-    question: '¿Cuál es tu objetivo?',
+  support_level: {
+    id: 'support_level',
+    question: '¿Qué nivel de soporte necesitas?',
     type: 'single',
     options: [
       {
-        value: 'recuperacion',
-        label: 'Recuperación',
-        description: 'Estoy lesionado y quiero sanar',
+        value: 'elastico',
+        label: 'Elástico',
+        description: 'Flexibilidad y soporte suave, ideal para prevención',
       },
       {
-        value: 'actividad',
-        label: 'Usar durante actividad',
-        description: 'Quiero soporte mientras entreno/juego',
+        value: 'rigido',
+        label: 'Rígido',
+        description: 'Inmovilización y soporte firme para lesiones serias',
       },
       {
-        value: 'prevencion',
-        label: 'Prevención',
-        description: 'Quiero evitar lesiones futuras',
+        value: 'no_se',
+        label: 'No estoy seguro',
+        description: 'Te mostraremos opciones versátiles',
       },
     ],
-    metafieldKey: 'purpose',
-  },
-
-  experience: {
-    id: 'experience',
-    question: '¿Has usado tape deportivo antes?',
-    type: 'single',
-    options: [
-      {value: 'principiante', label: 'No, es mi primera vez'},
-      {value: 'con_experiencia', label: 'Sí, ya lo he usado'},
-    ],
-    metafieldKey: 'experience_level',
+    metafieldKey: 'support_level',
   },
 };
 
-export const quizFlow = ['injury_category', 'body_part', 'purpose', 'experience'];
+// Default flow, but 'otro' purpose will skip injury/body/support questions
+export const quizFlow = [
+  'sport',
+  'purpose',
+  'injury_category',
+  'body_part',
+  'support_level',
+];
+
+// Early exit condition - if purpose is 'otro', skip to results
+export const earlyExitConditions = {
+  purpose: {
+    value: 'otro',
+    skipTo: 'results',
+  },
+};
+
+// Skip conditions - skip certain questions based on previous answers
+export const skipConditions = {
+  support_level: {
+    // Skip support_level question if injury is muscular (always elastic)
+    skipWhen: (answers) => answers.injury_category === 'muscular',
+  },
+};
