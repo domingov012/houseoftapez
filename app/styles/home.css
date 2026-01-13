@@ -755,3 +755,129 @@ section {
     margin-top: 20px;
   }
 }
+
+/* Pickup Banner Section */
+.pickup-banner-section {
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.pickup-banner-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://cdn.shopify.com/s/files/1/0643/3554/4485/files/pickupBanner.jpg?v=1724796571');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.4);
+  z-index: 0;
+}
+
+.pickup-banner-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  max-width: 800px;
+  text-align: center;
+}
+
+.pickup-banner-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900;
+  color: white;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.pickup-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.pickup-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 20px 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pickup-detail-highlight {
+  background: rgba(229, 210, 1, 0.15);
+  border: 1px solid rgba(229, 210, 1, 0.4);
+}
+
+.pickup-detail-icon {
+  font-size: 28px;
+  color: #e5d201;
+  min-width: 35px;
+}
+
+.pickup-detail-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.pickup-detail-label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.pickup-detail-value {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 18px;
+  color: white;
+  font-weight: 500;
+}
+
+.pickup-detail-value strong {
+  color: #e5d201;
+}
+
+.pickup-cta {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .pickup-banner-section {
+    min-height: 450px;
+  }
+
+  .pickup-detail-item {
+    padding: 15px 20px;
+  }
+
+  .pickup-detail-icon {
+    font-size: 22px;
+    min-width: 28px;
+  }
+
+  .pickup-detail-value {
+    font-size: 15px;
+  }
+
+  .pickup-detail-label {
+    font-size: 11px;
+  }
+}

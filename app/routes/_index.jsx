@@ -45,6 +45,7 @@ export default function Homepage() {
   const refPacks = useRef();
   const refRecommend = useRef();
   const contactRef = useRef();
+  const refPickup = useRef();
 
   // SCROLL ANIMATIONS //
   useEffect(() => {
@@ -61,6 +62,7 @@ export default function Homepage() {
     observer.observe(refPacks.current);
     observer.observe(refRecommend.current);
     observer.observe(contactRef.current);
+    observer.observe(refPickup.current);
   }, []);
 
   const mainRef = useRef();
@@ -91,6 +93,7 @@ export default function Homepage() {
         view2={<SportTapeSection reference={mainRef} />}
       />
 
+      <PickUpBanner reference={refPickup} />
       <SportTapeSection2 reference2={contactRef} />
 
       <Popular reference={refPopular} products={data.popularProducts} />
