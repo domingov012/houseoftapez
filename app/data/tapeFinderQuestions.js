@@ -75,7 +75,7 @@ export const questions = {
       articular: [
         {value: 'tobillo', label: 'Tobillo'},
         {value: 'rodilla', label: 'Rodilla'},
-        {value: 'muneca', label: 'Muñeca'},
+        {value: 'muneca', label: 'Muñeca / Dedos'},
         {value: 'codo', label: 'Codo'},
         {value: 'hombro', label: 'Hombro'},
       ],
