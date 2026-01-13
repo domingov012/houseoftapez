@@ -8,9 +8,17 @@ House of Tapez is an e-commerce storefront built on **Shopify Hydrogen** (headle
 
 ## Development Commands
 
+**Important:** This project requires **Node.js 18** (not 20+). The miniflare package used by Hydrogen has compatibility issues with Node 20. Use nvm to switch versions.
+
 ```bash
-# Start development server with GraphQL codegen
-npm run dev
+# Switch to Node 18 (required)
+nvm use 18
+
+# Start development server
+npx shopify hydrogen dev
+
+# Or with nvm in one command
+source ~/.nvm/nvm.sh && nvm use 18 && npx shopify hydrogen dev
 
 # Build for production (Oxygen deployment)
 npm run build
@@ -23,6 +31,9 @@ npm run lint
 
 # Generate types from GraphQL schemas
 npm run codegen
+
+# Link to Shopify store (first time setup)
+npx shopify hydrogen link
 ```
 
 ## Architecture
@@ -76,4 +87,7 @@ Automatic deployment to Shopify Oxygen via GitHub Actions on push to main. The w
 
 ## Environment
 
-Requires Node.js 18+. Environment variables are managed via Shopify dashboard for Oxygen deployment.
+- **Node.js 18** required (Node 20+ has compatibility issues with miniflare)
+- `.nvmrc` file specifies Node 18 for this project
+- Environment variables are managed via Shopify dashboard for Oxygen deployment
+- Run `npx shopify hydrogen link` to connect to the Shopify store on first setup
