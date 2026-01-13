@@ -51,7 +51,7 @@ export function Header({header, isLoggedIn, cart}) {
           <div className="scrolling-text flex">
             <div className="ml-auto mr-auto text-black whitespace-nowrap">
               <FontAwesomeIcon icon={faBox} className="mr-2" />
-              Retiro en bodega Martes y Jueves
+              Retiro en bodega todos los días hasta las 15hrs
             </div>
             <div className="ml-auto mr-auto min-w-10 text-black"> | </div>
             <div className="ml-auto mr-auto text-black whitespace-nowrap">
