@@ -1,59 +1,68 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faX} from '@fortawesome/free-solid-svg-icons';
+import {
+  faClock,
+  faLocationDot,
+  faCircleInfo,
+} from '@fortawesome/free-solid-svg-icons';
 import {NavLink} from '@remix-run/react';
 
 export default function PickUpBanner(props) {
   return (
-    <>
-      <section className="relative" ref={props.reference}>
-        <div className="h-full w-full -z-10 absolute bg-cover bg-center bg-[url('https://cdn.shopify.com/s/files/1/0643/3554/4485/files/pickupBanner.jpg?v=1724796571')]"></div>
-        {/* <div className="h-full w-6/12 bg-black bg-opacity-40 px-10"> */}
-        <div className="pickup-info">
-          <h1 className="title-font family-title py-4">
-            ¡AHORA TENEMOS{' '}
-            <span className="text-[#e5d201]">PUNTO DE RETIRO</span>!
-          </h1>
-          <div className="flex flex-col items-center justify-center flex-1 gap-11 mb-10">
-            {/* <div className="gap-5 mobile-only">
-              <img src="locationIcon.svg" className="pickup-icon"></img>
-              <img src="calendarIcon.svg" className="ml-auto pickup-icon"></img>
-            </div> */}
-            <div className="flex gap-10 mobile-col">
-              <img
-                src="locationIcon.svg"
-                className="pickup-icon desktop-only"
-              ></img>
-              <p className="text-font text-left my-auto pickup-info-text">
-                Selecciona la opción<br></br>
-                <span className="text-[#e5d201] text-font">
-                  “PUNTO DE RETIRO WARECLOUDS”
-                </span>{' '}
-                <br></br>
-                en la pantalla de pago y dejaremos tu pedido listo para retirar!
-              </p>
-            </div>
-            <div className="flex gap-10 mobile-col">
-              <p className="text-font text-left my-auto pickup-info-text">
-                HORARIOS:{' '}
-                <span className="text-[#e5d201] text-font">
-                  Martes y Jueves de 12:00 - 20:00hrs
+    <div ref={props.reference} className="hidden-section">
+      <div className="pickup-banner-section">
+        <div className="pickup-banner-bg"></div>
+        <div className="pickup-banner-content">
+          <h2 className="pickup-banner-title">
+            RETIRO EN <span className="text-[#e5d201]">BODEGA</span>
+          </h2>
+
+          <div className="pickup-details">
+            <div className="pickup-detail-item">
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                className="pickup-detail-icon"
+              />
+              <div className="pickup-detail-text">
+                <span className="pickup-detail-label">Dirección</span>
+                <span className="pickup-detail-value">
+                  Luis Vivanco Castro 7320, La Reina
                 </span>
-              </p>
-              <img
-                src="calendarIcon.svg"
-                className="ml-auto pickup-icon desktop-only"
-              ></img>
+              </div>
             </div>
-            <NavLink
-              to="/shop"
-              prefetch="intent"
-              className="browse-button-2 mx-auto"
-            >
-              Ir a tienda
-            </NavLink>
+
+            <div className="pickup-detail-item">
+              <FontAwesomeIcon icon={faClock} className="pickup-detail-icon" />
+              <div className="pickup-detail-text">
+                <span className="pickup-detail-label">Horario de retiro</span>
+                <span className="pickup-detail-value">
+                  Lunes a Viernes hasta las 15:00hrs
+                </span>
+              </div>
+            </div>
+
+            <div className="pickup-detail-item pickup-detail-highlight">
+              <FontAwesomeIcon
+                icon={faCircleInfo}
+                className="pickup-detail-icon"
+              />
+              <div className="pickup-detail-text">
+                <span className="pickup-detail-value">
+                  Pedidos realizados antes de las <strong>10:00hrs</strong>{' '}
+                  están listos el mismo día
+                </span>
+              </div>
+            </div>
           </div>
+
+          <NavLink
+            to="/shop"
+            prefetch="intent"
+            className="browse-button pickup-cta"
+          >
+            Ir a tienda
+          </NavLink>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 }
