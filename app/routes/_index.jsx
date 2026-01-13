@@ -89,11 +89,9 @@ export default function Homepage() {
   return (
     <div>
       <Carousel
-        // view1={<PickUpBanner reference={pickupRef} />}
-        // view1={<CourseBanner reference={courseRef} />}
-        view1={<PacksBanner2 reference={courseRef} />}
-        view2={<SportTapeSection reference={mainRef} />}
-        view3={<TapeFinderBanner reference={tapeFinderRef} />}
+        view1={<TapeFinderBanner reference={tapeFinderRef} />}
+        view2={<PacksBanner2 reference={courseRef} />}
+        view3={<SportTapeSection reference={mainRef} />}
       />
 
       <PickUpBanner reference={refPickup} />
