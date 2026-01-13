@@ -7,10 +7,12 @@ import {
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
 
-export default function Carousel({view1, view2}) {
-  const [bannerArray, setBannerArray] = useState([view1, view2]);
+export default function Carousel({view1, view2, view3}) {
+  const views = view3 ? [view1, view2, view3] : [view1, view2];
+  const [bannerArray, setBannerArray] = useState(views);
   const ref1 = useRef();
   const ref2 = useRef();
+  const ref3 = useRef();
   const carouselRef = useRef();
 
   function nextBanner(i) {
@@ -43,6 +45,11 @@ export default function Carousel({view1, view2}) {
         <div className="main-banner-option" ref={ref2}>
           {bannerArray[1]}
         </div>
+        {bannerArray[2] && (
+          <div className="main-banner-option" ref={ref3}>
+            {bannerArray[2]}
+          </div>
+        )}
       </div>
       {/* selector */}
       {/* <div className="flex banner-selector border-white border-[3px] rounded-xl">

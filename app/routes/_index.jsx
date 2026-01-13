@@ -10,6 +10,7 @@ import PacksBanner from '~/components/home/PacksBanner';
 import PacksBanner2 from '~/components/home/PacksBanner2';
 import PickUpBanner from '~/components/home/PickUpBanner';
 import CourseBanner from '~/components/home/Course';
+import TapeFinderBanner from '~/components/home/TapeFinderBanner';
 import Carousel from '~/components/home/Carousel';
 
 /**
@@ -68,6 +69,7 @@ export default function Homepage() {
   const mainRef = useRef();
   const pickupRef = useRef();
   const courseRef = useRef();
+  const tapeFinderRef = useRef();
 
   const [colorArray, setColorArray] = useState([1, 0]);
 
@@ -91,6 +93,7 @@ export default function Homepage() {
         // view1={<CourseBanner reference={courseRef} />}
         view1={<PacksBanner2 reference={courseRef} />}
         view2={<SportTapeSection reference={mainRef} />}
+        view3={<TapeFinderBanner reference={tapeFinderRef} />}
       />
 
       <PickUpBanner reference={refPickup} />
