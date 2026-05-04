@@ -12,6 +12,7 @@ import PickUpBanner from '~/components/home/PickUpBanner';
 import CourseBanner from '~/components/home/Course';
 import TapeFinderBanner from '~/components/home/TapeFinderBanner';
 import Carousel from '~/components/home/Carousel';
+import MumbaiTapingBanner from '~/components/home/MumbaiTapingBanner';
 
 /**
  * @type {MetaFunction}
@@ -92,6 +93,7 @@ export default function Homepage() {
         view1={<TapeFinderBanner reference={tapeFinderRef} />}
         view2={<PacksBanner2 reference={courseRef} />}
         view3={<SportTapeSection reference={mainRef} />}
+        view4={<MumbaiTapingBanner />}
       />
 
       <PickUpBanner reference={refPickup} />

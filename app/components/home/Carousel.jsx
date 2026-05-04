@@ -4,8 +4,8 @@ import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons';
 
 const AUTO_ROTATE_INTERVAL = 5000; // 5 seconds
 
-export default function Carousel({view1, view2, view3}) {
-  const views = view3 ? [view1, view2, view3] : [view1, view2];
+export default function Carousel({view1, view2, view3, view4}) {
+  const views = [view1, view2, view3, view4].filter(Boolean);
   const totalSlides = views.length;
 
   const [currentIndex, setCurrentIndex] = useState(0);

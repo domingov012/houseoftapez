@@ -994,3 +994,169 @@ section {
     font-size: 11px;
   }
 }
+
+/* Mumbai Taping Banner */
+.mumbai-banner-section {
+  position: relative;
+  height: 100%;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mumbai-banner-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://cdn.shopify.com/s/files/1/0643/3554/4485/files/kine-2.jpg?v=1735011621');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.3);
+  z-index: 0;
+}
+
+.mumbai-banner-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px;
+  max-width: 860px;
+  text-align: center;
+}
+
+.mumbai-partner-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.mumbai-partner-label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.mumbai-logo {
+  width: clamp(160px, 24vw, 280px);
+}
+
+.mumbai-badge {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #e5d201;
+  background: rgba(229, 210, 1, 0.12);
+  border: 1px solid rgba(229, 210, 1, 0.5);
+  border-radius: 20px;
+  padding: 6px 18px;
+  margin-bottom: 20px;
+}
+
+.mumbai-banner-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 900;
+  color: white;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  line-height: 1.15;
+}
+
+.mumbai-banner-desc {
+  font-family: 'Roboto Mono', monospace;
+  font-size: clamp(14px, 2vw, 17px);
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 620px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.mumbai-features {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 36px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 18px 32px;
+}
+
+.mumbai-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 15px;
+  color: white;
+  font-weight: 500;
+}
+
+.mumbai-feature-icon {
+  color: #e5d201;
+  font-size: 20px;
+}
+
+.mumbai-feature-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.mumbai-cta-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mumbai-external-cta {
+  display: inline-block;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #111;
+  background: #e5d201;
+  border: 2px solid #e5d201;
+  border-radius: 4px;
+  padding: 14px 28px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.mumbai-external-cta:hover {
+  background: transparent;
+  color: #e5d201;
+}
+
+@media (max-width: 640px) {
+  .mumbai-features {
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 20px;
+  }
+
+  .mumbai-feature-divider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .mumbai-banner-content {
+    padding: 36px 16px;
+  }
+}
