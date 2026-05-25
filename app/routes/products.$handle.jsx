@@ -551,6 +551,7 @@ function ProductForm({
           ? 'AGREGAR AL CARRO'
           : 'SIN STOCK :('}
       </AddToCartButton>
+      <MumbaiProductBanner />
     </div>
   );
 }
@@ -597,6 +598,41 @@ function ProductOptions({option, onClick}) {
             </Link>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+function MumbaiProductBanner() {
+  return (
+    <div className="mumbai-product-banner">
+      <div className="mumbai-product-banner-header">
+        Nuevo servicio · En alianza con Mumbai
+      </div>
+      <div className="mumbai-product-banner-body">
+        <div className="mumbai-product-banner-logo-col">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0643/3554/4485/files/logo_MUMBAI_color_blanco.png?v=1777862720"
+            alt="Mumbai Kinesiología"
+            className="mumbai-product-banner-logo"
+          />
+        </div>
+        <div className="mumbai-product-banner-text-col">
+          <div className="mumbai-product-banner-title">
+            Taping con <span className="mumbai-product-banner-green">Kinesiólogos</span>
+          </div>
+          <div className="mumbai-product-banner-desc">
+            Compra tu tape y agenda una sesión profesional con los kinesiólogos de Mumbai.
+          </div>
+          <a
+            href="https://mumbai.cl/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mumbai-product-banner-cta"
+          >
+            Agendar sesión
+          </a>
+        </div>
       </div>
     </div>
   );
